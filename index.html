@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>One Click Access</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/css/font-awesome4/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
+    <link href="./assets/css/styles.css" rel="stylesheet" type="text/css" />
+    <script>window.$ = window.jQuery = require('jquery');</script>
+
+    <!-- <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-vista/ui.fancytree.css">
+    <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win7/ui.fancytree.css">
+    <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win8-n/ui.fancytree.css">
+    <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win8-xxl/ui.fancytree.css">
+    <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-xp/ui.fancytree.css"> -->
+    <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-lion/ui.fancytree.css">
+    <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win8/ui.fancytree.css">
+    <link href="./assets/jquery-ui.css" rel="stylesheet"/>
+    <script src="./assets/jquery-ui.min.js"></script>
+    <link href="./assets/sample.css" rel="stylesheet">
+	<script src="./assets/sample.js"></script>
+    <link href="./assets/lib/prettify.css" rel="stylesheet">
+	<script src="./assets/lib/prettify.js"></script>
+    
+    <link rel="stylesheet" href="./assets/js/metro-ui/metro-all.min.css">
+    <script src="./assets/js/metro-ui/metro.js"></script>
+
+    <style type="text/css">
+        .ui-menu {
+          width: 180px;
+          font-size: 63%;
+        }
+        .ui-menu kbd {
+          /* Keyboard shortcuts for ui-contextmenu titles */
+          float: right;
+        }
+        /* custom alignment (set by 'renderColumns'' event) */
+        td.alignRight {
+          text-align: right;
+        }
+        td.alignCenter {
+          text-align: center;
+        }
+        td input[type="input"] {
+          width: 40px;
+        }
+        .fancytree-ext-filter span.fancytree-title mark {
+          background-color: #E09090;
+        }
+        .fixed-size {
+          width: 100%;
+          height: 350px;
+          overflow: auto;
+          position: relative;
+          margin-top:30px
+        }
+        .sampletree{
+          width: 100%;
+        }
+      </style>
+</head>
+
+<body>
+    <div class="main_menu">
+        <div class="pos-relative">
+            <button class="button flat-button small">File</button>
+            <ul class="ribbon-dropdown" data-role="dropdown">
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save">Save</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_sort_selected">Sort Selected</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_import">Import</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_selective_export">Selective Export</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_backup">Backup Now</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_notpad">Notpad</a></li>
+                <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Settings</a>
+                    <ul class="ribbon-dropdown" data-role="dropdown">
+                        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_setting_topmost">Topmost</a></li>
+                        <li class="simple dropdown-toggle" ><a href="#" class="text-decoration-none">Start With System</a>
+                            <ul class="ribbon-dropdown" data-role="dropdown">
+                                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_start_system_window">Windows</a></li>
+                            </ul>
+                        </li>
+                        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_setting_incognito">Incognito</a></li>
+                        <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none" id="main_file_setting_color">Color Setting</a>
+                            <ul class="ribbon-dropdown" data-role="dropdown">
+                                <li class="simple"><a href="#" class="text-decoration-none">Top Menu</a></li>
+                                <li class="simple"><a href="#" class="text-decoration-none"class="text-decoration-none">Main Dialog</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">About</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none"  id="main_file_exit">Exit</a></li>
+            </ul>
+        </div>
+        <button class="button flat-button small" id="main_add_input">Add Input</button>
+        <button class="button flat-button small" id="main_remove">Remove</button>
+        <!-- <button class="button flat-button small" id="main_move">Move</button> -->
+        <div class="pos-relative">
+            <button class="button flat-button small">Add</button>
+            <ul class="ribbon-dropdown" data-role="dropdown">
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_add_text">Text</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_add_image">Image</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_add_file">File</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_add_folder">Folder</a></li>
+                <li class="simple"><a href="#" id="add_current_datetime" class="text-decoration-none">Current Date and Time</a></li>
+                <li class="simple dropdown-toggle"><a href="#">From Excel</a>
+                    <ul class="ribbon-dropdown" data-role="dropdown">
+                        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_contacts">Import Contacts</a></li>
+                        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_ccredentials">Import Credentials</a></li>
+                        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_others">Import Others</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="pos-relative">
+            <button class="button dropdown-toggle small">Control</button>
+            <ul class="d-menu small" data-role="dropdown">
+                <li><a href="#">A</a></li>
+                <li><a href="#">B</a></li>
+                <li><a href="#">C</a></li>
+            </ul>
+        </div>
+        <div style="margin-left:2px"></div>
+        <div class="pos-relative">
+            <button class="button dropdown-toggle small">NumPad0</button>
+            <ul class="d-menu small" data-role="dropdown">
+                <li><a href="#">A</a></li>
+                <li><a href="#">B</a></li>
+                <li><a href="#">C</a></li>
+            </ul>
+        </div>
+        <button class="button flat-button small">Assign Key to Selected</button>
+        <div class="pos-relative">
+            <button class="button dropdown-toggle small">CST - China Standard Time</button>
+            <ul class="d-menu small" data-role="dropdown">
+                <li class="small"><a href="#">A</a></li>
+                <li class="small"><a href="#">B</a></li>
+                <li class="small"><a href="#">C</a></li>
+            </ul>
+        </div>
+        <label class="button flat-button small">+8:00</label>
+        <div class="pos-relative">
+            <button class="button flat-button small">Search</button>
+            <ul class="ribbon-dropdown" style="display: block;">
+                <li class="simple" style="display: inline-block;">
+                  <input name="search" type="text" placeholder="Search..." autocomplete="off">
+                  <button id="btnResetSearch">&times;</button>
+                  <span id="matches"></span>
+            </ul>
+        </div>
+        <button class="button flat-button small"  id="main_refresh">Refresh</button>
+    </div>
+    
+    
+    <div class="dialog" data-role="dialog" id="demoDialog1">
+        <div class="dialog-title">Input</div>
+        <div class="dialog-content">
+            <input id="setNodeTitle" type="text" data-role="input">
+        </div>
+        <div class="dialog-actions">
+            <button class="button js-dialog-close">Cancel</button>
+            <button class="button primary js-dialog-close" >Ok</button>
+        </div>
+    </div>
+
+    <div class="fixed-size">
+      <div id="tree" data-source="ajax" class="sampletree "></div>
+      
+      <!-- <table id="tree" data-source="ajax" class="sampletree">
+        <colgroup>
+          <col width="30px" />
+          <col width="50px" />
+          <col width="350px" />
+          <col width="50px" />
+          <col width="50px" />
+          <col width="30px" />
+          <col width="30px" />
+          <col width="50px" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th></th>
+            <th>#</th>
+            <th></th>
+            <th>Ed1</th>
+            <th>Ed2</th>
+            <th>Rb1</th>
+            <th>Rb2</th>
+            <th>Cb</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="alignCenter"></td>
+            <td></td>
+            <td></td>
+            <td><input name="input1" type="input" /></td>
+            <td><input name="input2" type="input" /></td>
+            <td class="alignCenter">
+              <input name="cb1" type="checkbox" />
+            </td>
+            <td class="alignCenter">
+              <input name="cb2" type="checkbox" />
+            </td>
+            <td>
+              <select name="sel1" id="">
+                <option value="a">A</option>
+                <option value="b">B</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+      </div>
+      <hr>
+    <div  class="example">
+    <div class="description">
+        Read Below:
+         <ul>
+           <li>re-order nodes using drag-and-drop.</li>
+           <li>
+             inline editing.<br />
+             Try <kbd>F2</kbd> to rename a node.<br />
+             <kbd>Ctrl+N</kbd>, <kbd>Ctrl+Shift+N</kbd> to add nodes
+             (Quick-enter: add new nodes until [enter] is hit on an empty
+             title).
+           </li>
+           <li>
+             Extended keyboard shortcuts:<br />
+             <kbd>Ctrl+C</kbd>, <kbd>Ctrl+X</kbd>, <kbd>Ctrl+V</kbd> for
+             copy/paste,<br />
+             <kbd>Ctrl+UP</kbd>, <kbd>Ctrl+DOWN</kbd>,
+             <kbd>Ctrl+LEFT</kbd>, <kbd>Ctrl+RIGHT</kbd>
+             to move nodes around and change indentation.<br>
+             (On macOS, add <kbd>Shift</kbd> to the keystrokes.)
+           </li>
+           <li>
+             <a href="#"
+               >contextmenu</a>
+             for additional edit commands
+           </li>
+         </ul>
+       </div>
+       <div>
+         <label for="skinswitcher">Skin:</label>
+         <select id="skinswitcher"></select>
+       </div>
+       <!-- <p>
+         <label>Filter:</label>
+         <input name="search" placeholder="Filter..." autocomplete="off">
+         <button id="btnResetSearch">&times;</button>
+         <span id="matches"></span>
+       </p> -->
+       <!-- Start_Exclude: This block is not part of the sample code -->
+       <fieldset style='display: none;'>
+         <legend>Options</legend>
+         <label for="regex">
+           <input type="checkbox" id="regex">
+           Regular expression
+         </label>
+         <br>
+         <label for="hideMode">
+           <input type="checkbox" id="hideMode">
+           Hide unmatched nodes
+         </label>
+         <label for="autoExpand">
+           <input type="checkbox" id="autoExpand" checked="checked">
+           Auto expand
+         </label>
+         <label for="branchMode">
+           <input type="checkbox" id="branchMode">
+           Match whole branch
+         </label>
+         <label for="leavesOnly">
+           <input type="checkbox" id="leavesOnly">
+           Match end nodes only
+         </label>
+         <br>
+         <label for="fuzzy">
+           <input type="checkbox" id="fuzzy">
+           Fuzzy
+         </label>
+         <label for="hideExpanders">
+           <input type="checkbox" id="hideExpanders">
+           hideExpanders
+         </label>
+         <label for="highlight">
+           <input type="checkbox" id="highlight" checked="checked">
+           Highlight
+         </label>
+         <label for="nodata">
+           <input type="checkbox" id="nodata" checked="checked">
+           nodata
+         </label>
+         <br>
+         <label for="counter">
+           <input type="checkbox" id="counter" checked="checked">
+           Add counter badges
+         </label>
+         <label for="hideExpandedCounter">
+           <input type="checkbox" id="hideExpandedCounter" checked="checked">
+           hideExpandedCounter
+         </label>
+       </fieldset>
+       <hr>
+       
+       <p id="sampleButtons">
+       </p>
+       <hr>
+       
+       <div>Active node: <span id="echoActive">-</span></div>
+       <div>Focused node: <span id="echoFocused">-</span></div>
+    
+        
+        </div>
+    
+    
+       <hr>
+
+       <script src="./renderer.js"></script>
+</body>
+
+<script src="./database/SQLiteHelper.js"></script>
+<script src="./renderer/index.js"></script>
+
+</html>

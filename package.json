@@ -1,0 +1,22 @@
+{
+  "name": "oneclickaccess",
+  "version": "1.0.0",
+  "description": "One Click Access",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Itsan Soft",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^23.2.2"
+  },
+  "dependencies": {
+    "jquery": "^3.6.4",
+    "macaddress": "^0.5.3",
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.1.6",
+    "jquery.fancytree": "^2.38.3",
+    "ui-contextmenu": "^1.18.1"
+  }
+}
