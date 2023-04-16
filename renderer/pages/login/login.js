@@ -1,8 +1,8 @@
-const db = new SQLiteHelper();
 const { ipcRenderer } = require('electron');
+const config = require('../../../config/app');
 const fs = require('fs');
-const macAddFilePath = path.join(__dirname, '/../../mac.txt');
-const hDSFilePath = path.join(__dirname, '/../../hds.txt');
+const macAddFilePath = path.join(__dirname, '/../../../mac.txt');
+const hDSFilePath = path.join(__dirname, '/../../../hds.txt');
 
 $("#register-btn").on("click", function (e) {
     if ($("#confrim-password-div").is(":visible")) {
@@ -26,13 +26,14 @@ $("#login-btn").on("click", function (e) {
     let pass = $('#password').val();
     if (email == '' || pass == '') {
         $('.alert-danger').html('E-mail and Password is required!');
+        $('.alert-success').hide();
         $('.alert-danger').show();
         return;
     }
 
     if (page == 'login') {
         
-        fetch('https://oneclickaccess.pears.info/api/login',
+        fetch(config.api_url+'/api/login',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -48,34 +49,32 @@ $("#login-btn").on("click", function (e) {
                 response.json().then(json => {
                     if(json.body.verified == true){
                         $('.alert-success').html(json.body.message);
+                        $('.alert-danger').hide();
                         $('.alert-success').show();
                         const data = {
-                            name:json.body.user[0].name,
-                            email:json.body.user[0].email,
-                            mac:json.body.user[0].mac_address,
-                            hds:json.body.user[0].hard_disk_serial,
-                            expiry:'',
-                            verified:1
+                            id:json.body.user.id,
+                            email:json.body.user.email,
+                            token:json.body.token,
                         };
-                        console.log("Befor Stroing Local");
-                        ipcRenderer.send('database', {
-                            functionName: 'insertTable',
-                            params: data,
+                        ipcRenderer.send('insertToTable', {
+                            tableName: process.env.USER_TABLE,
+                            data: data,
                         });
-                        console.log("After Stroing Local");
-                        const condition = '';
-                        db.selectTable('user', condition, (rows) => {
-                        console.log(rows);
-                        });
+                        setTimeout(() => {
+                            ipcRenderer.send('relaunch');
+                        }, 3000);
+                        
                     }
                     else{
                         $('.alert-danger').html(json.body.message);
+                        $('.alert-success').hide();
                         $('.alert-danger').show();
                     }
                 });
             }
             else{
                 $('.alert-danger').html('Something went wrong');
+                $('.alert-success').hide();
                 $('.alert-danger').show();
             }
         })
@@ -87,15 +86,17 @@ $("#login-btn").on("click", function (e) {
         let confPass = $('#confrim-password').val();
         if (confPass == '') {
             $('.alert-danger').html('Confirm Password is required!');
+            $('.alert-success').hide();
             $('.alert-danger').show();
             return;
         }
         if (confPass != pass) {
             $('.alert-danger').html('Passwrod not matched');
+            $('.alert-success').hide();
             $('.alert-danger').show();
             return;
         }
-        fetch('https://oneclickaccess.pears.info/api/signup',
+        fetch(config.api_url+'/api/signup',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -110,12 +111,32 @@ $("#login-btn").on("click", function (e) {
             if (response.ok) {
                 response.json().then(json => {
                     $('.alert-success').html(json.body.message);
+                    $('.alert-danger').hide();
                     $('.alert-success').show();
                 });
             }
             else{
-                $('.alert-danger').html('Something went wrong');
-                $('.alert-danger').show();
+                response.json().then(json => {
+                    if(json.body.errors){
+                        if(json.body.errors.email){
+                            $('.alert-danger').html(json.body.errors.email[0]);
+                        }
+                        else if(json.body.errors.password){
+                            $('.alert-danger').html(json.body.errors.password[0]);
+                        }
+                        else if(json.body.errors.mac_address){
+                            $('.alert-danger').html(json.body.errors.mac_address[0]);
+                        }
+                        else if(json.body.errors.hard_disk_serial){
+                            $('.alert-danger').html(json.body.errors.hard_disk_serial[0]);
+                        }
+                        else{
+                            $('.alert-danger').html('Something went wrong');
+                        }
+                    }
+                    $('.alert-success').hide();
+                    $('.alert-danger').show();
+                });
             }
         })
         .catch((error) => {

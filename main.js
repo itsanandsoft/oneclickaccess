@@ -1,72 +1,101 @@
-const { app, BrowserWindow,ipcMain,dialog  } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const config = require('./config/app');
 const path = require('path')
 const SQLiteHelper = require('./database/SQLiteHelper');
 const createMacAddressFiles = require('./assets/js/macadd-handler');
 const db = new SQLiteHelper();
 const fs = require('fs');
+const https = require(`${config.protocol}`);
+
+
+app.whenReady().then(() => {
+  createWindow();
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
+});
 
 createMacAddressFiles();
 
-function createWindow () {
+function checkMachines(data, win) {
+  const mac_address = fs.readFileSync('mac.txt', 'utf8');
+  const hard_disk_serial = fs.readFileSync('hds.txt', 'utf8');
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + data.token,
+    }
+  };
+  https.get(config.api_url + '/api/user/get-all-machines', options, (response) => {
+    let data = '';
+    response.on('data', (chunk) => {
+      data += chunk;
+    });
+    response.on('end', () => {
+      const json = JSON.parse(data);
+      if (json.status_code == 200) {
+        if (json.body.machines.length > 0) {
+          for (let key in json.body.machines) {
+            if (json.body.machines[key].mac_address == mac_address && json.body.machines[key].hard_disk_serial == hard_disk_serial) {
+              if(json.body.machines[key].active == '1'){
+                win.loadFile(path.join(__dirname, '/index.html'));
+              }
+              else{
+                win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+              }
+            }
+            else{
+              win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+            }
+          }
+        }
+        else {
+          win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+        }
+      }
+      else {
+        win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+      }
+    });
+  }).on('error', (error) => {
+    console.error(error);
+    win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'))
+  });
+}
+
+function createWindow() {
   const win = new BrowserWindow({
     width: 1000,
     height: 600,
     webPreferences: {
-    //   preload: path.join(__dirname, '/preloads.js'),
-        nodeIntegration: true,
-        contextIsolation: false,
-        enableRemoteModule: true,
-        // webSecurity: false,
-        // allowRunningInsecureContent: true,
-        // allowDisplayingInsecureContent: true
+      preload: path.join(__dirname, '/preloads.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+      // webSecurity: false,
+      // allowRunningInsecureContent: true,
+      // allowDisplayingInsecureContent: true
     }
   })
 
   // win.removeMenu(true);
   win.webContents.openDevTools();
-  win.loadFile(path.join(__dirname, '/index.html'));
-  // db.selectTable('user','',(data)=>{
-  //   if(data.length > 0){
-  //     const mac_address = fs.readFileSync('mac.txt', 'utf8');
-  //     const hard_disk_serial =  fs.readFileSync('hds.txt', 'utf8');
-  //     if(data[0].mac == mac_address && data[0].hds == hard_disk_serial ){
-  //       win.loadFile(path.join(__dirname, '/renderer/index.html'));
-  //       win.on('ready-to-show', () => {
-  //         console.log('index Page Open');
-  //         // Run your code here
-  //       });
-  //     }
-  //     else{
-  //       win.loadFile(path.join(__dirname, '/renderer/login/login.html'));
-  //       // win.on('ready-to-show', () => {
-  //       //   console.log('login Page Open');
-  //       //   // Run your code here
-  //       //   db.selectTable('user', '', (rows) => {
-  //       //     console.log(rows);
-  //       //     });
-  //       // });
-  //     }
-  //   }
-  //   else{
-  //     win.loadFile(path.join(__dirname, '/renderer/login/login.html'));
-     
-  //   }
-
-  // });
-  
-  
-}
-
-
-app.whenReady().then(() => {
-  createWindow()
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
+  db.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
+    if (err) {
+      console.log(err)
     }
-  })
-});
+    if (data.length > 0) {
+      data = data[0];
+      checkMachines(data, win);
+    }
+    else {
+      win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+    }
+  });
+}
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -74,14 +103,13 @@ app.on('window-all-closed', () => {
   }
 });
 
-ipcMain.on('database', (event, args) => {
-  if (args.params) {
-    return db.args['functionName'](args.arguments);
-  }
-  else {
-    return db.args['functionName']();
-  }
-  
+ipcMain.on('insertToTable', (event, args) => {
+  db.insertToTable(args.tableName, args.data);
+});
+
+ipcMain.on('relaunch', (event, args) => {
+  app.relaunch()
+  app.exit()
 });
 
 ipcMain.handle("showDialog", (e, d) => {
@@ -109,7 +137,7 @@ ipcMain.handle("showDialog", (e, d) => {
           });
         } else {
           // File exists, write to it
-          fs.truncate(filePath, 0, function(err) {
+          fs.truncate(filePath, 0, function (err) {
             if (err) {
               console.error(err);
               return;
