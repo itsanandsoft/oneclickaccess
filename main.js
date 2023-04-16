@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const {app,Menu,ipcMain, BrowserWindow,globalShortcut,screen,clipboard } = require('electron')
 const config = require('./config/app');
 const path = require('path')
 const SQLiteHelper = require('./database/SQLiteHelper');
@@ -6,10 +6,40 @@ const createMacAddressFiles = require('./assets/js/macadd-handler');
 const db = new SQLiteHelper();
 const fs = require('fs');
 const https = require(`${config.protocol}`);
+const {keyboard,Key,mouse,Point} = require("@nut-tree/nut-js");
+const { exec } = require('child_process');
 
+let x,y=null;
+menu_template = [
+  {
+    label: 'I\'m working on OneClickAccess with Electron JS',
+    click() {
+        clipboard.writeText('I\'m working on OneClickAccess with Electron JS')
+        mouse.setPosition(new Point(x,y));
+        mouse.leftClick();
+        if (process.platform === 'darwin') {
+          exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
+        } else if (process.platform === 'win32') {
+          keyboard.pressKey(Key.LeftControl, Key.V);
+          keyboard.releaseKey(Key.LeftControl, Key.V);
+        }
+        // mainWindow.hide()
+    }
+  }
+];
+let menu = null;
 
 app.whenReady().then(() => {
   createWindow();
+  const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
+    x = screen.getCursorScreenPoint().x;
+    y = screen.getCursorScreenPoint().y;
+    console.log(x+" "+y)
+    createMenuWindow(x+10,y);
+  });
+
+  if (!shortcut) { console.log('Registration failed.'); }
+
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
@@ -98,6 +128,31 @@ function createWindow() {
   });
 }
 
+function createMenuWindow (x,y) {
+      let menuWindow = new BrowserWindow({
+          width: 800,
+          height: 600,
+          frame:false,
+          x: x,
+          y: y,
+          webPreferences: {
+              nodeIntegration: true,
+              contextIsolation: false,
+              enableRemoteModule: true,
+          }
+      })
+
+      menuWindow.removeMenu(true);
+      menu = Menu.buildFromTemplate(menu_template);
+      menuWindow.setMenu(menu);
+      menuWindow.loadFile(path.join(__dirname, '/renderer/pages/context_menu/menu.html'));
+      menuWindow.on('close', (event) => {
+          event.preventDefault();
+          menuWindow.hide()
+      });
+      menuWindow.webContents.openDevTools()
+}
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
@@ -173,5 +228,12 @@ ipcMain.handle("showDialog", (e, d) => {
     console.log(err);
   });
   //dialog.showMessageBox(mainWindow, { message });
+});
+
+ipcMain.on(`display-app-menu`, function (e, args) {
+  menu.popup({
+      x: args.x,
+      y: args.y
+  });
 });
 
