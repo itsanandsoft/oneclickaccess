@@ -1,0 +1,26 @@
+'<div class="description">'+
+'        Read Below:'+
+'         <ul>'+
+'           <li>re-order nodes using drag-and-drop.</li>'+
+'           <li>'+
+'             inline editing.<br />'+
+'             Try <kbd>F2</kbd> to rename a node.<br />'+
+'             <kbd>Ctrl+N</kbd>, <kbd>Ctrl+Shift+N</kbd> to add nodes'+
+'             (Quick-enter: add new nodes until [enter] is hit on an empty'+
+'             title).'+
+'           </li>'+
+'           <li>'+
+'             Extended keyboard shortcuts:<br />'+
+'             <kbd>Ctrl+C</kbd>, <kbd>Ctrl+X</kbd>, <kbd>Ctrl+V</kbd> for'+
+'             copy/paste,<br />'+
+'             <kbd>Ctrl+UP</kbd>, <kbd>Ctrl+DOWN</kbd>,'+
+'             <kbd>Ctrl+LEFT</kbd>, <kbd>Ctrl+RIGHT</kbd>'+
+'             to move nodes around and change indentation.<br>'+
+'             (On macOS, add <kbd>Shift</kbd> to the keystrokes.)'+
+'           </li>'+
+'           <li>'+
+'             <a href="#">contextmenu</a>'+
+'             for additional edit commands'+
+'           </li>'+
+'         </ul>'+
+'       </div>'

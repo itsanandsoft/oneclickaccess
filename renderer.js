@@ -241,9 +241,10 @@ const { ipcRenderer } = require("electron");
               logEvent(event, data);
               var node = $.ui.fancytree.getTree("#tree").getActiveNode();
               if( node ){
-                alert("Currently active: " + node.title);
+                openChildClickValueDialog(node);
+                console.log("Currently active: " + node.title);
               }else{
-                alert("No active node.");
+                console.log("No active node.");
               }
       //				data.node.toggleSelect();
             },
@@ -887,6 +888,10 @@ $(function() {
     $('#main_file_import').click(function(){ 
     });
     $('#main_file_selective_export').click(function(){ 
+      exportSelectedDialog();
+      setTimeout(function(){
+        initializetree2();
+      }, 500);
     });
     $('#main_file_backup').click(function(){ 
     });
@@ -898,11 +903,22 @@ $(function() {
     });
     $('#main_file_setting_incognito').click(function(){ 
     });
-    $('#main_file_setting_color').click(function(){ 
+    $('#main_file_setting_color_top_menu').click(function(){
+      openColorTopMenuDialog(); 
+      setTimeout(function(){
+       // initializetree2();
+      }, 500);
+      
+      
+    });
+    $('#main_file_setting_color_main_dialog').click(function(){
+      openColorDialog(); 
     });
     $('#main_file_about').click(function(){ 
+      openAboutDialog();
     });
     $('#main_file_exit').click(function(){ 
+      ipcRenderer.send('close-window');
     });
     $('#main_add_input').click(function(){ 
       var tree = $.ui.fancytree.getTree("#tree"),
@@ -937,24 +953,376 @@ $(function() {
     $('#main_add_excel_import_others').click(function(){ 
     });
     $('#main_refresh').click(function(){ 
-      // $.ajax
-      // ({
-      //   type: "GET",
-      //   dataType : 'json',
-      //   async: false,
-      //   url: filePath,
-      //   data: { data: d },
-      //   success: function () {alert("Saved Successfully!"); },
-      //   failure: function() {alert("Error while Saving!");}
-      // });
-      $.ui.fancytree.getTree("#tree").reload({
-        source: { url: "tree-data.json" }
-      }).done(function(){
-        alert("reloaded");
-      });
+      var filePath = path.join(__dirname, 'tree-data.json');
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            async: false,
+            url: filePath,
+            success: function(data) {
+                var tree = $.ui.fancytree.getTree("#tree");
+                tree.reload(data);
+                alert("Reloaded Successfully!");
+            },
+            error: function() {
+                alert("Error while Reloading!");
+            }
+        });
     });
     
  
     
 
 });
+
+function openChildClickValueDialog(node){
+  Metro.dialog.create({
+      title: "Input",
+      content: '<p>Enter the path to</p>'+
+      '<textarea id="dialogInput" data-role="textarea" data-default-value="'+node.title+'"></textarea>',
+      actions: [
+          {
+              caption: "Save",
+              cls: "js-dialog-close alert",
+              onclick: function(){
+                  //node.title = ;
+                  node.setTitle($('#dialogInput').val());
+                  console.log("You clicked Save action the value changed");
+              }
+          },
+          {
+              caption: "Cencel",
+              cls: "js-dialog-close",
+              onclick: function(){
+                  console.log("You clicked Cencel action");
+              }
+          }
+      ]
+  });
+}
+
+
+function openAboutDialog(){
+  Metro.dialog.create({
+      title: "About",
+      content: '<div class="description">'+
+      '        Read Below:'+
+      '         <ul>'+
+      '           <li>re-order nodes using drag-and-drop.</li>'+
+      '           <li>'+
+      '             inline editing.<br />'+
+      '             Try <kbd>F2</kbd> to rename a node.<br />'+
+      '             <kbd>Ctrl+N</kbd>, <kbd>Ctrl+Shift+N</kbd> to add nodes'+
+      '             (Quick-enter: add new nodes until [enter] is hit on an empty'+
+      '             title).'+
+      '           </li>'+
+      '           <li>'+
+      '             Extended keyboard shortcuts:<br />'+
+      '             <kbd>Ctrl+C</kbd>, <kbd>Ctrl+X</kbd>, <kbd>Ctrl+V</kbd> for'+
+      '             copy/paste,<br />'+
+      '             <kbd>Ctrl+UP</kbd>, <kbd>Ctrl+DOWN</kbd>,'+
+      '             <kbd>Ctrl+LEFT</kbd>, <kbd>Ctrl+RIGHT</kbd>'+
+      '             to move nodes around and change indentation.<br>'+
+      '             (On macOS, add <kbd>Shift</kbd> to the keystrokes.)'+
+      '           </li>'+
+      '           <li>'+
+      '             <a href="#">contextmenu</a>'+
+      '             for additional edit commands'+
+      '           </li>'+
+      '         </ul>'+
+      '       </div>',
+      actions: [
+          {
+              caption: "Done",
+              cls: "js-dialog-close alert",
+              onclick: function(){
+                  //node.title = ;
+                  //node.setTitle($('#dialogInput').val());
+                  console.log("You clicked Done action on about");
+              }
+          }
+          // ,
+          // {
+          //     caption: "Cencel",
+          //     cls: "js-dialog-close",
+          //     onclick: function(){
+          //         console.log("You clicked Cencel action");
+          //     }
+          // }
+      ]
+  });
+}
+
+
+
+function exportSelectedDialog(){
+  Metro.dialog.create({
+      title: "Export Selected Dialog",
+      content: '<div class="fixed-size"><div id="tree2" data-source="ajax" class="sampletree"></div></div>',
+      actions: [
+        {
+          caption: "Cencel",
+          cls: "js-dialog-close",
+          onclick: function(){
+            
+              console.log("You clicked Cencel action Export Selected Dialog");
+          }
+        },
+          {
+              caption: "Export",
+              cls: "js-dialog-close alert",
+              onclick: function(){
+                var tree = $.ui.fancytree.getTree("#tree2");
+                var selectedNodes = tree.getSelectedNodes();
+                var d = selectedNodes.map(function(node) {
+                    return node.toDict(true);
+                });
+                showSaveFileDialog(JSON.stringify(d));
+                console.log("You clicked Done action on Export Selected Dialog");
+              }
+          }
+          
+      ]
+      //,
+      // onCreate: function(dialog){tree.getSelectedNodes().toDict(true)
+      //   setTimeout(function(){
+      //     initializetree2();
+      //   }, 500);
+       
+      // }
+  });
+}
+
+function initializetree2()
+{
+        
+  $("#tree2").fancytree({
+            activeVisible: true, // Make sure, active nodes are visible (expanded)
+            aria: true, // Enable WAI-ARIA support
+            autoActivate: true, // Automatically activate a node when it is focused using keyboard
+            autoCollapse: false, // Automatically collapse all siblings, when a node is expanded
+            autoScroll: false, // Automatically scroll nodes into visible area
+            clickFolderMode: 4, // 1:activate, 2:expand, 3:activate and expand, 4:activate (dblclick expands)
+            checkbox: true, // Show check boxes
+            checkboxAutoHide: false, // Display check boxes on hover only
+            debugLevel: 4, // 0:quiet, 1:errors, 2:warnings, 3:infos, 4:debug
+            disabled: false, // Disable control
+            focusOnSelect: false, // Set focus when node is checked by a mouse click
+            escapeTitles: false, // Escape `node.title` content for display
+            generateIds: false, // Generate id attributes like <span id='fancytree-id-KEY'>
+            idPrefix: "ft2_", // Used to generate node idÂ´s like <span id='fancytree-id-<key>'>
+            icon: false, // Display node icons
+            keyboard: true, // Support keyboard navigation
+            keyPathSeparator: "/", // Used by node.getKeyPath() and tree.loadKeyPath()
+            minExpandLevel: 1, // 1: root node is not collapsible
+            rtl: false, // Enable RTL (right-to-left) mode
+            selectMode: 2, // 1:single, 2:multi, 3:multi-hier
+            tabindex: "0", // Whole tree behaves as one single control
+            tooltip: false, // Use title as tooltip (also a callback could be specified)
+            titlesTabbable: true, // Add all node titles to TAB chain// Node titles can receive keyboard focus
+            quicksearch: true, // Jump to nodes when pressing first character///must true for filter 
+            
+            source: { url: "tree-data.json" },
+
+            lazyLoad: function(event, data) {
+              data.result = {url: "ajax-sub2.json"}
+            },
+
+            createNode: function(event, data) {
+              var node = data.node,
+                $tdList = $(node.tr).find(">td");
+
+              if (node.isFolder()) {
+                $tdList
+                  .eq(2)
+                  .prop("colspan", 6)
+                  .nextAll()
+                  .remove();
+              }
+            },
+            renderColumns: function(event, data) {
+              var node = data.node,
+                $tdList = $(node.tr).find(">td");
+
+              // (Index #0 is rendered by fancytree by adding the checkbox)
+              // Set column #1 info from node data:
+              $tdList.eq(1).text(node.getIndexHier());
+              // (Index #2 is rendered by fancytree)
+              // Set column #3 info from node data:
+              $tdList
+                .eq(3)
+                .find("input")
+                .val(node.key);
+              $tdList
+                .eq(4)
+                .find("input")
+                .val(node.data.foo);
+
+            },
+            modifyChild: function(event, data) {
+              data.tree.info(event.type, data);
+            },
+
+            //events
+            // --- Tree events -------------------------------------------------
+            blurTree: function(event, data) {
+              logEvent(event, data);
+            },
+            create: function(event, data) {
+              logEvent(event, data);
+            },
+            init: function(event, data, flag) {
+              logEvent(event, data, "flag=" + flag);
+            },
+            focusTree: function(event, data) {
+              logEvent(event, data);
+            },
+            restore: function(event, data) {
+              logEvent(event, data);
+            },
+            // --- Node events -------------------------------------------------
+            activate: function(event, data) {
+              logEvent(event, data);
+              var node = data.node;
+              // acces node attributes
+              $("#echoActive").text(node.title);
+              if( !$.isEmptyObject(node.data) ){
+      //					alert("custom node data: " + JSON.stringify(node.data));
+              }
+            },
+            beforeActivate: function(event, data) {
+              logEvent(event, data, "current state=" + data.node.isActive());
+              // return false to prevent default behavior (i.e. activation)
+      //              return false;
+            },
+            beforeExpand: function(event, data) {
+              logEvent(event, data, "current state=" + data.node.isExpanded());
+              // return false to prevent default behavior (i.e. expanding or collapsing)
+      //				return false;
+            },
+            beforeSelect: function(event, data) {
+      //				console.log("select", event.originalEvent);
+              logEvent(event, data, "current state=" + data.node.isSelected());
+              // return false to prevent default behavior (i.e. selecting or deselecting)
+      //				if( data.node.isFolder() ){
+      //					return false;
+      //				}
+            },
+            blur: function(event, data) {
+              logEvent(event, data);
+              $("#echoFocused").text("-");
+            },
+            click: function(event, data) {
+              logEvent(event, data, ", targetType=" + data.targetType);
+              // return false to prevent default behavior (i.e. activation, ...)
+              //return false;
+            },
+            collapse: function(event, data) {
+              logEvent(event, data);
+            },
+            createNode: function(event, data) {
+              // Optionally tweak data.node.span or bind handlers here
+              logEvent(event, data);
+            },
+
+            expand: function(event, data) {
+              logEvent(event, data);
+            },
+            enhanceTitle: function(event, data) {
+              logEvent(event, data);
+            },
+            focus: function(event, data) {
+              logEvent(event, data);
+              $("#echoFocused").text(data.node.title);
+            },
+            keydown: function(event, data) {
+              logEvent(event, data);
+              switch( event.which ) {
+              case 32: // [space]
+                data.node.toggleSelected();
+                return false;
+              }
+            },
+            keypress: function(event, data) {
+              // currently unused
+              logEvent(event, data);
+            },
+            lazyLoad: function(event, data) {
+              logEvent(event, data);
+              // return children or any other node source
+              data.result = {url: "ajax-sub2.json"};
+      //				data.result = [
+      //					{title: "A Lazy node", lazy: true},
+      //					{title: "Another node", selected: true}
+      //					];
+            },
+            loadChildren: function(event, data) {
+              logEvent(event, data);
+            },
+            loadError: function(event, data) {
+              logEvent(event, data);
+            },
+            modifyChild: function(event, data) {
+              logEvent(event, data, "operation=" + data.operation +
+                ", child=" + data.childNode);
+            },
+            postProcess: function(event, data) {
+              logEvent(event, data);
+              // either modify the Ajax response directly
+              data.response[0].title += " - hello from postProcess";
+              // or setup and return a new response object
+      //				data.result = [{title: "set by postProcess"}];
+            },
+            renderNode: function(event, data) {
+              // Optionally tweak data.node.span
+      //              $(data.node.span).text(">>" + data.node.title);
+              logEvent(event, data);
+            },
+            renderTitle: function(event, data) {
+              // NOTE: may be removed!
+              // When defined, must return a HTML string for the node title
+              logEvent(event, data);
+      //				return "new title";
+            },
+            select: function(event, data) {
+              logEvent(event, data, "current state=" + data.node.isSelected());
+              var s = data.tree.getSelectedNodes().join(", ");
+              $("#echoSelected").text(s);
+            }
+          })
+          .on("fancytreeactivate", function(event, data){
+            // alternative way to bind to 'activate' event
+      //		    logEvent(event, data);
+          });
+}
+
+
+function openColorTopMenuDialog(){
+  Metro.dialog.create({
+      title: "Color Dialog Top Menu",
+      content: '<div class="fixed-size-2"><div id="color-selector-top-menu"></div></div>',
+      actions: [
+          {
+              caption: "Apply",
+              cls: "js-dialog-close alert",
+              onclick: function(){
+                var colorSelector = $("#color-selector-top-menu").data("colorSelector");
+                if (colorSelector) {
+                  var color = colorSelector.color();
+                  console.log("Color value: " + color);
+                } else {
+                  console.log("Color selector not initialized.");
+                }
+                  console.log("You clicked Save action the value Color Dialog");
+              }
+          },
+          {
+              caption: "Cencel",
+              cls: "js-dialog-close",
+              onclick: function(){
+                  console.log("You clicked Cencel Color Dialog");
+              }
+          }
+      ]
+  });
+}

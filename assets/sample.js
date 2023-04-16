@@ -416,7 +416,7 @@
 				"fancytree-connectors",
 				$(this).is(":checked")
 			);
-		});
+		})
 		
 	});
 })(jQuery);

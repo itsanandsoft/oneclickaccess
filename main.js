@@ -6,6 +6,7 @@ const db = new SQLiteHelper();
 const fs = require('fs');
 
 createMacAddressFiles();
+let mainWindow;
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -25,6 +26,7 @@ function createWindow () {
   // win.removeMenu(true);
   win.webContents.openDevTools();
   win.loadFile(path.join(__dirname, '/index.html'));
+  mainWindow = win;
   // db.selectTable('user','',(data)=>{
   //   if(data.length > 0){
   //     const mac_address = fs.readFileSync('mac.txt', 'utf8');
@@ -74,6 +76,10 @@ app.on('window-all-closed', () => {
   }
 });
 
+ipcMain.on('close-window', () => {
+  mainWindow.close();
+});
+
 ipcMain.on('database', (event, args) => {
   if (args.params) {
     return db.args['functionName'](args.arguments);
@@ -83,6 +89,7 @@ ipcMain.on('database', (event, args) => {
   }
   
 });
+
 
 ipcMain.handle("showDialog", (e, d) => {
   var filePath = path.join(__dirname, '/new_file.json');
