@@ -12,11 +12,12 @@
     "electron": "^23.2.2"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "jquery": "^3.6.4",
+    "jquery.fancytree": "^2.38.3",
     "macaddress": "^0.5.3",
     "sqlite": "^4.1.2",
     "sqlite3": "^5.1.6",
-    "jquery.fancytree": "^2.38.3",
     "ui-contextmenu": "^1.18.1"
   }
 }
