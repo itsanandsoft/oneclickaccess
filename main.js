@@ -84,6 +84,7 @@ function createWindow() {
 
   // win.removeMenu(true);
   win.webContents.openDevTools();
+  
   db.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
     if (err) {
       console.log(err)
