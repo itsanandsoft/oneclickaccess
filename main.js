@@ -114,19 +114,19 @@ function createWindow() {
 
   // win.removeMenu(true);
   win.webContents.openDevTools();
-  
-  db.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
-    if (err) {
-      console.log(err)
-    }
-    if (data.length > 0) {
-      data = data[0];
-      checkMachines(data, win);
-    }
-    else {
-      win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
-    }
-  });
+  win.loadFile(path.join(__dirname, '/index.html'));
+  // db.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
+  //   if (err) {
+  //     console.log(err)
+  //   }
+  //   if (data.length > 0) {
+  //     data = data[0];
+  //     checkMachines(data, win);
+  //   }
+  //   else {
+  //     win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+  //   }
+  // });
 }
 
 function createMenuWindow (x,y) {
@@ -146,11 +146,29 @@ function createMenuWindow (x,y) {
       menuWindow.removeMenu(true);
       menu = Menu.buildFromTemplate(menu_template);
       menuWindow.setMenu(menu);
-      menuWindow.loadFile(path.join(__dirname, '/renderer/pages/context_menu/menu.html'));
+      menuWindow.loadFile(path.join(__dirname, '/menu.html'));
+      
       menuWindow.on('close', (event) => {
           event.preventDefault();
           menuWindow.hide()
       });
+            // Set the position of the context menu window to the top of the screen
+        menuWindow.on('blur', () => {
+          // Hide the context menu window when it loses focus
+          menuWindow.hide()
+        })
+
+        ipcMain.on('showContextMenu', () => {
+          // Show the context menu window when requested from the renderer process
+          menuWindow.show()
+        })
+
+        ipcMain.on('contextMenuSelection', (event, option) => {
+          // Handle the selected context menu option
+          console.log(`Selected option: ${option}`)
+          // You can perform any desired action here
+        })
+      
       menuWindow.webContents.openDevTools()
 }
 
