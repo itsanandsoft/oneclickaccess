@@ -30,6 +30,7 @@ const path = require('path')
 //     ipcRenderer.send(`closeapp`, { x:e.x,y:e.y });
 // })
 
+    
 // $(function() {
   
 // });
@@ -54,55 +55,181 @@ $(function() {
 
 function loadContextMenu(contextMenuData)
 {
-  $.contextMenu({
-    selector: '.context-menu-one', 
-    callback: function(key, options) {
-        var m = "clicked: " + key;
-        window.console && console.log(m) || alert(m); 
-    },
-    items: contextMenuData
-    
-});
+        'use strict';
+        var errorItems = { "errorItem": { name: "Items Load error" },};
+        var loadItems = function () {
+            var dfd = jQuery.Deferred();
+            setTimeout(function () {
+                dfd.resolve(subItems);
+            }, 2000);
+            return dfd.promise();
+        };
 
-$('.context-menu-one').on('click', function(e){
-    console.log('clicked', this);
-})    
-var $trigger = $('.context-menu-one');
-$trigger.contextMenu();
+        var subItems = {
+            "sub1": { name: "Submenu1", icon: "edit" },
+            "sub2": { name: "Submenu2", icon: "cut" },
+        };
+
+        $.contextMenu({
+            selector: '.context-menu-one',
+            build: function ($trigger, e) {
+                return {
+                    callback: function (key, options) {
+                        var m = "clicked: " + key;
+                        console.log(m);
+                    },
+                    items: contextMenuData
+                };
+            }
+        });
+
+        //normal promise usage example
+        var completedPromise = function (status) {
+            console.log("completed promise:", status);
+        };
+
+        var failPromise = function (status) {
+            console.log("fail promise:", status);
+        };
+
+        var notifyPromise = function (status) {
+            console.log("notify promise:", status);
+        };
+        var $trigger = $('.context-menu-one');
+        $trigger.contextMenu();
+        $.loadItemsAsync = function() {
+            console.log("loadItemsAsync");
+            var promise = loadItems();
+            $.when(promise).then(completedPromise, failPromise, notifyPromise);
+        };
+
+//   $.contextMenu({
+//     selector: '.context-menu-one', 
+//     callback: function(key, options) {
+//         var m = "clicked: " + key;
+//         window.console && console.log(m) || alert(m); 
+//     },
+//     items: contextMenuData
+    
+// });
+
+// $('.context-menu-one').on('click', function(e){
+//     console.log('clicked', this);
+// })    
+// var $trigger = $('.context-menu-one');
+// $trigger.contextMenu();
 //alert("Loaded Successfully!");
 
 }
 
 
+// function fancyTreeToContextMenu(fancyTreeData) {
+//   const contextMenuData = {};
+
+//   function addNodeToMenuData(node, parentKey) {
+//     const { key, title, children } = node;
+
+//     const nodeKey = parentKey ? `${parentKey}-${key}` : `${key}`;
+
+//     if (children) {
+//       // Create sub-group
+//       const subGroup = {
+//         name: title,
+//         items: {},
+//       };
+
+//       children.forEach((child) => {
+//         addNodeToMenuData(child, nodeKey);
+//         subGroup.items[child.key] = {
+//           name: child.title,
+//         };
+//       });
+
+//       contextMenuData[nodeKey] = subGroup;
+//     } else {
+//       contextMenuData[nodeKey] = {
+//         name: title,
+//       };
+//     }
+//   }
+
+//   fancyTreeData.forEach((node) => {
+//     addNodeToMenuData(node);
+//   });
+
+//   return contextMenuData;
+// }
+
+
 function fancyTreeToContextMenu(fancyTreeData) {
-  const contextMenuData = {};
-
-  fancyTreeData.forEach((node) => {
-    const { key, title, children } = node;
-
-    if (children) {
-      // Create sub-group
-      const subGroup = {
-        name: title,
-        items: {},
-      };
-
-      children.forEach((child) => {
-        subGroup.items[child.key] = {
-          name: child.title,
-        };
-      });
-
-      contextMenuData[`name${key}`] = subGroup;
-    } else {
-      contextMenuData[`key${key}`] = {
-        name: title,
-      };
+  const contextMenuData = [];
+  
+  function convertNode(node, contextMenuParent) {
+    const contextMenuItem = {
+      key: node.key,
+      name: node.title,
+      icon: node.icon,
+    };
+    
+    if (node.href) {
+      contextMenuItem.href = node.href;
     }
-  });
-
+    
+    if (node.extraClasses) {
+      contextMenuItem.extraClasses = node.extraClasses;
+    }
+    
+    if (node.tooltip) {
+      contextMenuItem.tooltip = node.tooltip;
+    }
+    
+    if (node.children && node.children.length > 0) {
+      contextMenuItem.items = [];
+      
+      node.children.forEach(child => convertNode(child, contextMenuItem.items));
+    }
+    
+    if (contextMenuParent) {
+      contextMenuParent.push(contextMenuItem);
+    } else {
+      contextMenuData.push(contextMenuItem);
+    }
+  }
+  
+  fancyTreeData.forEach(node => convertNode(node, null));
+  
   return contextMenuData;
 }
+
+// function fancyTreeToContextMenu(fancyTreeData) {
+//   const contextMenuData = {};
+
+//   fancyTreeData.forEach((node) => {
+//     const { key, title, children } = node;
+
+//     if (children) {
+//       // Create sub-group
+//       const subGroup = {
+//         name: title,
+//         items: {},
+//       };
+
+//       children.forEach((child) => {
+//         subGroup.items[child.key] = {
+//           name: child.title,
+//         };
+//       });
+
+//       contextMenuData[`name${key}`] = subGroup;
+//     } else {
+//       contextMenuData[`key${key}`] = {
+//         name: title,
+//       };
+//     }
+//   });
+
+//   return contextMenuData;
+// }
 
 
 function convertToContextMenuData(nodes) {
