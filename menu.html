@@ -3,13 +3,34 @@
 
 <head>
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <link rel="stylesheet" href="./node_modules/query-contextmenu/dist/jquery.contextMenu.min.css"/>
-    <script src="./assets/js/jquery.fancytree.contextMenu.js"></script>
-    
+    <script>window.$ = window.jQuery = require('jquery');</script>
+
+    <link rel="stylesheet" href="./node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.css"/>
+    <!-- <script src="./assets/js/jquery.fancytree.contextMenu.js"></script> -->
+    <style>
+        .center {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+          }
+          
+          .child-element {
+            width: 80%;
+            height: 80%;
+          }
+      </style>
 </head>
 
 <body>
-    <ul class="contextMenu" data-theme="light" style="width: 150px;height: auto;">
+    <!-- <ul class="contextMenu" data-theme="light" style="width: 150px;height: auto;">
         <li class="contextMenu-item">
             <button class="contextMenu-button" style="animation-delay: 0s" id="menu-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" style="margin-right: 10px; position: relative; top: -1px" width="13" height="13" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M0 107.081a16 16 0 0 1 16-16h480a16 16 0 0 1 0 32H16a16 16 0 0 1-16-16zM496 240H16a16 16 0 0 0 0 32h480a16 16 0 0 0 0-32zM256 388.919H16a16 16 0 0 0 0 32h240a16 16 0 0 0 0-32z" fill="#000000" data-original="#000000" class=""></path></g></svg>
@@ -22,9 +43,16 @@
                 Cancel
             </button>
         </li>
-    </ul>
+    </ul> -->
+    <div class="center child-element" style="width: 150px;height: auto;"><span class="context-menu-one"></span></div>
+    
 
+   
     <script src="./menu.js"></script>
 </body>
+<script>
+   
+        
+</script>
 
 </html>
