@@ -93,14 +93,16 @@ function loadContextMenu(contextMenuData)
             build: function ($trigger, e) {
                 return {
                     callback: function (key, options) {
-                        var m = "clicked: " + key;
-                        console.log(m);
+                      var title = options.items[key].name;
+                     // console.log('Clicked:', title);
+                        var m = "clicked: " + key+ " title:"+title;
+                        alert(m);
                     },
                     items: contextMenuData
                 };
             }
         });
-
+        
         //normal promise usage example
         var completedPromise = function (status) {
             console.log("completed promise:", status);
@@ -121,15 +123,15 @@ function loadContextMenu(contextMenuData)
             $.when(promise).then(completedPromise, failPromise, notifyPromise);
         };
 
-//   $.contextMenu({
-//     selector: '.context-menu-one', 
-//     callback: function(key, options) {
-//         var m = "clicked: " + key;
-//         window.console && console.log(m) || alert(m); 
-//     },
-//     items: contextMenuData
+  $.contextMenu({
+    selector: '.context-menu-one', 
+    callback: function(key, options) {
+        var m = "clicked: " + key;
+        window.console && console.log(m) || alert(m); 
+    },
+    items: contextMenuData
     
-// });
+});
 
 // $('.context-menu-one').on('click', function(e){
 //     console.log('clicked', this);

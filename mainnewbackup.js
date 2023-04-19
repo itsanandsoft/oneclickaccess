@@ -1,4 +1,4 @@
-const {app,Menu,ipcMain, BrowserWindow,globalShortcut,screen,clipboard } = require('electron')
+const {app,Menu,ipcMain, BrowserWindow,globalShortcut,screen,clipboard,Tray,Notification } = require('electron')
 const config = require('./config/app');
 const path = require('path')
 const SQLiteHelper = require('./database/SQLiteHelper');
@@ -9,7 +9,12 @@ const https = require(`${config.protocol}`);
 const {keyboard,Key,mouse,Point} = require("@nut-tree/nut-js");
 const { exec } = require('child_process');
 
-let x,y=null;
+let tray = null
+let x,y = null;
+let mainWindow = null;
+let menu = null;
+let notification = null;
+
 menu_template = [
   {
     label: 'I\'m working on OneClickAccess with Electron JS',
@@ -27,9 +32,11 @@ menu_template = [
     }
   }
 ];
-let menu = null;
+createMacAddressFiles();
 
+app.setName(config.app_name);
 app.whenReady().then(() => {
+
   createWindow();
   const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
     x = screen.getCursorScreenPoint().x;
@@ -40,15 +47,9 @@ app.whenReady().then(() => {
 
   if (!shortcut) { console.log('Registration failed.'); }
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });
 });
 
-createMacAddressFiles();
-let mainWindow;
+
 
 function checkMachines(data, win) {
   const mac_address = fs.readFileSync('mac.txt', 'utf8');
@@ -98,7 +99,7 @@ function checkMachines(data, win) {
 }
 
 function createWindow() {
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
     webPreferences: {
@@ -110,25 +111,42 @@ function createWindow() {
       // allowRunningInsecureContent: true,
       // allowDisplayingInsecureContent: true
     }
-  })
+  });
 
-  // win.removeMenu(true);
-  win.webContents.openDevTools();
-  win.loadFile(path.join(__dirname, '/index.html'));
+  // mainWindow.removeMenu(true);
+  mainWindow.webContents.openDevTools();
+  mainWindow.loadFile(path.join(__dirname, '/index.html'));
   // db.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
   //   if (err) {
   //     console.log(err)
   //   }
   //   if (data.length > 0) {
   //     data = data[0];
-  //     checkMachines(data, win);
+  //     checkMachines(data, mainWindow);
   //   }
   //   else {
-  //     win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+  //     mainWindow.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
   //   }
   // });
-}
 
+  mainWindow.on('close', (event) => {
+    event.preventDefault();
+    mainWindow.hide();
+    tray = new Tray(path.join(__dirname, 'assets/img/logo.png'));
+    tray.on('click', () => {
+      mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+    });
+    notification = new Notification({
+      title: config.app_name,
+      body: 'Click on tray icon to maximize',
+      icon: path.join(__dirname, 'assets/img/logo.png'),
+      silent: false,
+      timeoutType: 'default'
+    });
+    notification.show();
+  });
+
+}
 
 function createMenuWindow (x,y) {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
@@ -162,22 +180,22 @@ function createMenuWindow (x,y) {
         }
       `);
       menu = Menu.buildFromTemplate(menu_template);
-      menuWindow.setMenu(menu);
-      menuWindow.loadFile(path.join(__dirname, '/menu.html'));
+      win.setMenu(menu);
+      win.loadFile(path.join(__dirname, '/menu.html'));
       
-      menuWindow.on('close', (event) => {
+      win.on('close', (event) => {
           event.preventDefault();
-          menuWindow.hide()
+          win.hide()
       });
             // Set the position of the context menu window to the top of the screen
-        menuWindow.on('blur', () => {
+            win.on('blur', () => {
           // Hide the context menu window when it loses focus
-          menuWindow.hide()
+          win.hide()
         })
 
         ipcMain.on('showContextMenu', () => {
           // Show the context menu window when requested from the renderer process
-          menuWindow.show()
+          win.show()
         })
 
         ipcMain.on('contextMenuSelection', (event, option) => {
@@ -210,18 +228,26 @@ function createMenuWindow (x,y) {
           });
         });
       
-      //menuWindow.webContents.openDevTools()
+      menuWindow.webContents.openDevTools()
 }
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
+app.on('activate', () => {
+  if (mainWindow === null){
+    createWindow();
+  } 
+  else
+  {
+    mainWindow.show();
+    if(tray != null){
+      tray.destroy();
+    }
   }
 });
 
 ipcMain.on('close-window', () => {
   mainWindow.close();
 });
+
 
 
 ipcMain.on('close-context-window', () => {
@@ -239,7 +265,6 @@ ipcMain.on('relaunch', (event, args) => {
   app.relaunch()
   app.exit()
 });
-
 
 ipcMain.handle("showDialog", (e, d) => {
   var filePath = path.join(__dirname, '/new_file.json');

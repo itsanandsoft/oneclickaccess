@@ -601,251 +601,251 @@ $(function(){
 	// 		});
 	// 	}
 	// });
-	addSampleButton({
-		label: "tree.getActiveNode()",
-		newline: false,
-		code: function(){
-			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-			if( node ){
-				alert("Currently active: " + node.title);
-			}else{
-				alert("No active node.");
-			}
-		}
-	});
-	addSampleButton({
-		label: "tree.toDict()",
-		code: function(){
-			// Convert the whole tree into an dictionary
-			var tree = $.ui.fancytree.getTree("#tree");
-			var d = tree.toDict(true);
-			alert(JSON.stringify(d));
-		}
-	});
-	addSampleButton({
-		label: "activateKey('id4.3.2')",
-		code: function(){
-			$.ui.fancytree.getTree("#tree").activateKey("id4.3.2");
-			// also possible:
-//	              $.ui.fancytree.getTree("#tree").getNodeByKey("id4.3.2").setActive();
-		}
-	});
-	addSampleButton({
-		label: "setTitle()",
-		code: function(){
-			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-			if( !node ) return;
-			node.setTitle(node.title + ", " + new Date());
-			// this is a shortcut for
-			// node.fromDict({title: data.node.title + new Date()});
-		}
-	});
-	addSampleButton({
-		label: "Sort tree",
-		newline: false,
-		code: function(){
-			var node = $.ui.fancytree.getTree("#tree").getRootNode();
-			node.sortChildren(null, true);
-		}
-	});
+// 	addSampleButton({
+// 		label: "tree.getActiveNode()",
+// 		newline: false,
+// 		code: function(){
+// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
+// 			if( node ){
+// 				alert("Currently active: " + node.title);
+// 			}else{
+// 				alert("No active node.");
+// 			}
+// 		}
+// 	});
+// 	addSampleButton({
+// 		label: "tree.toDict()",
+// 		code: function(){
+// 			// Convert the whole tree into an dictionary
+// 			var tree = $.ui.fancytree.getTree("#tree");
+// 			var d = tree.toDict(true);
+// 			alert(JSON.stringify(d));
+// 		}
+// 	});
+// 	addSampleButton({
+// 		label: "activateKey('id4.3.2')",
+// 		code: function(){
+// 			$.ui.fancytree.getTree("#tree").activateKey("id4.3.2");
+// 			// also possible:
+// //	              $.ui.fancytree.getTree("#tree").getNodeByKey("id4.3.2").setActive();
+// 		}
+// 	});
+// 	addSampleButton({
+// 		label: "setTitle()",
+// 		code: function(){
+// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
+// 			if( !node ) return;
+// 			node.setTitle(node.title + ", " + new Date());
+// 			// this is a shortcut for
+// 			// node.fromDict({title: data.node.title + new Date()});
+// 		}
+// 	});
+// 	addSampleButton({
+// 		label: "Sort tree",
+// 		newline: false,
+// 		code: function(){
+// 			var node = $.ui.fancytree.getTree("#tree").getRootNode();
+// 			node.sortChildren(null, true);
+// 		}
+// 	});
 	
-	addSampleButton({
-		header: "Create nodes",
-		tooltip: "Use node.addChildren() with single objects",
-		label: "Add single nodes",
-		newline: false,
-		code: function(){
-			// Sample: add an hierarchic branch using code.
-			// This is how we would add tree nodes programatically
-			var rootNode = $.ui.fancytree.getTree("#tree").getRootNode();
-			var childNode = rootNode.addChildren({
-				title: "Programatically addded nodes",
-				tooltip: "This folder and all child nodes were added programmatically.",
-				folder: true
-			});
-			childNode.addChildren({
-				title: "Document using a custom icon",
-				icon: "customdoc1.gif"
-			});
-		}
-	});
-	addSampleButton({
-		tooltip: "Use node.appendSibling()",
-		label: "Apppend a sibling node",
-		newline: false,
-		code: function(){
-			var tree = $.ui.fancytree.getTree("#tree"),
-				node = tree.getActiveNode(),
-				newData = {title: "New Node"},
-				newSibling = node.appendSibling(newData);
-		}
-	});
-	// addSampleButton({
-	// 	label: "ROOT.addChildren()",
-	// 	tooltip: "Use node.addChildren() with recursive arrays",
-	// 	code: function(){
-	// 		// Sample: add an hierarchic branch using an array
-	// 		var obj = [
-	// 			{ title: "Lazy node 1", lazy: true },
-	// 			{ title: "Lazy node 2", lazy: true },
-	// 			{ title: "Folder node 3", folder: true,
-	// 				children: [
-	// 					{ title: "node 3.1" },
-	// 					{ title: "node 3.2",
-	// 						children: [
-	// 							{ title: "node 3.2.1" },
-	// 							{ title: "node 3.2.2",
-	// 								children: [
-	// 									{ title: "node 3.2.2.1" }
-	// 								]
-	// 							}
-	// 						]
-	// 					}
-	// 				]
-	// 			}
-	// 		];
-	// 		$.ui.fancytree.getTree("#tree").getRootNode().addChildren(obj);
-	// 	}
-	// });
-	addSampleButton({
-		label: "node.fromDict()",
-		code: function(){
-			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-			if( !node ) return;
-			// Set node data and - optionally - replace children
-			node.fromDict({
-				title: node.title + new Date(),
-				children: [{title: "t1"}, {title: "t2"}]
-			});
-		}
-	});
-	CLIPBOARD = null;
-	addSampleButton({
-		label: "Clipboard = node.toDict()",
-		newline: false,
-		code: function(){
-			// Convert active node (and descendants) to a dictionary and store
-			// in
-			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-			var d = node.toDict(true, function(dict, node){
-				// Remove keys, so they will be re-generated when this dict is
-				// passed to addChildren()
-				delete dict.key;
-			});
-			// Store in a globael variable
-			CLIPBOARD = d;
-			alert("CLIPBOARD = " + JSON.stringify(d));
-		}
-	});
-	addSampleButton({
-		label: "node.fromDict(Clipboard)",
-		code: function(){
-			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-			if( !node ) return;
-			// Set node data and - optionally - replace children
-			node.fromDict(CLIPBOARD);
-		}
-	});
-	addSampleButton({
-		label: "Remove selected nodes (but keep children)",
-		newline: true,
-		code: function(){
-			var tree = $.ui.fancytree.getTree("#tree"),
-				selNodes = tree.getSelectedNodes();
+// 	addSampleButton({
+// 		header: "Create nodes",
+// 		tooltip: "Use node.addChildren() with single objects",
+// 		label: "Add single nodes",
+// 		newline: false,
+// 		code: function(){
+// 			// Sample: add an hierarchic branch using code.
+// 			// This is how we would add tree nodes programatically
+// 			var rootNode = $.ui.fancytree.getTree("#tree").getRootNode();
+// 			var childNode = rootNode.addChildren({
+// 				title: "Programatically addded nodes",
+// 				tooltip: "This folder and all child nodes were added programmatically.",
+// 				folder: true
+// 			});
+// 			childNode.addChildren({
+// 				title: "Document using a custom icon",
+// 				icon: "customdoc1.gif"
+// 			});
+// 		}
+// 	});
+// 	addSampleButton({
+// 		tooltip: "Use node.appendSibling()",
+// 		label: "Apppend a sibling node",
+// 		newline: false,
+// 		code: function(){
+// 			var tree = $.ui.fancytree.getTree("#tree"),
+// 				node = tree.getActiveNode(),
+// 				newData = {title: "New Node"},
+// 				newSibling = node.appendSibling(newData);
+// 		}
+// 	});
+// 	// addSampleButton({
+// 	// 	label: "ROOT.addChildren()",
+// 	// 	tooltip: "Use node.addChildren() with recursive arrays",
+// 	// 	code: function(){
+// 	// 		// Sample: add an hierarchic branch using an array
+// 	// 		var obj = [
+// 	// 			{ title: "Lazy node 1", lazy: true },
+// 	// 			{ title: "Lazy node 2", lazy: true },
+// 	// 			{ title: "Folder node 3", folder: true,
+// 	// 				children: [
+// 	// 					{ title: "node 3.1" },
+// 	// 					{ title: "node 3.2",
+// 	// 						children: [
+// 	// 							{ title: "node 3.2.1" },
+// 	// 							{ title: "node 3.2.2",
+// 	// 								children: [
+// 	// 									{ title: "node 3.2.2.1" }
+// 	// 								]
+// 	// 							}
+// 	// 						]
+// 	// 					}
+// 	// 				]
+// 	// 			}
+// 	// 		];
+// 	// 		$.ui.fancytree.getTree("#tree").getRootNode().addChildren(obj);
+// 	// 	}
+// 	// });
+// 	addSampleButton({
+// 		label: "node.fromDict()",
+// 		code: function(){
+// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
+// 			if( !node ) return;
+// 			// Set node data and - optionally - replace children
+// 			node.fromDict({
+// 				title: node.title + new Date(),
+// 				children: [{title: "t1"}, {title: "t2"}]
+// 			});
+// 		}
+// 	});
+// 	CLIPBOARD = null;
+// 	addSampleButton({
+// 		label: "Clipboard = node.toDict()",
+// 		newline: false,
+// 		code: function(){
+// 			// Convert active node (and descendants) to a dictionary and store
+// 			// in
+// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
+// 			var d = node.toDict(true, function(dict, node){
+// 				// Remove keys, so they will be re-generated when this dict is
+// 				// passed to addChildren()
+// 				delete dict.key;
+// 			});
+// 			// Store in a globael variable
+// 			CLIPBOARD = d;
+// 			alert("CLIPBOARD = " + JSON.stringify(d));
+// 		}
+// 	});
+// 	addSampleButton({
+// 		label: "node.fromDict(Clipboard)",
+// 		code: function(){
+// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
+// 			if( !node ) return;
+// 			// Set node data and - optionally - replace children
+// 			node.fromDict(CLIPBOARD);
+// 		}
+// 	});
+// 	addSampleButton({
+// 		label: "Remove selected nodes (but keep children)",
+// 		newline: true,
+// 		code: function(){
+// 			var tree = $.ui.fancytree.getTree("#tree"),
+// 				selNodes = tree.getSelectedNodes();
 
-			selNodes.forEach(function(node) {
-				while( node.hasChildren() ) {
-					node.getFirstChild().moveTo(node.parent, "child");
-				}
-				node.remove();
-			});
-		}
-	});
-
-
-
-
-  ///filter buttons
-  addSampleButton({
-    label: "Filter active branch",
-    newline: false,
-    code: function(){
-      if( !tree.getActiveNode() ) {
-        alert("Please activate a folder.");
-        return;
-      }
-      tree.filterBranches(function(node){
-        return node.isActive();
-      }, {
-        mode: "hide",
-      });
-    }
-  });
-  addSampleButton({
-    label: "Reset filter",
-    newline: false,
-    code: function(){
-      tree.clearFilter();
-    }
-  });
+// 			selNodes.forEach(function(node) {
+// 				while( node.hasChildren() ) {
+// 					node.getFirstChild().moveTo(node.parent, "child");
+// 				}
+// 				node.remove();
+// 			});
+// 		}
+// 	});
 
 
 
 
-  addSampleButton({
-    label: "destroy all",
-    newline: false,
-    code: function(){
-      $(":ui-fancytree").fancytree("destroy");
-    }
-  });
-  addSampleButton({
-    label: "init all",
-    newline: false,
-    code: function(){
-      $(".sampletree").fancytree();
-    }
-  });
-  addSampleButton({
-    label: "Reload() #1",
-    newline: false,
-    code: function(){
-      $.ui.fancytree.getTree("#tree").reload([
-        {title: "node1"},
-        {title: "node2"}
-      ]).done(function(){
-        alert("reloaded");
-      });
-    }
-  });
-  addSampleButton({
-    label: "Set 'source' option (all)",
-    newline: false,
-    code: function(){
-      $(".sampletree").fancytree("option", "source", [
-        {title: "node1"}
-      ]);
-    }
-  });
+//   ///filter buttons
+//   addSampleButton({
+//     label: "Filter active branch",
+//     newline: false,
+//     code: function(){
+//       if( !tree.getActiveNode() ) {
+//         alert("Please activate a folder.");
+//         return;
+//       }
+//       tree.filterBranches(function(node){
+//         return node.isActive();
+//       }, {
+//         mode: "hide",
+//       });
+//     }
+//   });
+//   addSampleButton({
+//     label: "Reset filter",
+//     newline: false,
+//     code: function(){
+//       tree.clearFilter();
+//     }
+//   });
 
 
 
-  addSampleButton({
-		label: "(De)Select active node",
-		newline: false,
-		code: function(){
-			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-			node.setSelected( !node.isSelected() );
-		}
-	});
-	addSampleButton({
-		label: "Remove active node",
-		newline: false,
-		code: function(){
-			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-			node.remove();
-		}
-	});
+
+//   addSampleButton({
+//     label: "destroy all",
+//     newline: false,
+//     code: function(){
+//       $(":ui-fancytree").fancytree("destroy");
+//     }
+//   });
+//   addSampleButton({
+//     label: "init all",
+//     newline: false,
+//     code: function(){
+//       $(".sampletree").fancytree();
+//     }
+//   });
+//   addSampleButton({
+//     label: "Reload() #1",
+//     newline: false,
+//     code: function(){
+//       $.ui.fancytree.getTree("#tree").reload([
+//         {title: "node1"},
+//         {title: "node2"}
+//       ]).done(function(){
+//         alert("reloaded");
+//       });
+//     }
+//   });
+//   addSampleButton({
+//     label: "Set 'source' option (all)",
+//     newline: false,
+//     code: function(){
+//       $(".sampletree").fancytree("option", "source", [
+//         {title: "node1"}
+//       ]);
+//     }
+//   });
+
+
+
+//   addSampleButton({
+// 		label: "(De)Select active node",
+// 		newline: false,
+// 		code: function(){
+// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
+// 			node.setSelected( !node.isSelected() );
+// 		}
+// 	});
+// 	addSampleButton({
+// 		label: "Remove active node",
+// 		newline: false,
+// 		code: function(){
+// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
+// 			node.remove();
+// 		}
+// 	});
 
 });
 
@@ -991,10 +991,10 @@ function openChildClickValueDialog(node){
               }
           },
           {
-              caption: "Cencel",
+              caption: "Cancel",
               cls: "js-dialog-close",
               onclick: function(){
-                  console.log("You clicked Cencel action");
+                  console.log("You clicked Cancel action");
               }
           }
       ]
@@ -1043,10 +1043,10 @@ function openAboutDialog(){
           }
           // ,
           // {
-          //     caption: "Cencel",
+          //     caption: "Cancel",
           //     cls: "js-dialog-close",
           //     onclick: function(){
-          //         console.log("You clicked Cencel action");
+          //         console.log("You clicked Cancel action");
           //     }
           // }
       ]
@@ -1061,11 +1061,11 @@ function exportSelectedDialog(){
       content: '<div class="fixed-size"><div id="tree2" data-source="ajax" class="sampletree"></div></div>',
       actions: [
         {
-          caption: "Cencel",
+          caption: "Cancel",
           cls: "js-dialog-close",
           onclick: function(){
             
-              console.log("You clicked Cencel action Export Selected Dialog");
+              console.log("You clicked Cancel action Export Selected Dialog");
           }
         },
           {
@@ -1317,10 +1317,10 @@ function openColorTopMenuDialog(){
               }
           },
           {
-              caption: "Cencel",
+              caption: "Cancel",
               cls: "js-dialog-close",
               onclick: function(){
-                  console.log("You clicked Cencel Color Dialog");
+                  console.log("You clicked Cancel Color Dialog");
               }
           }
       ]
