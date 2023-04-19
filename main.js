@@ -130,20 +130,36 @@ function createWindow() {
 }
 
 function createMenuWindow (x,y) {
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
       let menuWindow = new BrowserWindow({
-          width: 800,
-          height: 600,
+          width: width,
+          height: height,
           frame:false,
-          x: x,
-          y: y,
+          transparent: true,
+          
+         
           webPreferences: {
               nodeIntegration: true,
               contextIsolation: false,
               enableRemoteModule: true,
           }
       })
-
+      // x: x,
+      // y: y,
       menuWindow.removeMenu(true);
+      // Set the background color to transparent
+      menuWindow.setBackgroundColor('#00000000');
+
+      // Set the CSS to allow pointer events on children
+      menuWindow.webContents.insertCSS(`
+        body {
+          pointer-events: none;
+        }
+        
+        * {
+          pointer-events: auto;
+        }
+      `);
       menu = Menu.buildFromTemplate(menu_template);
       menuWindow.setMenu(menu);
       menuWindow.loadFile(path.join(__dirname, '/menu.html'));
@@ -168,6 +184,30 @@ function createMenuWindow (x,y) {
           console.log(`Selected option: ${option}`)
           // You can perform any desired action here
         })
+
+        // menuWindow.webContents.on('click', (event, targetElement) => {
+        //   console.log(`Clicked`)
+        //   // Exclude clicks on a div with id "exclude-me" or its descendants
+        //   // const excludeMe = document.getElementById('exclude-me');
+        //   // if (excludeMe.contains(targetElement)) {
+        //   //   return;
+        //   // }
+        
+        //   // Your code here
+        //   //menuWindow.hide()
+        // });
+        console.log('run');
+        menuWindow.once('ready-to-show', () => {
+          console.log('Clicked');
+        })
+        
+        
+        menuWindow.webContents.on('did-finish-load', () => {
+          console.log('load');
+          menuWindow.webContents.on('click', (event, targetElement) => {
+            console.log('Clicked');
+          });
+        });
       
       menuWindow.webContents.openDevTools()
 }
@@ -180,6 +220,13 @@ app.on('window-all-closed', () => {
 
 ipcMain.on('close-window', () => {
   mainWindow.close();
+});
+
+
+ipcMain.on('close-context-window', () => {
+  const window = remote.getCurrentWindow();
+  //window.show();
+  window.close();
 });
 
 

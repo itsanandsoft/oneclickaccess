@@ -4,22 +4,22 @@
 <head>
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script>window.$ = window.jQuery = require('jquery');</script>
+    
 
     <link rel="stylesheet" href="./node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.css"/>
     <!-- <script src="./assets/js/jquery.fancytree.contextMenu.js"></script> -->
     <style>
         .center {
           position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+
         }
         body {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
+            width: 100%;
           }
           
           .child-element {
@@ -44,7 +44,7 @@
             </button>
         </li>
     </ul> -->
-    <div class="center child-element" style="width: 150px;height: auto;"><span class="context-menu-one"></span></div>
+    <div class="center child-element" id="exclude-me" style="width: 150px;height: auto;"><span class="context-menu-one" id="context-menu-one"></span></div>
     
 
    

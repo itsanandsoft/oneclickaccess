@@ -1,7 +1,7 @@
 const $ = require('jquery');
 const { remote, ipcRenderer } = require("electron");
 const contextMenu = require('./node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.js');
-const path = require('path')
+const path = require('path');
 // // Listen for the global shortcut keypress
 // document.addEventListener('keydown', (event) => {
 //   if (event.key === 'c' && event.ctrlKey && event.shiftKey) {
@@ -30,10 +30,28 @@ const path = require('path')
 //     ipcRenderer.send(`closeapp`, { x:e.x,y:e.y });
 // })
 
-    
-// $(function() {
-  
+// document.addEventListener('DOMContentLoaded', function() {
+//   var myDiv = document.getElementById('myDiv');
+//   myDiv.style.position = 'fixed';
+//   myDiv.style.left = (window.innerWidth / 2) + 'px';
+//   myDiv.style.top = (window.innerHeight / 2) + 'px';
 // });
+
+ $(function() {
+  // document.body.addEventListener('click', function () {
+  //   // Your code here
+  //   alert("Body");
+  // });
+  
+  // // Close the window when the body is clicked, unless the click
+  // // happened inside the context menu element
+  // $('body').on('click', function(event) {
+  //   console.log("Body CLicked")
+  //   if (!$(event.target).hasClass('context-menu-one')) {
+  //     ipcRenderer.send('close-context-window');
+  //   }
+  // });
+});
 
 $(function() {
   
