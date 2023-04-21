@@ -355,7 +355,10 @@ const { ipcRenderer } = require("electron");
             // alternative way to bind to 'activate' event
       //		    logEvent(event, data);
               
-          }).on("mouseenter mouseleave", ".fancytree-title", function(event){
+          }).on("change", function(event, data){
+            console.log("Firing");  
+          })
+          .on("mouseenter mouseleave", ".fancytree-title", function(event){
             // Add a hover handler to all node titles (using event delegation)
             var node = $.ui.fancytree.getNode(event);
             node.info(event.type);
@@ -471,8 +474,8 @@ const { ipcRenderer } = require("electron");
           var tree = $.ui.fancytree.getTree("#tree");
 
             // Bind an event listener for the 'change' event
-            tree.fancytree("getTree").bind("click", function(event, data){
-              console.log("click event fired");
+            tree.fancytree("getTree").bind("change", function(event, data){
+              console.log("change event fired");
               var tree = $.ui.fancytree.getTree("#tree");
               console.log("tree variable:", tree);
               var da = tree.toDict(true);
