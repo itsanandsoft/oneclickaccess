@@ -12,11 +12,9 @@ const { exec } = require('child_process');
 let x, y = null;
 const jsonFilePath = 'tree-data.json';
 const menu_template = fancytreeToContextmenuJson(JSON.parse(fs.readFileSync(jsonFilePath)));
-let mainWindow;
+let mainWindow,menuWindow;
 let menu = null;
 const functionMap = {
-  menuItemClicked,
-  menusubItemClicked,
   itemClicked
 };
 
@@ -85,8 +83,8 @@ function checkMachines(data, win) {
 
 function createWindow() {
   let win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 960,
+    height: 400,
     webPreferences: {
       preload: path.join(__dirname, '/preloads.js'),
       nodeIntegration: true,
@@ -107,12 +105,13 @@ function createWindow() {
       checkMachines(data, win);
     }
     else {
-     // win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
-     win.loadFile(path.join(__dirname, '/index.html'));
-           
+      // win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+      win.loadFile(path.join(__dirname, '/index.html'));
+
     }
   });
-  // menuWindow.webContents.openDevTools();
+    win.removeMenu(true);
+  // win.webContents.openDevTools();
 }
 
 function createMenuWindow(x, y) {
@@ -230,11 +229,12 @@ function createMenuWindow(x, y) {
 }
 
 function createElectronMenu(x, y) {
-  let menuWindow = new BrowserWindow({
-    width: 200,
-    height: 200,
+  menuWindow  = new BrowserWindow({
+    width: 132,
+    height: 54,
     x: x,
     y: y,
+    frame:false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -255,15 +255,19 @@ function createElectronMenu(x, y) {
   menuWindow.loadFile(path.join(__dirname, '/menu2.html'));
 }
 
-function menuItemClicked() {
-  console.log('Menu Item 1 clicked!');
-}
-
-function menusubItemClicked() {
-  console.log('Sub Item clicked!');
-}
-function itemClicked() {
-  console.log('Item clicked!');
+function itemClicked(item) {
+  clipboard.writeText(item.label)
+  mouse.setPosition(new Point(x, y));
+  mouse.leftClick();
+  if (process.platform === 'darwin') {
+    exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
+  } else if (process.platform === 'win32') {
+    keyboard.pressKey(Key.LeftControl, Key.V);
+    keyboard.releaseKey(Key.LeftControl, Key.V);
+  }
+  if(!menuWindow.isDestroyed()){
+    menuWindow.close();
+  }
 }
 
 function attachClickHandlers(menuItems) {
@@ -275,6 +279,39 @@ function attachClickHandlers(menuItems) {
       attachClickHandlers(item.submenu);
     }
   });
+}
+
+function fancytreeToContextmenuJson(fancytreeJson) {
+  const contextmenuJson = [];
+
+  function convertNode(node) {
+    const convertedNode = {
+      label: node.title,
+      key: node.key,
+      title: node.title,
+    };
+
+    // if (node.tooltip) {
+    //   convertedNode.tooltip = node.tooltip;
+    // }
+
+    // if (node.href) {
+    //   convertedNode.click = () => {
+    //     shell.openExternal(node.href);
+    //   };
+    // } else 
+    if (node.children) {
+      convertedNode.submenu = node.children.map(convertNode);
+    } else {
+      convertedNode.click = "itemClicked";
+    }
+
+    return convertedNode;
+  }
+
+  contextmenuJson.push(...fancytreeJson.map(convertNode));
+
+  return contextmenuJson;
 }
 
 // IPC MAIN
@@ -366,29 +403,29 @@ ipcMain.handle("showDialog", (e, d) => {
 
 ipcMain.handle("saveData", (e, d) => {
   var filePath = path.join(__dirname, '/tree-data.json');
-    fs.access(filePath, fs.constants.F_OK, (err) => {
-      if (err) {
-        // File does not exist, create it
-        console.log(`${filePath} does not exist, creating...`);
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      // File does not exist, create it
+      console.log(`${filePath} does not exist, creating...`);
+      fs.writeFile(filePath, d, (err) => {
+        if (err) throw err;
+        console.log(`${filePath} created and data written!`);
+      });
+    } else {
+      // File exists, write to it
+      fs.truncate(filePath, 0, function (err) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log(`${filePath} exists, writing data...`);
         fs.writeFile(filePath, d, (err) => {
           if (err) throw err;
-          console.log(`${filePath} created and data written!`);
+          console.log(`${filePath} updated with new data!`);
         });
-      } else {
-        // File exists, write to it
-        fs.truncate(filePath, 0, function (err) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          console.log(`${filePath} exists, writing data...`);
-          fs.writeFile(filePath, d, (err) => {
-            if (err) throw err;
-            console.log(`${filePath} updated with new data!`);
-          });
-        });
-      }
-    });
+      });
+    }
+  });
 });
 
 ipcMain.on(`display-app-menu`, function (e, args) {
@@ -398,35 +435,8 @@ ipcMain.on(`display-app-menu`, function (e, args) {
   });
 });
 
-
-function fancytreeToContextmenuJson(fancytreeJson) {
-  const contextmenuJson = [];
-
-  function convertNode(node) {
-    const convertedNode = {
-      label: node.title,
-      key: node.key,
-      title: node.title,
-    };
-
-    if (node.tooltip) {
-      convertedNode.tooltip = node.tooltip;
-    }
-
-    if (node.href) {
-      convertedNode.click = () => {
-        shell.openExternal(node.href);
-      };
-    } else if (node.children) {
-      convertedNode.submenu = node.children.map(convertNode);
-    } else {
-      convertedNode.click = "itemClicked";
-    }
-
-    return convertedNode;
+ipcMain.on(`close-app-menu`, function (e) {
+  if(!menuWindow.isDestroyed()){
+    menuWindow.close();
   }
-
-  contextmenuJson.push(...fancytreeJson.map(convertNode));
-
-  return contextmenuJson;
-}
+});
