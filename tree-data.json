@@ -38,7 +38,4 @@
 			{"key": "20_2_2", "title": "Sub-item 2.2.2"}
 		]}
 	]},
-	{"key": "30", "title": "Lazy folder",  "lazy": true },
-	{"key": "31", "title": "Lazy folder 2",  "lazy": true },
-	{"key": "32", "title": "Lazy folder 3",  "lazy": true }
 ]

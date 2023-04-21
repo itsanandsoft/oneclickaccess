@@ -1,8 +1,8 @@
 const {app,Menu,ipcMain, BrowserWindow,globalShortcut,screen,clipboard,Tray,Notification } = require('electron')
-const config = require('./config/app');
+const config = require('../config/app');
 const path = require('path')
-const SQLiteHelper = require('./database/SQLiteHelper');
-const createMacAddressFiles = require('./assets/js/macadd-handler');
+const SQLiteHelper = require('../database/SQLiteHelper');
+const createMacAddressFiles = require('../assets/js/macadd-handler');
 const db = new SQLiteHelper();
 const fs = require('fs');
 const https = require(`${config.protocol}`);

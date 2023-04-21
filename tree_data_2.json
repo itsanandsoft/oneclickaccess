@@ -4,7 +4,7 @@
 		"key": "2",
 		"title": "item1 with key and tooltip",
 		"tooltip": "Look, a tool tip!",
-		"click": "menuItemClicked"
+		"click": "itemClicked"
 	},
 	{
 		"label": "Folder 1",
@@ -20,13 +20,13 @@
 						"label": "Sub-item 1.1.1",
 						"key": "10_1_1",
 						"title": "Sub-item 1.1.1",
-						"click": "menusubItemClicked"
+						"click": "itemClicked"
 					},
 					{
 						"label": "Sub-item 1.1.2",
 						"key": "10_1_2",
 						"title": "Sub-item 1.1.2",
-						"click": "menusubItemClicked"
+						"click": "itemClicked"
 					}
 				]
 			},
@@ -39,13 +39,13 @@
 						"label": "Sub-item 1.2.1",
 						"key": "10_2_1",
 						"title": "Sub-item 1.2.1",
-						"click": "menusubItemClicked"
+						"click": "itemClicked"
 					},
 					{
 						"label": "Sub-item 1.2.2",
 						"key": "10_2_2",
 						"title": "Sub-item 1.2.2",
-						"click": "menusubItemClicked"
+						"click": "itemClicked"
 					}
 				]
 			}

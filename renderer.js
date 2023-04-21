@@ -81,9 +81,9 @@ const { ipcRenderer } = require("electron");
               mode: "dimm"       // Grayout unmatched nodes (pass "hide" to remove unmatched node instead)
             },
         
-            lazyLoad: function(event, data) {
-              data.result = {url: "ajax-sub2.json"}
-            },
+            // lazyLoad: function(event, data) {
+            //   data.result = {url: "ajax-sub2.json"}
+            // },
 
             
             dnd5: {
@@ -274,15 +274,15 @@ const { ipcRenderer } = require("electron");
               // currently unused
               logEvent(event, data);
             },
-            lazyLoad: function(event, data) {
-              logEvent(event, data);
-              // return children or any other node source
-              data.result = {url: "ajax-sub2.json"};
-      //				data.result = [
-      //					{title: "A Lazy node", lazy: true},
-      //					{title: "Another node", selected: true}
-      //					];
-            },
+      //       lazyLoad: function(event, data) {
+      //         logEvent(event, data);
+      //         // return children or any other node source
+      //         data.result = {url: "ajax-sub2.json"};
+      // //				data.result = [
+      // //					{title: "A Lazy node", lazy: true},
+      // //					{title: "Another node", selected: true}
+      // //					];
+      //       },
             loadChildren: function(event, data) {
               logEvent(event, data);
             },
@@ -1124,9 +1124,9 @@ function initializetree2()
             
             source: { url: "tree-data.json" },
 
-            lazyLoad: function(event, data) {
-              data.result = {url: "ajax-sub2.json"}
-            },
+            // lazyLoad: function(event, data) {
+            //   data.result = {url: "ajax-sub2.json"}
+            // },
 
             createNode: function(event, data) {
               var node = data.node,
@@ -1247,15 +1247,15 @@ function initializetree2()
               // currently unused
               logEvent(event, data);
             },
-            lazyLoad: function(event, data) {
-              logEvent(event, data);
-              // return children or any other node source
-              data.result = {url: "ajax-sub2.json"};
-      //				data.result = [
-      //					{title: "A Lazy node", lazy: true},
-      //					{title: "Another node", selected: true}
-      //					];
-            },
+      //       lazyLoad: function(event, data) {
+      //         logEvent(event, data);
+      //         // return children or any other node source
+      //         data.result = {url: "ajax-sub2.json"};
+      // //				data.result = [
+      // //					{title: "A Lazy node", lazy: true},
+      // //					{title: "Another node", selected: true}
+      // //					];
+      //       },
             loadChildren: function(event, data) {
               logEvent(event, data);
             },

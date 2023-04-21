@@ -1,6 +1,6 @@
 const $ = require('jquery');
 const { remote, ipcRenderer } = require("electron");
-const contextMenu = require('./node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.js');
+const contextMenu = require('jquery-contextmenu/dist/jquery.contextMenu.min.js');
 const path = require('path');
 // // Listen for the global shortcut keypress
 // document.addEventListener('keydown', (event) => {

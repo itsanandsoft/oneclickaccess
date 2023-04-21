@@ -10,13 +10,14 @@ const { keyboard, Key, mouse, Point } = require("@nut-tree/nut-js");
 const { exec } = require('child_process');
 
 let x, y = null;
-const jsonFilePath = 'tree_data_2.json';
-const menu_template = JSON.parse(fs.readFileSync(jsonFilePath));
+const jsonFilePath = 'tree-data.json';
+const menu_template = fancytreeToContextmenuJson(JSON.parse(fs.readFileSync(jsonFilePath)));
 let mainWindow;
 let menu = null;
 const functionMap = {
   menuItemClicked,
-  menusubItemClicked
+  menusubItemClicked,
+  itemClicked
 };
 
 app.whenReady().then(() => {
@@ -106,7 +107,9 @@ function createWindow() {
       checkMachines(data, win);
     }
     else {
-      win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+     // win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+     win.loadFile(path.join(__dirname, '/index.html'));
+           
     }
   });
   // menuWindow.webContents.openDevTools();
@@ -259,6 +262,9 @@ function menuItemClicked() {
 function menusubItemClicked() {
   console.log('Sub Item clicked!');
 }
+function itemClicked() {
+  console.log('Item clicked!');
+}
 
 function attachClickHandlers(menuItems) {
   menuItems.forEach(item => {
@@ -364,3 +370,36 @@ ipcMain.on(`display-app-menu`, function (e, args) {
     y: args.y
   });
 });
+
+
+function fancytreeToContextmenuJson(fancytreeJson) {
+  const contextmenuJson = [];
+
+  function convertNode(node) {
+    const convertedNode = {
+      label: node.title,
+      key: node.key,
+      title: node.title,
+    };
+
+    if (node.tooltip) {
+      convertedNode.tooltip = node.tooltip;
+    }
+
+    if (node.href) {
+      convertedNode.click = () => {
+        shell.openExternal(node.href);
+      };
+    } else if (node.children) {
+      convertedNode.submenu = node.children.map(convertNode);
+    } else {
+      convertedNode.click = "itemClicked";
+    }
+
+    return convertedNode;
+  }
+
+  contextmenuJson.push(...fancytreeJson.map(convertNode));
+
+  return contextmenuJson;
+}
