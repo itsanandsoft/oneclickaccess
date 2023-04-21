@@ -1,4 +1,4 @@
-const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard } = require('electron')
+const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard,Tray,Notification } = require('electron')
 const config = require('./config/app');
 const path = require('path')
 const SQLiteHelper = require('./database/SQLiteHelper');
@@ -14,6 +14,8 @@ const jsonFilePath = 'tree-data.json';
 const menu_template = fancytreeToContextmenuJson(JSON.parse(fs.readFileSync(jsonFilePath)));
 let mainWindow,menuWindow;
 let menu = null;
+let notification = null;
+let tray = null
 const functionMap = {
   itemClicked
 };
@@ -111,8 +113,33 @@ function createWindow() {
 
     }
   });
-    win.removeMenu(true);
-   win.webContents.openDevTools();
+
+  win.webContents.openDevTools();
+  win.removeMenu(true);
+  
+  win.on('close', (event) => {
+    event.preventDefault();
+    win.hide();
+    tray = new Tray(path.join(__dirname, 'assets/img/logo.png'));
+    tray.on('click', () => {
+      if(win.isVisible()){
+        win.hide()
+      } 
+      else
+      {
+        win.show();
+        tray.destroy();
+      }
+    });
+    notification = new Notification({
+      title: config.app_name,
+      body: 'Click on tray icon to maximize',
+      icon: path.join(__dirname, 'assets/img/logo.png'),
+      silent: false,
+      timeoutType: 'default'
+    });
+    notification.show();
+  });
 }
 
 function createMenuWindow(x, y) {
