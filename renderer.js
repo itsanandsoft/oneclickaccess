@@ -340,19 +340,19 @@ const { ipcRenderer } = require("electron");
               logEvent(event, data);
               
             },
-            modifyChild: function(event, data) {
-              logEvent(event, data, "operation=" + data.operation +
-                ", child=" + data.childNode);
-                //treeDataChangeEvent();
-              },
-            postProcess: function(event, data) {
-              logEvent(event, data);
-              // either modify the Ajax response directly
-              data.response[0].title += " - hello from postProcess";
-              // or setup and return a new response object
-      //				data.result = [{title: "set by postProcess"}];
+            // modifyChild: function(event, data) {
+            //   logEvent(event, data, "operation=" + data.operation +
+            //     ", child=" + data.childNode);
+            //     //treeDataChangeEvent();
+            //   },
+      //       postProcess: function(event, data) {
+      //         logEvent(event, data);
+      //         // either modify the Ajax response directly
+      //         //data.response[0].title += " - hello from postProcess";
+      //         // or setup and return a new response object
+      // //				data.result = [{title: "set by postProcess"}];
             
-            },
+      //       },
             renderNode: function(event, data) {
               // Optionally tweak data.node.span
       //              $(data.node.span).text(">>" + data.node.title);
@@ -962,7 +962,11 @@ $(function() {
       var tree = $.ui.fancytree.getTree("#tree");
       var da = tree.toDict(true);
       var d = JSON.stringify(da);
-      ipcRenderer.invoke("saveData", d);
+      const jsonObj = JSON.parse(d);
+      const children = jsonObj.children;
+      const newJsonStr = JSON.stringify(children);
+      console.log(newJsonStr);
+      ipcRenderer.invoke("saveData", newJsonStr);
 
      });
      
@@ -1030,8 +1034,31 @@ $(function() {
 			node.remove(); 
     });
     $('#main_add_text').click(function(){ 
+
+      var tree = $.ui.fancytree.getTree("#tree"),
+				node = tree.getActiveNode();
+				newData = {title: "...",type:"text"};
+        if( node )
+        {
+				  newSibling = node.addChildren(newData);
+        }
+        else
+        {
+          $.ui.fancytree.getTree("#tree").getRootNode().addChildren(newData);
+        }
     });
     $('#main_add_image').click(function(){ 
+      var tree = $.ui.fancytree.getTree("#tree"),
+      node = tree.getActiveNode();
+      newData = {title: "img",type:"image"};
+      if( node )
+      {
+        newSibling = node.addChildren(newData);
+      }
+      else
+      {
+        $.ui.fancytree.getTree("#tree").getRootNode().addChildren(newData);
+      }
     });
     $('#main_add_file').click(function(){ 
     });
@@ -1052,7 +1079,7 @@ $(function() {
             url: filePath,
             success: function(data) {
                 var tree = $.ui.fancytree.getTree("#tree");
-                tree.reload(JSON.parse(data));
+                tree.reload(data);
                 alert("Reloaded Successfully!");
             },
             error: function() {
@@ -1362,17 +1389,17 @@ function initializetree2()
             loadError: function(event, data) {
               logEvent(event, data);
             },
-            modifyChild: function(event, data) {
-              logEvent(event, data, "operation=" + data.operation +
-                ", child=" + data.childNode);
-            },
-            postProcess: function(event, data) {
-              logEvent(event, data);
-              // either modify the Ajax response directly
-              data.response[0].title += " - hello from postProcess";
-              // or setup and return a new response object
-      //				data.result = [{title: "set by postProcess"}];
-            },
+            // modifyChild: function(event, data) {
+            //   logEvent(event, data, "operation=" + data.operation +
+            //     ", child=" + data.childNode);
+            // },
+      //       postProcess: function(event, data) {
+      //         logEvent(event, data);
+      //         // either modify the Ajax response directly
+      //         //data.response[0].title += " - hello from postProcess";
+      //         // or setup and return a new response object
+      // //				data.result = [{title: "set by postProcess"}];
+      //       },
             renderNode: function(event, data) {
               // Optionally tweak data.node.span
       //              $(data.node.span).text(">>" + data.node.title);
