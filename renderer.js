@@ -1052,7 +1052,7 @@ $(function() {
             url: filePath,
             success: function(data) {
                 var tree = $.ui.fancytree.getTree("#tree");
-                tree.reload(data);
+                tree.reload(JSON.parse(data));
                 alert("Reloaded Successfully!");
             },
             error: function() {
