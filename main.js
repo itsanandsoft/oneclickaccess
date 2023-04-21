@@ -1,17 +1,16 @@
 const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard,Tray,Notification } = require('electron')
-const config = require('./config/app');
 const path = require('path')
-const SQLiteHelper = require('./database/SQLiteHelper');
-const createMacAddressFiles = require('./assets/js/macadd-handler');
+const config = require(path.join(__dirname, '/config/app'));
+const SQLiteHelper = require(path.join(__dirname, '/database/SQLiteHelper'));
+const createMacAddressFiles = require(path.join(__dirname, '/assets/js/macadd-handler'));
 const db = new SQLiteHelper();
 const fs = require('fs');
-const https = require(`${config.protocol}`);
+const https = require('https');
 const { keyboard, Key, mouse, Point } = require("@nut-tree/nut-js");
 const { exec } = require('child_process');
 
 let x, y = null;
-const jsonFilePath = 'tree-data.json';
-const menu_template = fancytreeToContextmenuJson(JSON.parse(fs.readFileSync(jsonFilePath)));
+const jsonFilePath = path.join(__dirname, '/tree-data.json');
 let mainWindow,menuWindow;
 let menu = null;
 let notification = null;
@@ -124,7 +123,7 @@ function createWindow() {
     tray.on('click', () => {
       if(win.isVisible()){
         win.hide()
-      } 
+      }
       else
       {
         win.show();
@@ -257,6 +256,7 @@ function createMenuWindow(x, y) {
 }
 
 function createElectronMenu(x, y) {
+  let menu_template = fancytreeToContextmenuJson(JSON.parse(fs.readFileSync(jsonFilePath)));
   menuWindow  = new BrowserWindow({
     width: 132,
     height: 54,
