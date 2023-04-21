@@ -103,6 +103,7 @@ const { ipcRenderer } = require("electron");
               dragDrop: function(node, data) {
                 
                 data.otherNode.moveTo(node, data.hitMode);
+                //treeDataChangeEvent();
               },
             },
             edit: {
@@ -115,9 +116,28 @@ const { ipcRenderer } = require("electron");
                     cmd: "addSibling",
                   });
                 }
-                
+                //treeDataChangeEvent();
               },
             },
+            // // Bind an event listener for the 'change' event
+            // change: function(event, data){
+            //  // var tree = $.ui.fancytree.getTree("#tree");
+            //  // var jsonData = tree.toDict(true);
+            //  // var jsonString = JSON.stringify(jsonData, null, 2);
+            //   alert("hahah");
+            //  // var da = tree.toDict(true);
+            //  // var d = JSON.stringify(da);
+            //  // ipcRenderer.invoke("saveData", d);
+            //   // Send an AJAX request to update the JSON file with the updated data
+            //   // $.ajax({
+            //   //   type: "POST",
+            //   //   url: "update-json.php",
+            //   //   data: { jsonData: jsonString },
+            //   //   success: function(response) {
+            //   //     console.log("JSON file updated successfully.");
+            //   //   }
+            //   // });
+            // },
           
             // table: {
             //   indentation: 20,
@@ -146,6 +166,7 @@ const { ipcRenderer } = require("electron");
                   .nextAll()
                   .remove();
               }
+              //treeDataChangeEvent();
             },
             renderColumns: function(event, data) {
               var node = data.node,
@@ -180,7 +201,7 @@ const { ipcRenderer } = require("electron");
             // }
             modifyChild: function(event, data) {
               data.tree.info(event.type, data);
-              
+              //treeDataChangeEvent();
             },
 
             //events
@@ -256,6 +277,7 @@ const { ipcRenderer } = require("electron");
               
               // Optionally tweak data.node.span or bind handlers here
               logEvent(event, data);
+              //treeDataChangeEvent();
             },
             dblclick: function(event, data) {
               logEvent(event, data);
@@ -280,7 +302,7 @@ const { ipcRenderer } = require("electron");
             },
             enhanceTitle: function(event, data) {
               logEvent(event, data);
-              
+              //treeDataChangeEvent();
             },
             focus: function(event, data) {
               logEvent(event, data);
@@ -294,12 +316,12 @@ const { ipcRenderer } = require("electron");
                 data.node.toggleSelected();
                 return false;
               }
-              
+              //treeDataChangeEvent();
             },
             keypress: function(event, data) {
               // currently unused
               logEvent(event, data);
-              
+              //treeDataChangeEvent();
             },
       //       lazyLoad: function(event, data) {
       //         logEvent(event, data);
@@ -321,7 +343,7 @@ const { ipcRenderer } = require("electron");
             modifyChild: function(event, data) {
               logEvent(event, data, "operation=" + data.operation +
                 ", child=" + data.childNode);
-                
+                //treeDataChangeEvent();
               },
             postProcess: function(event, data) {
               logEvent(event, data);
@@ -354,9 +376,11 @@ const { ipcRenderer } = require("electron");
           .on("fancytreeactivate", function(event, data){
             // alternative way to bind to 'activate' event
       //		    logEvent(event, data);
+      
               
           }).on("change", function(event, data){
             console.log("Firing");  
+            alert("fsafds");
           })
           .on("mouseenter mouseleave", ".fancytree-title", function(event){
             // Add a hover handler to all node titles (using event delegation)
@@ -412,6 +436,7 @@ const { ipcRenderer } = require("electron");
                 alert("Unhandled command: " + data.cmd);
                 return;
             }
+            //treeDataChangeEvent();
             
           })
           .on("keydown", function(e) {
@@ -466,25 +491,27 @@ const { ipcRenderer } = require("electron");
               $(this).trigger("nodeCommand", { cmd: cmd });
               return false;
             }
-            
+            //treeDataChangeEvent();
           });
 
              
 
           var tree = $.ui.fancytree.getTree("#tree");
 
-            // Bind an event listener for the 'change' event
-            tree.fancytree("getTree").bind("change", function(event, data){
-              console.log("change event fired");
-              var tree = $.ui.fancytree.getTree("#tree");
-              console.log("tree variable:", tree);
-              var da = tree.toDict(true);
-              var d = JSON.stringify(da);
-              console.log("data:", d);
-              ipcRenderer.invoke("saveData", d)
-                .then(() => console.log("data saved successfully"))
-                .catch(error => console.error("error saving data:", error));
-            });
+          tree.fancytree("getTree").bind("change", function(event, data){
+            // Check if the change was an add or remove action
+            if(data && (data.action === "addNode" || data.action === "removeNode")){
+              // Perform your action here
+              alert("Node added or removed!");
+            }
+          });
+          // Bind an event listener for the 'change' event
+          // tree.bind("change", function(event, data){
+          //   alert("hahah");
+          //   var da = tree.toDict(true);
+          //   var d = JSON.stringify(da);
+          //   ipcRenderer.invoke("saveData", d);
+          // });
             /*
             * Event handlers for our little demo interface
             */
@@ -930,6 +957,15 @@ $(function() {
       
 
      });
+     $('#main_file_save_tree').click(function(){ 
+      
+      var tree = $.ui.fancytree.getTree("#tree");
+      var da = tree.toDict(true);
+      var d = JSON.stringify(da);
+      ipcRenderer.invoke("saveData", d);
+
+     });
+     
      $('#main_file_sort_selected').click(function(){ 
       var node = $.ui.fancytree.getTree("#tree").getActiveNode();
 			var cmp = function(a, b) {
@@ -1024,7 +1060,7 @@ $(function() {
             }
         });
     });
-    $('#search-btn').on('click',function(){
+    $('#searchbtn').on('click',function(){
       if($('.search-dropdown').is(':hidden')){
         $('.search-dropdown').show();
       }
@@ -1050,6 +1086,7 @@ function openChildClickValueDialog(node){
               onclick: function(){
                   //node.title = ;
                   node.setTitle($('#dialogInput').val());
+                  //treeDataChangeEvent();
                   console.log("You clicked Save action the value changed");
               }
           },
@@ -1388,4 +1425,19 @@ function openColorTopMenuDialog(){
           }
       ]
   });
+}
+
+
+function treeDataChangeEvent(){
+  if ($.ui.fancytree && $.ui.fancytree.getTree("#tree") && $.ui.fancytree.getTree("#tree").getNodes().length > 0) {
+    // Fancytree is initialized and data is loaded
+    alert("hahahahahaahh");
+    var tree = $.ui.fancytree.getTree("#tree");
+    var da = tree.toDict(true);
+    var d = JSON.stringify(da);
+    ipcRenderer.invoke("saveData", d);
+  } else {
+    // Fancytree is not initialized or data is not loaded
+  }
+ 
 }

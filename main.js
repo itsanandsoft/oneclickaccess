@@ -57,6 +57,7 @@ function checkMachines(data, win) {
             if (json.body.machines[key].mac_address == mac_address && json.body.machines[key].hard_disk_serial == hard_disk_serial) {
               if (json.body.machines[key].active == '1') {
                 win.loadFile(path.join(__dirname, '/index.html'));
+                win.webContents.openDevTools();
               }
               else {
                 win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
@@ -84,7 +85,7 @@ function checkMachines(data, win) {
 function createWindow() {
   let win = new BrowserWindow({
     width: 960,
-    height: 400,
+    height: 500,
     webPreferences: {
       preload: path.join(__dirname, '/preloads.js'),
       nodeIntegration: true,
@@ -111,7 +112,7 @@ function createWindow() {
     }
   });
     win.removeMenu(true);
-  // win.webContents.openDevTools();
+   win.webContents.openDevTools();
 }
 
 function createMenuWindow(x, y) {
