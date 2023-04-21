@@ -12,16 +12,17 @@ const { exec } = require('child_process');
 let x, y = null;
 const jsonFilePath = 'tree_data_2.json';
 const menu_template = JSON.parse(fs.readFileSync(jsonFilePath));
-
+let mainWindow;
 let menu = null;
 const functionMap = {
   menuItemClicked,
   menusubItemClicked
 };
 
-
 app.whenReady().then(() => {
+  createMacAddressFiles();
   createWindow();
+
   const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
     x = screen.getCursorScreenPoint().x;
     y = screen.getCursorScreenPoint().y;
@@ -30,15 +31,9 @@ app.whenReady().then(() => {
 
   if (!shortcut) { console.log('Registration failed.'); }
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });
 });
 
-createMacAddressFiles();
-let mainWindow;
+// Functions
 
 function checkMachines(data, win) {
   const mac_address = fs.readFileSync('mac.txt', 'utf8');
@@ -116,7 +111,6 @@ function createWindow() {
   });
   // menuWindow.webContents.openDevTools();
 }
-
 
 function createMenuWindow(x, y) {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
@@ -231,6 +225,7 @@ function createMenuWindow(x, y) {
 
   // menuWindow.webContents.openDevTools()
 }
+
 function createElectronMenu(x, y) {
   let menuWindow = new BrowserWindow({
     width: 200,
@@ -257,7 +252,6 @@ function createElectronMenu(x, y) {
   menuWindow.loadFile(path.join(__dirname, '/menu2.html'));
 }
 
-
 function menuItemClicked() {
   console.log('Menu Item 1 clicked!');
 }
@@ -276,6 +270,8 @@ function attachClickHandlers(menuItems) {
     }
   });
 }
+
+// IPC MAIN
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
