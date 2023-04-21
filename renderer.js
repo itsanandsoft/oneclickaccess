@@ -91,25 +91,30 @@ const { ipcRenderer } = require("electron");
               preventRecursion: true,
               autoExpandMS: 400,
               dragStart: function(node, data) {
+                anyEventOrChange();
                 return true;
               },
               dragEnter: function(node, data) {
+                anyEventOrChange();
                 // return ["before", "after"];
                 return true;
               },
               dragDrop: function(node, data) {
+                anyEventOrChange();
                 data.otherNode.moveTo(node, data.hitMode);
               },
             },
             edit: {
               triggerStart: ["f2", "shift+click", "mac+enter"],
               close: function(event, data) {
+                
                 if (data.save && data.isNew) {
                   // Quick-enter: add new nodes until we hit [enter] on an empty title
                   $("#tree").trigger("nodeCommand", {
                     cmd: "addSibling",
                   });
                 }
+                anyEventOrChange();
               },
             },
           
@@ -174,24 +179,30 @@ const { ipcRenderer } = require("electron");
             // }
             modifyChild: function(event, data) {
               data.tree.info(event.type, data);
+              anyEventOrChange();
             },
 
             //events
             // --- Tree events -------------------------------------------------
             blurTree: function(event, data) {
               logEvent(event, data);
+              anyEventOrChange();
             },
             create: function(event, data) {
               logEvent(event, data);
+              anyEventOrChange();
             },
             init: function(event, data, flag) {
               logEvent(event, data, "flag=" + flag);
+              anyEventOrChange();
             },
             focusTree: function(event, data) {
               logEvent(event, data);
+              anyEventOrChange();
             },
             restore: function(event, data) {
               logEvent(event, data);
+              anyEventOrChange();
             },
             // --- Node events -------------------------------------------------
             activate: function(event, data) {
@@ -202,9 +213,11 @@ const { ipcRenderer } = require("electron");
               if( !$.isEmptyObject(node.data) ){
       //					alert("custom node data: " + JSON.stringify(node.data));
               }
+              anyEventOrChange();
             },
             beforeActivate: function(event, data) {
               logEvent(event, data, "current state=" + data.node.isActive());
+              anyEventOrChange();
               // return false to prevent default behavior (i.e. activation)
       //              return false;
             },
@@ -212,9 +225,11 @@ const { ipcRenderer } = require("electron");
               logEvent(event, data, "current state=" + data.node.isExpanded());
               // return false to prevent default behavior (i.e. expanding or collapsing)
       //				return false;
+              anyEventOrChange();
             },
             beforeSelect: function(event, data) {
       //				console.log("select", event.originalEvent);
+              anyEventOrChange();
               logEvent(event, data, "current state=" + data.node.isSelected());
               // return false to prevent default behavior (i.e. selecting or deselecting)
       //				if( data.node.isFolder() ){
@@ -222,18 +237,22 @@ const { ipcRenderer } = require("electron");
       //				}
             },
             blur: function(event, data) {
+              anyEventOrChange();
               logEvent(event, data);
               $("#echoFocused").text("-");
             },
             click: function(event, data) {
+              anyEventOrChange();
               logEvent(event, data, ", targetType=" + data.targetType);
               // return false to prevent default behavior (i.e. activation, ...)
               //return false;
             },
             collapse: function(event, data) {
+              anyEventOrChange();
               logEvent(event, data);
             },
             createNode: function(event, data) {
+              anyEventOrChange();
               // Optionally tweak data.node.span or bind handlers here
               logEvent(event, data);
             },
@@ -247,20 +266,25 @@ const { ipcRenderer } = require("electron");
                 console.log("No active node.");
               }
       //				data.node.toggleSelect();
+              anyEventOrChange();
             },
             deactivate: function(event, data) {
               logEvent(event, data);
               $("#echoActive").text("-");
+              anyEventOrChange();
             },
             expand: function(event, data) {
               logEvent(event, data);
+              anyEventOrChange();
             },
             enhanceTitle: function(event, data) {
               logEvent(event, data);
+              anyEventOrChange();
             },
             focus: function(event, data) {
               logEvent(event, data);
               $("#echoFocused").text(data.node.title);
+              anyEventOrChange();
             },
             keydown: function(event, data) {
               logEvent(event, data);
@@ -269,10 +293,12 @@ const { ipcRenderer } = require("electron");
                 data.node.toggleSelected();
                 return false;
               }
+              anyEventOrChange();
             },
             keypress: function(event, data) {
               // currently unused
               logEvent(event, data);
+              anyEventOrChange();
             },
       //       lazyLoad: function(event, data) {
       //         logEvent(event, data);
@@ -285,45 +311,54 @@ const { ipcRenderer } = require("electron");
       //       },
             loadChildren: function(event, data) {
               logEvent(event, data);
+              anyEventOrChange();
             },
             loadError: function(event, data) {
               logEvent(event, data);
+              anyEventOrChange();
             },
             modifyChild: function(event, data) {
               logEvent(event, data, "operation=" + data.operation +
                 ", child=" + data.childNode);
-            },
+                anyEventOrChange();
+              },
             postProcess: function(event, data) {
               logEvent(event, data);
               // either modify the Ajax response directly
               data.response[0].title += " - hello from postProcess";
               // or setup and return a new response object
       //				data.result = [{title: "set by postProcess"}];
+            anyEventOrChange();
             },
             renderNode: function(event, data) {
               // Optionally tweak data.node.span
       //              $(data.node.span).text(">>" + data.node.title);
               logEvent(event, data);
+              anyEventOrChange();
             },
             renderTitle: function(event, data) {
               // NOTE: may be removed!
               // When defined, must return a HTML string for the node title
               logEvent(event, data);
       //				return "new title";
+              anyEventOrChange();
             },
             select: function(event, data) {
               logEvent(event, data, "current state=" + data.node.isSelected());
               var s = data.tree.getSelectedNodes().join(", ");
               $("#echoSelected").text(s);
+              anyEventOrChange();
             }
           })
           .on("fancytreeactivate", function(event, data){
             // alternative way to bind to 'activate' event
       //		    logEvent(event, data);
+              anyEventOrChange();
           }).on("mouseenter mouseleave", ".fancytree-title", function(event){
             // Add a hover handler to all node titles (using event delegation)
             var node = $.ui.fancytree.getNode(event);
             node.info(event.type);
+            anyEventOrChange();
           })
           .on("nodeCommand", function(event, data) {
             // Custom event handler that is triggered by keydown-handler and
@@ -373,6 +408,7 @@ const { ipcRenderer } = require("electron");
                 alert("Unhandled command: " + data.cmd);
                 return;
             }
+            anyEventOrChange();
           })
           .on("keydown", function(e) {
             var cmd = null;
@@ -426,6 +462,7 @@ const { ipcRenderer } = require("electron");
               $(this).trigger("nodeCommand", { cmd: cmd });
               return false;
             }
+            anyEventOrChange();
           });
 
           var tree = $.ui.fancytree.getTree("#tree");
@@ -1325,4 +1362,8 @@ function openColorTopMenuDialog(){
           }
       ]
   });
+}
+
+function anyEventOrChange(){
+  console.log("anyEventOrChange();");
 }
