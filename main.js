@@ -1,4 +1,4 @@
-const { app, Menu, ipcMain, BrowserWindow, globalShortcut, screen, clipboard } = require('electron')
+const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard } = require('electron')
 const config = require('./config/app');
 const path = require('path')
 const SQLiteHelper = require('./database/SQLiteHelper');
@@ -362,6 +362,33 @@ ipcMain.handle("showDialog", (e, d) => {
     console.log(err);
   });
   //dialog.showMessageBox(mainWindow, { message });
+});
+
+ipcMain.handle("saveData", (e, d) => {
+  var filePath = path.join(__dirname, '/tree-data.json');
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        // File does not exist, create it
+        console.log(`${filePath} does not exist, creating...`);
+        fs.writeFile(filePath, d, (err) => {
+          if (err) throw err;
+          console.log(`${filePath} created and data written!`);
+        });
+      } else {
+        // File exists, write to it
+        fs.truncate(filePath, 0, function (err) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          console.log(`${filePath} exists, writing data...`);
+          fs.writeFile(filePath, d, (err) => {
+            if (err) throw err;
+            console.log(`${filePath} updated with new data!`);
+          });
+        });
+      }
+    });
 });
 
 ipcMain.on(`display-app-menu`, function (e, args) {
