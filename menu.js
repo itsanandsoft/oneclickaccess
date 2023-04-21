@@ -38,19 +38,32 @@ const path = require('path');
 // });
 
  $(function() {
-  // document.body.addEventListener('click', function () {
-  //   // Your code here
-  //   alert("Body");
-  // });
+  const closeApp = document.getElementById('body');
+  closeApp.addEventListener('click', () => {
+      ipcRenderer.send('close-me')
+  });
+  document.body.addEventListener('click', function () {
+    // Your code here
+    alert("Body");
+  });
   
-  // // Close the window when the body is clicked, unless the click
-  // // happened inside the context menu element
-  // $('body').on('click', function(event) {
-  //   console.log("Body CLicked")
-  //   if (!$(event.target).hasClass('context-menu-one')) {
-  //     ipcRenderer.send('close-context-window');
-  //   }
-  // });
+  // Close the window when the body is clicked, unless the click
+  // happened inside the context menu element
+  $('body').on('click', function(event) {
+    console.log("Body CLicked")
+    if (!$(event.target).hasClass('context-menu-one')) {
+      ipcRenderer.send('close-context-window');
+    }
+  });
+});
+$(function() {
+  $('body').on('click', function(event) {
+    // Close the window unless the click happened inside the context menu element
+    if (!$(event.target).hasClass('context-menu-one')) {
+      //ipcRenderer.send('close-context-window');
+      alert("fds");
+    }
+  });
 });
 
 $(function() {

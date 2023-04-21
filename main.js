@@ -10,24 +10,16 @@ const {keyboard,Key,mouse,Point} = require("@nut-tree/nut-js");
 const { exec } = require('child_process');
 
 let x,y=null;
-menu_template = [
-  {
-    label: 'I\'m working on OneClickAccess with Electron JS',
-    click() {
-        clipboard.writeText('I\'m working on OneClickAccess with Electron JS')
-        mouse.setPosition(new Point(x,y));
-        mouse.leftClick();
-        if (process.platform === 'darwin') {
-          exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
-        } else if (process.platform === 'win32') {
-          keyboard.pressKey(Key.LeftControl, Key.V);
-          keyboard.releaseKey(Key.LeftControl, Key.V);
-        }
-        // mainWindow.hide()
-    }
-  }
-];
+
+const jsonFilePath = 'tree-data-2.json';
+const menu_template = JSON.parse(fs.readFileSync(jsonFilePath));
+
 let menu = null;
+const functionMap = {
+  menuItem1Clicked,
+  subItemClicked
+};
+
 
 app.whenReady().then(() => {
   createWindow();
@@ -98,9 +90,11 @@ function checkMachines(data, win) {
 }
 
 function createWindow() {
-  const win = new BrowserWindow({
-    width: 1000,
-    height: 600,
+  let menuWindow = new BrowserWindow({
+    width: 200,
+    height: 200,
+    x: x,
+    y: y,
     webPreferences: {
       preload: path.join(__dirname, '/preloads.js'),
       nodeIntegration: true,
@@ -112,31 +106,56 @@ function createWindow() {
     }
   })
 
+
+
   // win.removeMenu(true);
-  win.webContents.openDevTools();
-  win.loadFile(path.join(__dirname, '/index.html'));
-  // db.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
-  //   if (err) {
-  //     console.log(err)
-  //   }
-  //   if (data.length > 0) {
-  //     data = data[0];
-  //     checkMachines(data, win);
-  //   }
-  //   else {
-  //     win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
-  //   }
-  // });
+ // win.webContents.openDevTools();
+ // win.loadFile(path.join(__dirname, '/index.html'));
+        
+  db.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
+    if (err) {
+      console.log(err)
+    }
+    if (data.length > 0) {
+      data = data[0];
+      checkMachines(data, win);
+    }
+    else {
+      win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+    }
+  });
+
+  menuWindow.removeMenu(true);
+  menu = Menu.buildFromTemplate(menu_template);
+  try {
+    menu = Menu.buildFromTemplate(menu_template.map(item => {
+      if (item.click && functionMap[item.click]) {
+        item.click = functionMap[item.click];
+      }
+      if (item.submenu) {
+        attachClickHandlers(item.submenu)
+      }
+      return item;
+    }));
+  } catch (e) {
+    console.error(e)
+  }
+  // menuWindow.setMenu(menu);
+  menuWindow.removeMenu(true);
+  menuWindow.loadFile(path.join(__dirname, '/menu2.html'));
+  menuWindow.webContents.openDevTools()
 }
 
 
 function createMenuWindow (x,y) {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
       let menuWindow = new BrowserWindow({
-          width: width,
-          height: height,
+          width: 300,
+          height: 100,
+          x: x,
+          y: y,
           frame:false,
-          transparent: true,
+          transparent: false,
           
          
           webPreferences: {
@@ -148,76 +167,132 @@ function createMenuWindow (x,y) {
       // x: x,
       // y: y,
       menuWindow.removeMenu(true);
+      menu = Menu.buildFromTemplate(menu_template);
+      menu.forEach(item => {
+        console.log(item)
+        if (item.click) {
+          item.click = () => {
+            // Call the function specified in the click property
+            eval(item.click)();
+          };
+        }
+      });
+      // menuWindow.setMenu(menu);
+      menuWindow.loadFile(path.join(__dirname, '/menu2.html'));
+      menuWindow.webContents.openDevTools()
       // Set the background color to transparent
-      menuWindow.setBackgroundColor('#00000000');
+      //menuWindow.setBackgroundColor('#00000000');
 
       // Set the CSS to allow pointer events on children
-      menuWindow.webContents.insertCSS(`
-        body {
-          pointer-events: none;
-        }
+      // menuWindow.webContents.insertCSS(`
+      //   body {
+      //     pointer-events: none;
+      //   }
         
-        * {
-          pointer-events: auto;
-        }
-      `);
-      menu = Menu.buildFromTemplate(menu_template);
-      menuWindow.setMenu(menu);
-      menuWindow.loadFile(path.join(__dirname, '/menu.html'));
+      //   * {
+      //     pointer-events: auto;
+      //   }
+      // `);
+      // menu = Menu.buildFromTemplate(menu_template);
+      // menuWindow.setMenu(menu);
+      // menuWindow.loadFile(path.join(__dirname, '/menu.html'));
       
-      menuWindow.on('close', (event) => {
-          event.preventDefault();
-          menuWindow.hide()
-      });
-            // Set the position of the context menu window to the top of the screen
-        menuWindow.on('blur', () => {
-          // Hide the context menu window when it loses focus
-          menuWindow.hide()
-        })
+      // menuWindow.on('close', (event) => {
+      //     event.preventDefault();
+      //    // menuWindow.hide()
+      // });
+      //       // Set the position of the context menu window to the top of the screen
+      //   menuWindow.on('blur', () => {
+      //     // Hide the context menu window when it loses focus
+      //     //menuWindow.hide()
+      //   })
 
-        ipcMain.on('showContextMenu', () => {
-          // Show the context menu window when requested from the renderer process
-          menuWindow.show()
-        })
+      //   // Listen for 'click' events on the document.body element
+      //   menuWindow.webContents.on('click', (event, targetElement) => {
+      //     // If the click happened outside of the window
+      //     if (!menuWindow.getBounds().contains(event.x, event.y)) {
+      //       // Close the window
+      //      // menuWindow.close();
+      //     }
+      //   });
+      //   // Listen for any input event on the window
+      //   menuWindow.webContents.on('before-input-event', (event, input) => {
+      //     if (input.type !== 'mouseDown') {
+      //       // Close the window if the input event is not a mouse click event
+      //      // menuWindow.close();
+      //     }
+      //   });
+       
 
-        ipcMain.on('contextMenuSelection', (event, option) => {
-          // Handle the selected context menu option
-          console.log(`Selected option: ${option}`)
-          // You can perform any desired action here
-        })
+      //   ipcMain.on('showContextMenu', () => {
+      //     // Show the context menu window when requested from the renderer process
+      //     menuWindow.show()
+      //   })
 
-        // menuWindow.webContents.on('click', (event, targetElement) => {
-        //   console.log(`Clicked`)
-        //   // Exclude clicks on a div with id "exclude-me" or its descendants
-        //   // const excludeMe = document.getElementById('exclude-me');
-        //   // if (excludeMe.contains(targetElement)) {
-        //   //   return;
-        //   // }
+      //   ipcMain.on('contextMenuSelection', (event, option) => {
+      //     // Handle the selected context menu option
+      //     console.log(`Selected option: ${option}`)
+      //     // You can perform any desired action here
+      //   })
+
+      //   // menuWindow.webContents.on('click', (event, targetElement) => {
+      //   //   console.log(`Clicked`)
+      //   //   // Exclude clicks on a div with id "exclude-me" or its descendants
+      //   //   // const excludeMe = document.getElementById('exclude-me');
+      //   //   // if (excludeMe.contains(targetElement)) {
+      //   //   //   return;
+      //   //   // }
         
-        //   // Your code here
-        //   //menuWindow.hide()
-        // });
-        console.log('run');
-        menuWindow.once('ready-to-show', () => {
-          console.log('Clicked');
-        })
+      //   //   // Your code here
+      //   //   //menuWindow.hide()
+      //   // });
+      //   console.log('run');
+      //   menuWindow.once('ready-to-show', () => {
+      //     console.log('Clicked1');
+      //     menuWindow.webContents.on('click', (event, targetElement) => {
+      //       console.log('Clicked2');
+      //     });
+      //   })
         
         
-        menuWindow.webContents.on('did-finish-load', () => {
-          console.log('load');
-          menuWindow.webContents.on('click', (event, targetElement) => {
-            console.log('Clicked');
-          });
-        });
+      //   menuWindow.webContents.on('did-finish-load', () => {
+      //     console.log('load');
+      //     menuWindow.webContents.on('click', (event, targetElement) => {
+      //       console.log('Clicked2');
+      //     });
+      //   });
       
-      //menuWindow.webContents.openDevTools()
+      // menuWindow.webContents.openDevTools()
 }
+
+
+function menuItem1Clicked() {
+  console.log('Menu Item 1 clicked!');
+}
+function subItemClicked() {
+  console.log('Sub Item clicked!');
+}
+function attachClickHandlers(menuItems) {
+  menuItems.forEach(item => {
+    if (item.click && functionMap[item.click]) {
+      item.click = functionMap[item.click];
+    }
+    if (item.submenu) {
+      attachClickHandlers(item.submenu);
+    }
+  });
+}
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
 });
+
+ipcMain.on('close-me', (evt, arg) => {
+  app.quit()
+})
 
 ipcMain.on('close-window', () => {
   mainWindow.close();
