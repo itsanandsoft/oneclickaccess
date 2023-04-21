@@ -4,164 +4,24 @@
     <meta charset="UTF-8">
     <title>One Click Access</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <!-- CSS -->
-    <link rel="stylesheet" href="./assets/css/font-awesome4/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
-    <link href="./assets/css/styles.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="./assets/js/metro-ui/metro-all.min.css">
+    <script src="./assets/js/metro-ui/metro.js"></script>
     <script>window.$ = window.jQuery = require('jquery');</script>
-    <style>
-        html,
-        * {
-            font-family: 'Inter';
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #333;
-            line-height: 1.6;
-        }
-
-        .lead {
-            font-size: 1.5rem;
-            font-weight: 300;
-        }
-
-        .container {
-            margin: 150px auto;
-            max-width: 960px;
-            color: #fff;
-        }
-        .contextMenu {
-    --menu-border: rgba(255, 255, 255, 0.08);
-    --menu-bg: linear-gradient(
-      45deg,
-      rgba(10, 20, 28, 0.2) 0%,
-      rgba(10, 20, 28, 0.7) 100%
-    );
-    --item-border: rgba(255, 255, 255, 0.1);
-    --item-color: #fff;
-    --item-bg-hover: rgba(255, 255, 255, 0.1);
-    height: 0;
-    overflow: hidden;
-    background: var(--menu-bg);
-    -webkit-backdrop-filter: blur(5px);
-            backdrop-filter: blur(5px);
-    position: fixed;
-    top: var(--top);
-    left: var(--left);
-    -webkit-animation: menuAnimation 0.4s 0s both;
-            animation: menuAnimation 0.4s 0s both;
-    transform-origin: left;
-    list-style: none;
-    margin: 4px;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    z-index: 999999999;
-    box-shadow: 0 0 0 1px var(--menu-border), 0 2px 2px rgba(0, 0, 0, 0.03), 0 4px 4px rgba(0, 0, 0, 0.04), 0 10px 8px rgba(0, 0, 0, 0.05), 0 15px 15px rgba(0, 0, 0, 0.06), 0 30px 30px rgba(0, 0, 0, 0.07), 0 70px 65px rgba(0, 0, 0, 0.09);
-  }
-  .contextMenu-item {
-    padding: 4px;
-  }
-  .contextMenu-item[data-divider=top] {
-    border-top: 1px solid;
-  }
-  .contextMenu-item[data-divider=bottom] {
-    border-bottom: 1px solid;
-  }
-  .contextMenu-item[data-divider=top-bottom] {
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-  }
-  .contextMenu-item[data-divider] {
-    border-color: var(--item-border);
-  }
-  .contextMenu-button {
-    color: var(--item-color);
-    background: 0;
-    border: 0;
-    white-space: nowrap;
-    width: 100%;
-    border-radius: 4px;
-    padding: 6px 24px 6px 7px;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    width: 100%;
-    -webkit-animation: menuItemAnimation 0.2s 0s both;
-            animation: menuItemAnimation 0.2s 0s both;
-    font-family: "Inter", sans-serif;
-    cursor: pointer;
-  }
-  .contextMenu-button:hover {
-    background-color: var(--item-bg-hover);
-  }
-  .contextMenu[data-theme=light] {
-    --menu-bg: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0.85) 100%
-    );
-    --menu-border: rgba(0, 0, 0, 0.08);
-    --item-border: rgba(0, 0, 0, 0.1);
-    --item-color: rgb(10, 20, 28);
-    --item-bg-hover: rgba(10, 20, 28, 0.09);
-  }
-  
-  @-webkit-keyframes menuAnimation {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    100% {
-      height: var(--height);
-      opacity: 1;
-      border-radius: 8px;
-      transform: scale(1);
-    }
-  }
-  
-  @keyframes menuAnimation {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    100% {
-      height: var(--height);
-      opacity: 1;
-      border-radius: 8px;
-      transform: scale(1);
-    }
-  }
-  @-webkit-keyframes menuItemAnimation {
-    0% {
-      opacity: 0;
-      transform: translateX(-10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  @keyframes menuItemAnimation {
-    0% {
-      opacity: 0;
-      transform: translateX(-10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-    </style>
 </head>
 
 <body>
-    <ul class="contextMenu" data-theme="light">
+  <div class="main_menu">
+  <div class="pos-relative">
+    <ul class="ribbon-dropdown">
+    <li class="simple"><a href="#" class="text-decoration-none" id="context-menu" style="width:100px !important">Menu</a></li>
+    <li class="simple"><a href="#" class="text-decoration-none" id="context-cancel" style="width:100px !important">Cancel</a></li>
+  </ul>
+  </div>
+</div>
+    <!-- <ul class="contextMenu" data-theme="light">
         <li class="contextMenu-item">
-            <button class="contextMenu-button" style="animation-delay: 0s" id="context-menu">
+            <button class="contextMenu-button" style="animation-delay: 0s" id="">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" style="margin-right: 10px; position: relative; top: -1px" width="13" height="13" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M0 107.081a16 16 0 0 1 16-16h480a16 16 0 0 1 0 32H16a16 16 0 0 1-16-16zM496 240H16a16 16 0 0 0 0 32h480a16 16 0 0 0 0-32zM256 388.919H16a16 16 0 0 0 0 32h240a16 16 0 0 0 0-32z" fill="#000000" data-original="#000000" class=""></path></g></svg>
                 Menu
             </button>
@@ -172,15 +32,16 @@
                 Cancel
             </button>
         </li>
+    </ul> -->
+  <script>
+      const {ipcRenderer} = require('electron')
 
-    <script>
-        const {ipcRenderer} = require('electron')
-
-        $('#context-menu').on('click',function(event){
-            ipcRenderer.send('display-app-menu',{x : event.clientX,y : event.clientY})
-            console.log('working')
-        });
-    </script>
+      $('#context-menu').on('click',function(event){
+          ipcRenderer.send('display-app-menu',{x : event.clientX,y : event.clientY});
+      });
+      $('#context-cancel').on('click',function(event){
+          ipcRenderer.send('close-app-menu');
+      });
+  </script>
 </body>
-
 </html>

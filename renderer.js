@@ -1021,6 +1021,14 @@ $(function() {
             }
         });
     });
+    $('#search-btn').on('click',function(){
+      if($('.search-dropdown').is(':hidden')){
+        $('.search-dropdown').show();
+      }
+      else{
+        $('.search-dropdown').hide();
+      }
+    });
     
  
     

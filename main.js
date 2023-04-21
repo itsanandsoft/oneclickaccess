@@ -83,8 +83,8 @@ function checkMachines(data, win) {
 
 function createWindow() {
   let win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 960,
+    height: 400,
     webPreferences: {
       preload: path.join(__dirname, '/preloads.js'),
       nodeIntegration: true,
@@ -110,7 +110,8 @@ function createWindow() {
 
     }
   });
-  // menuWindow.webContents.openDevTools();
+    win.removeMenu(true);
+  // win.webContents.openDevTools();
 }
 
 function createMenuWindow(x, y) {
@@ -229,10 +230,11 @@ function createMenuWindow(x, y) {
 
 function createElectronMenu(x, y) {
   menuWindow  = new BrowserWindow({
-    width: 200,
-    height: 200,
+    width: 132,
+    height: 54,
     x: x,
     y: y,
+    frame:false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -263,7 +265,9 @@ function itemClicked(item) {
     keyboard.pressKey(Key.LeftControl, Key.V);
     keyboard.releaseKey(Key.LeftControl, Key.V);
   }
-  menuWindow.close();
+  if(!menuWindow.isDestroyed()){
+    menuWindow.close();
+  }
 }
 
 function attachClickHandlers(menuItems) {
@@ -429,4 +433,10 @@ ipcMain.on(`display-app-menu`, function (e, args) {
     x: args.x,
     y: args.y
   });
+});
+
+ipcMain.on(`close-app-menu`, function (e) {
+  if(!menuWindow.isDestroyed()){
+    menuWindow.close();
+  }
 });
