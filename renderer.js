@@ -283,7 +283,14 @@ const { ipcRenderer } = require("electron");
               logEvent(event, data);
               var node = $.ui.fancytree.getTree("#tree").getActiveNode();
               if( node ){
-                openChildClickValueDialog(node);
+                if(node.type)
+                {
+                  editImgFileFolder(node);
+                }
+                else
+                {
+                  openChildClickValueDialog(node);
+                }
                 console.log("Currently active: " + node.title);
               }else{
                 console.log("No active node.");
@@ -950,10 +957,13 @@ $(function() {
     node.setTitle(node.title + ", " + new Date()); });
 
     $('#main_file_save').click(function(){ 
-      
       var tree = $.ui.fancytree.getTree("#tree");
-			var d = tree.toDict(true);
-      showSaveFileDialog(JSON.stringify(d))
+      var da = tree.toDict(true);
+      var d = JSON.stringify(da);
+      const jsonObj = JSON.parse(d);
+      const children = jsonObj.children;
+      const newJsonStr = JSON.stringify(children);
+      showSaveFileDialog(newJsonStr)
       
 
      });
@@ -981,6 +991,33 @@ $(function() {
     });
 
     $('#main_file_import').click(function(){ 
+      ipcRenderer.invoke('import-data', 5)
+      .then(result => {
+        ipcRenderer.invoke('show-message-box', {
+          type: 'question',
+          buttons: ['Yes', 'No'],
+          title: 'Confirmation',
+          message: 'Are you sure you want to import this data?'
+        }).then((response) => {
+          if (response === 0) {
+            // User clicked 'Yes' button
+            console.log('User confirmed');
+            $.ui.fancytree.getTree("#tree").reload(result).done(function(){
+              ipcRenderer.invoke("saveData", JSON.stringify(result));
+              alert("Data Imported");
+            });
+          } else {
+            // User clicked 'No' button or closed the dialog
+            console.log('User cancelled');
+          }
+        }).catch((err) => {
+          console.log(err);
+        });
+
+      })
+      .catch(error => {
+        console.error(error)
+      })
     });
     $('#main_file_selective_export').click(function(){ 
       exportSelectedDialog();
@@ -989,10 +1026,33 @@ $(function() {
       }, 500);
     });
     $('#main_file_backup').click(function(){ 
+      var tree = $.ui.fancytree.getTree("#tree");
+      var da = tree.toDict(true);
+      var d = JSON.stringify(da);
+      const jsonObj = JSON.parse(d);
+      const children = jsonObj.children;
+      const newJsonStr = JSON.stringify(children);
+      ipcRenderer.invoke("backupDialog", newJsonStr);
+    
+      
     });
     $('#main_file_notpad').click(function(){ 
+      ipcRenderer.send("openTextEditor");
+      
     });
     $('#main_file_setting_topmost').click(function(){ 
+      const element = document.getElementById('main_file_setting_topmost_li');
+      if (element.classList.contains("simple")) {
+        // classList contains "simple", replace with "checked"
+        element.classList.remove("simple");
+        element.classList.add("checked");
+
+      } else {
+        // classList contains "checked", replace with "simple"
+        element.classList.remove("checked");
+        element.classList.add("simple");
+      }
+      ipcRenderer.send("topmostToggle");
     });
     $('#main_file_start_system_window').click(function(){ 
     });
@@ -1018,7 +1078,20 @@ $(function() {
     $('#main_add_input').click(function(){ 
       var tree = $.ui.fancytree.getTree("#tree"),
 				node = tree.getActiveNode();
-				newData = {title: "..."};
+				newData = {title: "...",type:"text",icon:"text.png"};
+        if( node )
+        {
+				  newSibling = node.addChildren(newData);
+        }
+        else
+        {
+          $.ui.fancytree.getTree("#tree").getRootNode().addChildren(newData);
+        }
+    });
+    $('#main_add_parent').click(function(){ 
+      var tree = $.ui.fancytree.getTree("#tree"),
+				node = tree.getRootNode();
+				newData = {title: "...",type:"text",icon:"text.png"};
         if( node )
         {
 				  newSibling = node.addChildren(newData);
@@ -1037,38 +1110,42 @@ $(function() {
 
       var tree = $.ui.fancytree.getTree("#tree"),
 				node = tree.getActiveNode();
-				newData = {title: "...",type:"text"};
+				newData = {title: "...",type:"text",icon:"text.png"};
         if( node )
         {
 				  newSibling = node.addChildren(newData);
+          //newSibling.extraClasses = "custom1";
+         // newSibling.renderTitle();
+          //newSibling.icon = "text.png";
+          //newSibling.renderTitle();
         }
         else
         {
-          $.ui.fancytree.getTree("#tree").getRootNode().addChildren(newData);
+          newnode = $.ui.fancytree.getTree("#tree").getRootNode().addChildren(newData);
+         // newnode.extraClasses = "custom1";
+         // newnode.renderTitle();
+         // newnode.icon = "text.png";
+         // newnode.renderTitle();
         }
     });
     $('#main_add_image').click(function(){ 
-      var tree = $.ui.fancytree.getTree("#tree"),
-      node = tree.getActiveNode();
-      newData = {title: "img",type:"image"};
-      if( node )
-      {
-        newSibling = node.addChildren(newData);
-      }
-      else
-      {
-        $.ui.fancytree.getTree("#tree").getRootNode().addChildren(newData);
-      }
+      getImgFileFolder('image');
+
     });
     $('#main_add_file').click(function(){ 
+      getImgFileFolder('file');
     });
     $('#main_add_folder').click(function(){ 
+      getImgFileFolder('folder');
     });
     $('#main_add_excel_import_contacts').click(function(){ 
+     getExcelData(false);
     });
     $('#main_add_excel_import_ccredentials').click(function(){ 
+      getExcelData(true);
     });
     $('#main_add_excel_import_others').click(function(){ 
+      getExcelData(false);
     });
     $('#main_refresh').click(function(){ 
       var filePath = path.join(__dirname, 'tree-data.json');
@@ -1185,7 +1262,7 @@ function openAboutDialog(){
 function exportSelectedDialog(){
   Metro.dialog.create({
       title: "Export Selected Dialog",
-      content: '<div class="fixed-size"><div id="tree2" data-source="ajax" class="sampletree"></div></div>',
+      content: '<div class="fixed-size-2"><div id="tree2" data-source="ajax" class="sampletree"></div></div>',
       actions: [
         {
           caption: "Cancel",
@@ -1467,4 +1544,159 @@ function treeDataChangeEvent(){
     // Fancytree is not initialized or data is not loaded
   }
  
+}
+
+function convertCredentialToTreeNodes(data) {
+  const rootNode = {title: 'Root', children: []};
+  let mainNode = null;
+  let passwordNode = null;
+
+  for (let i = 0; i < data.length; i++) {
+    let row = data[i];
+
+    // Column 1: main node
+    let mainValue = row[0];
+    if (mainValue) {
+      mainNode = {title: mainValue, children: []};
+      rootNode.children.push(mainNode);
+      passwordNode = null;
+    }
+
+    // Column 2: child of main
+    let childValue = row[1];
+    if (childValue) {
+      let childNode = {title: childValue, children: []};
+      mainNode.children.push(childNode);
+      passwordNode = null;
+    }
+
+    // Column 3: child of main
+    let child2Value = row[2];
+    if (child2Value) {
+      let child2Node = {title: child2Value, children: []};
+      mainNode.children.push(child2Node);
+      passwordNode = null;
+    }
+
+    // Password node child of main
+    if (row[3] && !passwordNode) {
+      passwordNode = {title: 'Password', children: []};
+      mainNode.children.push(passwordNode);
+    }
+
+    // Column 4: child of password
+    let child3Value = row[3];
+    if (child3Value && passwordNode) {
+      let child3Node = {title: child3Value};
+      passwordNode.children.push(child3Node);
+    }
+  }
+
+  return rootNode.children;
+}
+
+
+function getExcelData(isCredentials)
+{
+    ipcRenderer.invoke('get-excel-data', 5)
+    .then(result => {
+      var data;
+      if(isCredentials)
+      {data = convertCredentialToTreeNodes(result);}
+      else
+      {data = convertToTreeNodes(result);}
+      var tree = $.ui.fancytree.getTree("#tree"),
+      node = tree.getActiveNode();
+      if( node )
+      { newSibling = node.addChildren(data);      }
+      else
+      { newnode = $.ui.fancytree.getTree("#tree").getRootNode().addChildren(data);}
+      console.log(data) 
+    })
+    .catch(error => {
+      console.error(error)
+    })
+}
+
+function convertToTreeNodes(data) {
+  const rootNode = {title: 'Root', children: []};
+
+  for (let i = 0; i < data.length; i++) {
+    let row = data[i];
+    let parent = rootNode;
+    
+    for (let j = 0; j < row.length; j++) {
+      let columnValue = row[j];
+      
+      if (!columnValue) {
+        // Ignore empty cells
+        continue;
+      }
+      
+      let existingNode = findNodeByTitle(parent, columnValue);
+      
+      if (existingNode) {
+        // If node already exists, use it as the parent for the next column
+        parent = existingNode;
+      } else {
+        // Otherwise, create a new node and add it to the parent
+        let newNode = {title: columnValue, children: []};
+        parent.children.push(newNode);
+        parent = newNode;
+      }
+    }
+  }
+
+  return rootNode.children;
+}
+
+function findNodeByTitle(node, title) {
+  if (node.title === title) {
+    return node;
+  } else {
+    for (let i = 0; i < node.children.length; i++) {
+      let foundNode = findNodeByTitle(node.children[i], title);
+      
+      if (foundNode) {
+        return foundNode;
+      }
+    }
+    
+    return null;
+  }
+}
+
+function getImgFileFolder(type)
+{
+  ipcRenderer.invoke('get-file-folder', type)
+  .then(result => {
+    var tree = $.ui.fancytree.getTree("#tree"),
+    node = tree.getActiveNode();
+    if( node )
+    { newSibling = node.addChildren(result);      }
+    else
+    { newnode = $.ui.fancytree.getTree("#tree").getRootNode().addChildren(result);}
+    console.log(result) 
+  })
+  .catch(error => {
+    console.error(error)
+  })
+}
+
+function editImgFileFolder(node)
+{
+  console.log(JSON.parse(node));
+  // ipcRenderer.invoke('edit-file-folder',  node.path , node.title, node.type)
+  // .then(result => {
+  //   if( node.data.icon != "error.png" )
+  //   {  node.data.path = result.path;
+  //     node.data.title = result.title;
+  //     node.data.icon = result.icon;
+  //     alert("Node "+node.type.toUpperCase()+" Updated");
+  //   }
+  //   console.log(result) 
+  // })
+  // .catch(error => {
+  //   console.error(error)
+  // })
 }

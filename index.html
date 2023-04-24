@@ -59,7 +59,7 @@
         }
         .fixed-size-2 {
           width: 100%;
-          height: 350px;
+          height: 300px;
           overflow: auto;
           position: relative;
           margin-top:30px
@@ -86,7 +86,7 @@
                 <li class="simple"><a href="#" class="text-decoration-none" id="main_file_notpad">Notpad</a></li>
                 <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Settings</a>
                     <ul class="ribbon-dropdown" data-role="dropdown">
-                        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_setting_topmost">Topmost</a></li>
+                        <li class="simple" id="main_file_setting_topmost_li"><a href="#" class="text-decoration-none" id="main_file_setting_topmost">Topmost</a></li>
                         <li class="simple dropdown-toggle" ><a href="#" class="text-decoration-none">Start With System</a>
                             <ul class="ribbon-dropdown" data-role="dropdown">
                                 <li class="simple"><a href="#" class="text-decoration-none" id="main_file_start_system_window">Windows</a></li>
@@ -106,6 +106,7 @@
             </ul>
         </div>
         <button class="button flat-button small" id="main_add_input">Add Input</button>
+        <button class="button flat-button small" id="main_add_parent">Add Main</button>
         <button class="button flat-button small" id="main_remove">Remove</button>
         <!-- <button class="button flat-button small" id="main_move">Move</button> -->
         <div class="pos-relative">
@@ -116,7 +117,7 @@
                 <li class="simple"><a href="#" class="text-decoration-none" id="main_add_file">File</a></li>
                 <li class="simple"><a href="#" class="text-decoration-none" id="main_add_folder">Folder</a></li>
                 <li class="simple"><a href="#" id="add_current_datetime" class="text-decoration-none">Current Date and Time</a></li>
-                <li class="simple dropdown-toggle"><a href="#">From Excel</a>
+                <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none" >From Excel</a>
                     <ul class="ribbon-dropdown" data-role="dropdown">
                         <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_contacts">Import Contacts</a></li>
                         <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_ccredentials">Import Credentials</a></li>

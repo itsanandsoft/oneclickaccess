@@ -8,10 +8,15 @@ const fs = require('fs');
 const https = require('https');
 const { keyboard, Key, mouse, Point } = require("@nut-tree/nut-js");
 const { exec } = require('child_process');
+const { spawn } = require('child_process');
+const os = require('os');
+const XLSX = require('xlsx');
+const { promisify } = require('util');
+
 
 let x, y = null;
 const jsonFilePath = path.join(__dirname, '/tree-data.json');
-let mainWindow,menuWindow;
+let win,menuWindow;
 let menu = null;
 let notification = null;
 let tray = null
@@ -315,7 +320,7 @@ function fancytreeToContextmenuJson(fancytreeJson) {
   function convertNode(node) {
     const convertedNode = {
       label: node.title,
-      key: node.key,
+    //  key: node.key,
       title: node.title,
     };
 
@@ -355,14 +360,14 @@ ipcMain.on('close-me', (evt, arg) => {
 })
 
 ipcMain.on('close-window', () => {
-  mainWindow.close();
+  win.close();
 });
 
-ipcMain.on('close-context-window', () => {
-  const window = remote.getCurrentWindow();
-  //window.show();
-  window.close();
-});
+// ipcMain.on('close-context-window', () => {
+//   const window = remote.getCurrentWindow();
+//   //window.show();
+//   window.close();
+// });
 
 ipcMain.on('insertToTable', (event, args) => {
   db.insertToTable(args.tableName, args.data);
@@ -372,6 +377,30 @@ ipcMain.on('relaunch', (event, args) => {
   app.relaunch()
   app.exit()
 });
+ipcMain.on('relaunch', (event, args) => {
+  app.relaunch()
+  app.exit()
+});
+
+ipcMain.on('openTextEditor', (event, args) => {
+  const editor = os.platform() === 'win32' ? 'notepad.exe' : 'gedit';
+  const argss = os.platform() === 'win32' ? [] : ['--new-window'];
+  spawn(editor, argss, {
+    detached: true,
+    stdio: 'ignore'
+  }).unref();
+});
+
+ipcMain.handle("topmostToggle", (e, d) => {
+  const mainWindow = BrowserWindow.getFocusedWindow();
+  if (mainWindow.isAlwaysOnTop()) {
+    mainWindow.setAlwaysOnTop(false);
+  } else {
+    mainWindow.setAlwaysOnTop(true);
+  }
+});
+
+
 
 ipcMain.handle("showDialog", (e, d) => {
   var filePath = path.join(__dirname, '/new_file.json');
@@ -456,6 +485,57 @@ ipcMain.handle("saveData", (e, d) => {
   });
 });
 
+
+ipcMain.handle("backupDialog", (e, d) => {
+  
+  const now = new Date();
+  const backupFileName = `backup_${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}_${now.getHours().toString().padStart(2,'0')}${now.getMinutes().toString().padStart(2,'0')}${now.getSeconds().toString().padStart(2,'0')}.bin`;
+  var filePath = path.join(__dirname, backupFileName);
+  
+  dialog.showSaveDialog({
+    title: 'Save Backup File',
+    defaultPath: filePath,
+    buttonLabel: 'Save Backup',
+    filters: [
+      { name: 'Binary File', extensions: ['bin'] }
+    ]
+  }).then(result => {
+    if (!result.canceled) {
+      const filePath = result.filePath;
+      // Do something with the file path, e.g. write data to file
+      // Check if file exists
+      fs.access(filePath, fs.constants.F_OK, (err) => {
+        if (err) {
+          // File does not exist, create it
+          console.log(`${filePath} does not exist, creating...`);
+          fs.writeFile(filePath, d, {encoding: 'binary'}, (err) => {
+            if (err) throw err;
+            console.log(`${filePath} created and data written!`);
+          });
+        } else {
+          // File exists, write to it
+          fs.truncate(filePath, 0, function (err) {
+            if (err) {
+              console.error(err);
+              return;
+            }
+            console.log(`${filePath} exists, writing data...`);
+            fs.writeFile(filePath, d, {encoding: 'binary'}, (err) => {
+              if (err) throw err;
+              console.log(`${filePath} updated with new data!`);
+            });
+          });
+        }
+      });
+     
+    }
+  }).catch(err => {
+    alert("Error in Save Dialog!");
+    console.log(err);
+  });
+});
+
+
 ipcMain.on(`display-app-menu`, function (e, args) {
   menu.popup({
     x: args.x,
@@ -467,4 +547,166 @@ ipcMain.on(`close-app-menu`, function (e) {
   if(!menuWindow.isDestroyed()){
     menuWindow.close();
   }
+});
+
+ipcMain.handle('get-excel-data', async (event, arg) => {
+  const result = await dialog.showOpenDialog({
+    title: 'Select Excel file',
+    filters: [
+      { name: 'Excel Files', extensions: ['xlsx', 'xls'] }
+    ]
+  });
+
+  // result.canceled is true if the user closes the dialog without selecting a file
+  if (result.canceled) {
+    throw new Error('No file selected');
+  }
+
+  const filePath = result.filePaths[0]
+  // Do something with the selected file
+  const workbook = XLSX.readFile(filePath);
+  const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+  const data = XLSX.utils.sheet_to_json(worksheet, {header: 1, raw: false});
+  
+  console.log(`Selected file: ${filePath}`);
+  return data;
+});
+
+
+
+
+ipcMain.handle('get-file-folder', async (event, type ) => {
+  
+  var typeDialog;
+    if(type == "image")
+    {
+      typeDialog = {
+        title: 'Select Image file',
+        filters: [
+          { name: 'Image Files', extensions: ['jpg', 'png', 'gif'] }
+        ],
+        properties: ['openFile']
+        };
+  }
+    else if(type == "folder")
+    {
+      typeDialog = {
+        title: 'Select Folder',
+        properties: ['openDirectory']
+      };
+    }
+    else
+    {
+      typeDialog = {
+        title: 'Select File',
+        properties: ['openFile']
+      };
+    }
+     const result = await dialog.showOpenDialog(typeDialog);
+      // result.canceled is true if the user closes the dialog without selecting a file
+      if (result.canceled) {
+        throw new Error('No file selected');
+      }
+      const filePath = result.filePaths[0];
+      console.log(`Selected file: ${filePath}`);
+      var pathStr = filePath.toString();
+      const fileName = path.basename(filePath);
+      var icon = type+".png";
+      return newData = {title: fileName,type:type,icon:icon,path:pathStr};
+});
+
+
+ipcMain.handle('edit-file-folder', async (event, path , title, type ) => {
+  console.log(type);
+  //const defaultPath = path
+
+// if (fs.existsSync(defaultPath)) {
+ 
+//   var typeDialog;
+//     if(type == "image")
+//     {
+//       typeDialog = {
+//         title: 'Update Image file',
+//         filters: [
+//           { name: 'Image Files', extensions: ['jpg', 'png', 'gif'] }
+//         ],
+//         defaultPath: defaultPath,
+//         properties: ['openFile']
+//         };
+//   }
+//     else if(type == "folder")
+//     {
+//       typeDialog = {
+//         title: 'Update Folder',
+//         defaultPath: defaultPath,
+//         properties: ['openDirectory']
+//       };
+//     }
+//     else
+//     {
+//       typeDialog = {
+//         title: 'Update File',
+//         defaultPath: defaultPath,
+//         properties: ['openFile']
+//       };
+//     }
+//      const result = await dialog.showOpenDialog(typeDialog);
+//       // result.canceled is true if the user closes the dialog without selecting a file
+//       if (result.canceled) {
+//         throw new Error('No file selected');
+//       }
+//       const filePath = result.filePaths[0];
+//       console.log(`Selected file: ${filePath}`);
+//       var pathStr = filePath.toString();
+//       const fileName = path.basename(filePath);
+//       var icon = type+".png";
+//       return newData = {title: fileName,type:type,icon:icon,path:pathStr};
+
+// } else {
+//   dialog.showErrorBox('Error', 'File or Folder path does not exist. It must be deleted or moved');
+//   return newData = {title: title,type:type,icon:"error.png",path:path};
+
+// }
+});
+
+
+ipcMain.handle('import-data', async (event, arg) => {
+  const readFileAsync = promisify(fs.readFile);
+  const result = await dialog.showOpenDialog({
+    title: 'Select a file',
+    filters: [
+      { name: 'JSON Files', extensions: ['json'] },
+      { name: 'Binary Files', extensions: ['bin'] },
+    ]
+  });
+
+  // result.canceled is true if the user closes the dialog without selecting a file
+  if (result.canceled) {
+    throw new Error('No file selected');
+  }
+
+  const filePath = result.filePaths[0];
+  const fileExtension = path.extname(filePath);
+
+  let data = null;
+
+  if (fileExtension === '.json') {
+    const fileData = await readFileAsync(filePath);
+    data = JSON.parse(fileData);
+  } else if (fileExtension === '.bin') {
+    const fileData = await readFileAsync(filePath);
+    data = JSON.parse(fileData);
+  } else {
+    throw new Error('Unsupported file type');
+  }
+
+  console.log(`Selected file: ${filePath}`);
+  return data;
+  
+ 
+});
+
+ipcMain.handle('show-message-box', async (event, options) => {
+  const response = await dialog.showMessageBox(options);
+  return response.response;
 });

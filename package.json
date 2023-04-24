@@ -18,7 +18,8 @@
     "macaddress": "^0.5.3",
     "sqlite": "^4.1.2",
     "sqlite3": "^5.1.6",
-    "ui-contextmenu": "^1.18.1"
+    "ui-contextmenu": "^1.18.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "electron": "^23.2.2",
