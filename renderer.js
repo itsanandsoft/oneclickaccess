@@ -283,14 +283,14 @@ const { ipcRenderer } = require("electron");
               logEvent(event, data);
               var node = $.ui.fancytree.getTree("#tree").getActiveNode();
               if( node ){
-                if(node.type)
-                {
-                  editImgFileFolder(node);
-                }
-                else
-                {
+               // if(node.type)
+               // {
+               //   editImgFileFolder(node);
+               // }
+               // else
+               // {
                   openChildClickValueDialog(node);
-                }
+                //}
                 console.log("Currently active: " + node.title);
               }else{
                 console.log("No active node.");
