@@ -283,14 +283,14 @@ const { ipcRenderer } = require("electron");
               logEvent(event, data);
               var node = $.ui.fancytree.getTree("#tree").getActiveNode();
               if( node ){
-                if(node.type)
-                {
-                  editImgFileFolder(node);
-                }
-                else
-                {
+                //if(node.type)
+                //{
+                //  editImgFileFolder(node);
+                //}
+                //else
+                //{
                   openChildClickValueDialog(node);
-                }
+                //}
                 console.log("Currently active: " + node.title);
               }else{
                 console.log("No active node.");
@@ -950,11 +950,23 @@ function logEvent(event, data, msg){
 
 $(function() {
 
+  $('#timezone-select').on('change', function() {
+    var selectedOptionValue = $(this).val();
+    $('#timezone-label').text((selectedOptionValue+":00").replace('UTC', ''));
+  });
   
   $('#add_current_datetime').click(function(){ 
      var node = $.ui.fancytree.getTree("#tree").getActiveNode();
     if( !node ) return;
-    node.setTitle(node.title + ", " + new Date()); });
+
+        // Set a custom UTC timezone value
+    var customUtcOffset = $('#timezone-select').val().replace('UTC', '');
+    // Create a Date object with the custom UTC timezone value
+    var customDate = new Date(Date.UTC(2023, 3, 26, 12, 0, 0) + (customUtcOffset * 60 * 60 * 1000));
+    // Output the date and time in ISO format
+    //console.log(customDate.toISOString());
+
+    node.setTitle(node.title + ", " + customDate); });
 
     $('#main_file_save').click(function(){ 
       var tree = $.ui.fancytree.getTree("#tree");
