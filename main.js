@@ -13,6 +13,13 @@ const os = require('os');
 const XLSX = require('xlsx');
 const { promisify } = require('util');
 
+const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
+console.log = (message) => {
+  logFile.write(`${new Date().toISOString()}: ${message}\n`);
+};
+
+
+
 
 let x, y = null;
 const jsonFilePath = path.join(__dirname, '/tree-data.json');
@@ -102,14 +109,18 @@ function createWindow() {
       // allowDisplayingInsecureContent: true
     }
   })
-
+  try {
+    // Your code here
+      
   db.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
     if (err) {
       console.log(err)
     }
     if (data.length > 0) {
       data = data[0];
-      checkMachines(data, win);
+      //checkMachines(data, win);
+      win.loadFile(path.join(__dirname, '/index.html'));
+
     }
     else {
       // win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
@@ -117,9 +128,14 @@ function createWindow() {
 
     }
   });
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
 
+  //checkMachines(data, win);
+ // win.loadFile(path.join(__dirname, '/index.html'));
   win.webContents.openDevTools();
-  win.removeMenu(true);
+ win.removeMenu(true);
   
   win.on('close', (event) => {
     event.preventDefault();
