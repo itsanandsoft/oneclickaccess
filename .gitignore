@@ -2,3 +2,4 @@ node_modules/
 hds.txt
 mac.txt
 build
+bin/

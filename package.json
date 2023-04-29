@@ -16,8 +16,6 @@
     "jquery-contextmenu": "^2.9.2",
     "jquery.fancytree": "^2.38.3",
     "macaddress": "^0.5.3",
-    "sqlite": "^4.1.2",
-    "sqlite3": "^5.1.6",
     "ui-contextmenu": "^1.18.1",
     "xlsx": "^0.18.5"
   },

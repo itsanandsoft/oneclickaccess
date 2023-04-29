@@ -1,9 +1,11 @@
-const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard,Tray,Notification } = require('electron')
+const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard,Tray,Notification,accelerator } = require('electron')
 const path = require('path')
 const config = require(path.join(__dirname, '/config/app'));
-const SQLiteHelper = require(path.join(__dirname, '/database/SQLiteHelper'));
+//const SQLiteHelper = require(path.join(__dirname, '/database/SQLiteHelper'));
 const createMacAddressFiles = require(path.join(__dirname, '/assets/js/macadd-handler'));
-const db = new SQLiteHelper();
+//const db = new SQLiteHelper();
+const JsonHelper = require(path.join(__dirname, '/database/JsonHelper'));
+const data = new JsonHelper();
 const fs = require('fs');
 const https = require('https');
 const { keyboard, Key, mouse, Point } = require("@nut-tree/nut-js");
@@ -12,12 +14,12 @@ const { spawn } = require('child_process');
 const os = require('os');
 const XLSX = require('xlsx');
 const { promisify } = require('util');
+const url = require('url');
 
-const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
-console.log = (message) => {
-  logFile.write(`${new Date().toISOString()}: ${message}\n`);
-};
-
+// const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
+// console.log = (message) => {
+//   logFile.write(`${new Date().toISOString()}: ${message}\n`);
+// };
 
 
 
@@ -35,13 +37,45 @@ app.whenReady().then(() => {
   createMacAddressFiles();
   createWindow();
 
-  const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
-    x = screen.getCursorScreenPoint().x;
-    y = screen.getCursorScreenPoint().y;
-    createElectronMenu(x + 10, y);
+  // const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
+  //   x = screen.getCursorScreenPoint().x;
+  //   y = screen.getCursorScreenPoint().y;
+  //   createElectronMenu(x + 10, y);
+  // });
+
+  
+
+  const shortcutModifierKeys = globalShortcut.register('CommandOrControl+Q', () => {
+    console.log("hahaha");
+    // Get a list of all possible modifier keys on the current platform
+
+            
+        const modifierKeys = [
+          'Shift',
+          'Alt',
+          'Control',
+          'Meta',
+          'Super',
+          'Hyper',
+          'Symbol',
+          'Fn',
+        ];
+
+        const allModifierKeys = modifierKeys.filter((key) => {
+          let isRegistered = false;
+          for (let i = 0; i < 10; i++) {
+            isRegistered = globalShortcut.isRegistered(`${key}+${i}`);
+            if (isRegistered) break;
+          }
+          return isRegistered;
+        });
+
+        console.log(allModifierKeys);
   });
 
-  if (!shortcut) { console.log('Registration failed.'); }
+   
+
+  if (!shortcutModifierKeys) { console.log('Registration failed.'); }
 
 });
 
@@ -96,7 +130,7 @@ function checkMachines(data, win) {
 }
 
 function createWindow() {
-  let win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 960,
     height: 500,
     webPreferences: {
@@ -109,28 +143,22 @@ function createWindow() {
       // allowDisplayingInsecureContent: true
     }
   })
-  try {
-    // Your code here
-      
-  db.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
+
+    data.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
     if (err) {
       console.log(err)
     }
     if (data.length > 0) {
       data = data[0];
-      //checkMachines(data, win);
-      win.loadFile(path.join(__dirname, '/index.html'));
-
+      checkMachines(data, win);
     }
     else {
-      // win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+       //win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
       win.loadFile(path.join(__dirname, '/index.html'));
-
+      
     }
   });
-  } catch (error) {
-    console.log(`Error: ${error}`);
-  }
+ 
 
   //checkMachines(data, win);
  // win.loadFile(path.join(__dirname, '/index.html'));
@@ -160,6 +188,12 @@ function createWindow() {
     });
     notification.show();
   });
+
+  // win.once('ready-to-show', () => {
+  //       console.log('ready-to-show');
+  //       const modifierKeys = accelerator.getModifierState();
+  //       console.log(modifierKeys); 
+  //     });
 }
 
 function createMenuWindow(x, y) {
@@ -386,7 +420,7 @@ ipcMain.on('close-window', () => {
 // });
 
 ipcMain.on('insertToTable', (event, args) => {
-  db.insertToTable(args.tableName, args.data);
+  data.insertToTable(args.tableName, args.data);
 });
 
 ipcMain.on('relaunch', (event, args) => {

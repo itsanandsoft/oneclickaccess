@@ -505,13 +505,13 @@ const { ipcRenderer } = require("electron");
 
           var tree = $.ui.fancytree.getTree("#tree");
 
-          tree.fancytree("getTree").bind("change", function(event, data){
-            // Check if the change was an add or remove action
-            if(data && (data.action === "addNode" || data.action === "removeNode")){
-              // Perform your action here
-              alert("Node added or removed!");
-            }
-          });
+          // tree.fancytree("getTree").bind("change", function(event, data){
+          //   // Check if the change was an add or remove action
+          //   if(data && (data.action === "addNode" || data.action === "removeNode")){
+          //     // Perform your action here
+          //     alert("Node added or removed!");
+          //   }
+          // });
           // Bind an event listener for the 'change' event
           // tree.bind("change", function(event, data){
           //   alert("hahah");
@@ -1071,6 +1071,7 @@ $(function() {
     $('#main_file_setting_incognito').click(function(){ 
     });
     $('#main_file_setting_color_top_menu').click(function(){
+     
       openColorTopMenuDialog(); 
       setTimeout(function(){
        // initializetree2();
@@ -1512,11 +1513,16 @@ function initializetree2()
           });
 }
 
+function onColorSelectorCreate()
+{
+  console.log("hahahhahah");
+}
 
 function openColorTopMenuDialog(){
   Metro.dialog.create({
       title: "Color Dialog Top Menu",
-      content: '<div class="fixed-size-2"><div id="color-selector-top-menu"></div></div>',
+      width: 380,
+      content: '<div class="fixed-size-color"><div id="color-selector-top-menu" data-on-color-selector-create="onColorSelectorCreate" data-role="color-selector" data-return-value-type="hex" data-show-values="hex"></div></div>',
       actions: [
           {
               caption: "Apply",
