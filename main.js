@@ -37,45 +37,13 @@ app.whenReady().then(() => {
   createMacAddressFiles();
   createWindow();
 
-  // const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
-  //   x = screen.getCursorScreenPoint().x;
-  //   y = screen.getCursorScreenPoint().y;
-  //   createElectronMenu(x + 10, y);
-  // });
-
-  
-
-  const shortcutModifierKeys = globalShortcut.register('CommandOrControl+Q', () => {
-    console.log("hahaha");
-    // Get a list of all possible modifier keys on the current platform
-
-            
-        const modifierKeys = [
-          'Shift',
-          'Alt',
-          'Control',
-          'Meta',
-          'Super',
-          'Hyper',
-          'Symbol',
-          'Fn',
-        ];
-
-        const allModifierKeys = modifierKeys.filter((key) => {
-          let isRegistered = false;
-          for (let i = 0; i < 10; i++) {
-            isRegistered = globalShortcut.isRegistered(`${key}+${i}`);
-            if (isRegistered) break;
-          }
-          return isRegistered;
-        });
-
-        console.log(allModifierKeys);
+  const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
+    x = screen.getCursorScreenPoint().x;
+    y = screen.getCursorScreenPoint().y;
+    createElectronMenu(x + 10, y);
   });
-
-   
-
-  if (!shortcutModifierKeys) { console.log('Registration failed.'); }
+  
+  if (!shortcut) { console.log('Registration failed.'); }
 
 });
 
