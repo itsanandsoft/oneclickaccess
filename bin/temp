@@ -31,3 +31,44 @@
 	{"key": "31", "title": "Lazy folder 2", "folder": true, "lazy": true },
 	{"key": "32", "title": "Lazy folder 3", "folder": true, "lazy": true }
 ]
+
+
+
+
+
+
+
+
+
+<div class="pos-relative">
+          <select  id="timezone-select">
+          <option value="UTC-12">Baker Island, Howland Island - UTC-12:00</option>
+          <option value="UTC-11">Niue - UTC-11:00</option>
+          <option value="UTC-10">Honolulu, Rarotonga, Tahiti - UTC-10:00</option>
+          <option value="UTC-9">Anchorage, Juneau, Los Angeles - UTC-09:00</option>
+          <option value="UTC-8">Denver, Phoenix, Tijuana - UTC-08:00</option>
+          <option value="UTC-7">Chicago, Mexico City, Winnipeg - UTC-07:00</option>
+          <option value="UTC-6">Bogota, Dallas, Guatemala City - UTC-06:00</option>
+          <option value="UTC-5">New York, Toronto, Havana - UTC-05:00</option>
+          <option value="UTC-4">Caracas, La Paz, Santiago - UTC-04:00</option>
+          <option value="UTC-3">Buenos Aires, Sao Paulo, Greenland - UTC-03:00</option>
+          <option value="UTC-2">Mid-Atlantic - UTC-02:00</option>
+          <option value="UTC-1">Cape Verde, Azores - UTC-01:00</option>
+          <option value="UTC+0">London, Lisbon, Accra - UTC+00:00</option>
+          <option value="UTC+1">Berlin, Madrid, Paris - UTC+01:00</option>
+          <option value="UTC+2">Cairo, Athens, Istanbul - UTC+02:00</option>
+          <option value="UTC+3">Moscow, Doha, Riyadh - UTC+03:00</option>
+          <option value="UTC+4">Dubai, Baku, Tbilisi - UTC+04:00</option>
+          <option value="UTC+5">Karachi, Tashkent, Yekaterinburg - UTC+05:00</option>
+          <option value="UTC+6">Almaty, Dhaka, Omsk - UTC+06:00</option>
+          <option value="UTC+7">Jakarta, Bangkok, Hanoi - UTC+07:00</option>
+          <option value="UTC+8" selected>Hong Kong, Singapore, Perth - UTC+08:00</option>
+          <option value="UTC+9">Seoul, Tokyo, Pyongyang - UTC+09:00</option>
+          <option value="UTC+10">Brisbane, Sydney, Guam - UTC+10:00</option>
+          <option value="UTC+11">Magadan, Vanuatu, Solomon Islands - UTC+11:00</option>
+          <option value="UTC+12">Auckland, Fiji, Kamchatka - UTC+12:00</option>
+          <option value="UTC+13">Samoa - UTC+13:00</option>
+          <option value="UTC+14">Line Islands - UTC+14:00</option>
+          
+      </select>
+      </div>

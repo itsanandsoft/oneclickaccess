@@ -37,6 +37,23 @@ const { ipcRenderer } = require("electron");
     var CLIPBOARD = null;
 
       $(function() {
+
+        var platform = window.navigator.platform.toLowerCase();
+
+        // Show the corresponding key list based on the operating system
+        if (platform.includes('win')) {
+          // Windows
+          $('.mac').hide();
+          $('.linux').hide();
+        } else if (platform.includes('mac')) {
+          // macOS
+          $('.win').hide();
+          $('.linux').hide();
+        } else {
+          // Linux or other
+          $('.win').hide();
+          $('.mac').hide();
+        }
         $("#tree")
           .fancytree({
             activeVisible: true, // Make sure, active nodes are visible (expanded)
@@ -367,9 +384,20 @@ const { ipcRenderer } = require("electron");
               
             },
             renderTitle: function(event, data) {
+              logEvent(event, data);
+              var node = data.node;
+              title = node.title;
+              if(typeof node.shortcutKeys !== 'undefined')
+              {
+                title += "  --("+node.shortcutKeys+")";
+              }
+              // Concatenate the post text with the title
+             // title += " (post text)";
+              
+              return title;
               // NOTE: may be removed!
               // When defined, must return a HTML string for the node title
-              logEvent(event, data);
+              
       //				return "new title";
               
             },
@@ -1184,6 +1212,32 @@ $(function() {
       else{
         $('.search-dropdown').hide();
       }
+    });
+
+    $('#main_assign_shortcut').click(function(){ 
+      var node = $.ui.fancytree.getTree("#tree").getActiveNode();
+      var modifierkey = $('#modifierkey-select').val();
+      var keyboardkey = $('#keyboardkey-select').val();
+      if( !node )
+      {
+        alert("Select a node First!");
+      }
+      else if(!modifierkey)
+      {
+        alert("Select a Modifier Key First!");
+      }
+      else if(!keyboardkey)
+      {
+        alert("Select a Keyboard Key First!");
+      }
+      else
+      {
+        var newKey = modifierkey + "+"+ keyboardkey;
+
+        node.setTitle(node.title + "  --(" + newKey+ ")");
+        node.shortcutKeys = newKey;
+      }
+
     });
     
  
