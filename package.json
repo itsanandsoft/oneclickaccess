@@ -26,6 +26,12 @@
   "build": {
     "productName": "One Click Access",
     "appId": "com.oneclickaccess.app",
+    "asarUnpack": [
+      "tree-data.json",
+      "database.json",
+      "hds.txt",
+      "mac.txt"
+    ],
     "directories": {
       "output": "build"
     },

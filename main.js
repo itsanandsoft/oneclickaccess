@@ -16,10 +16,10 @@ const XLSX = require('xlsx');
 const { promisify } = require('util');
 const url = require('url');
 
-// const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
-// console.log = (message) => {
-//   logFile.write(`${new Date().toISOString()}: ${message}\n`);
-// };
+const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
+console.log = (message) => {
+  logFile.write(`${new Date().toISOString()}: ${message}\n`);
+};
 
 
 
