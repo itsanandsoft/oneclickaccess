@@ -16,6 +16,7 @@
     "jquery-contextmenu": "^2.9.2",
     "jquery.fancytree": "^2.38.3",
     "macaddress": "^0.5.3",
+    "sqlite3": "^5.1.6",
     "ui-contextmenu": "^1.18.1",
     "xlsx": "^0.18.5"
   },
@@ -26,12 +27,7 @@
   "build": {
     "productName": "One Click Access",
     "appId": "com.oneclickaccess.app",
-    "asarUnpack": [
-      "tree-data.json",
-      "database.json",
-      "hds.txt",
-      "mac.txt"
-    ],
+    "asar": false,
     "directories": {
       "output": "build"
     },

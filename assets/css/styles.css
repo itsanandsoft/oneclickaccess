@@ -4,217 +4,331 @@
  and Chrome and Safari's marker by setting ::-webkit-details-marker {display: none;}
 */
 summary {
-    display: block;
-    cursor: pointer;
-    outline: 0; 
-  }
-  
-  summary::-webkit-details-marker {
-      display: none;
-    }
-  
-  body { 
-    font-size: 10px;
-    font-family: arial;
-    margin: 0;
-    padding: 10px;
-  }
-  
-  
-  .tree-nav__item {
-    display: block;
-    white-space: nowrap;
-    color: #000;
-    position: relative;
-  }
-  .tree-nav__item.is-expandable::before {
-    border-left: 1px dotted #333;
-    content: "";
-    height: 100%;
-    left: 0.8rem;
-    position: absolute;
-    top: 2.4rem;
-    height: calc(100% - 2.4rem);
-  }
-  .tree-nav__item .tree-nav__item {
-    margin-left: 1.5rem;
-  }
-  .tree-nav__item.is-expandable[open] > .tree-nav__item-title::before {
-    content: "-";
-  }
-  .tree-nav__item.is-expandable > .tree-nav__item-title {
-    padding-left: 1.5rem;
-  }
-  .tree-nav__item.is-expandable > .tree-nav__item-title::before {
-    position: absolute;
-    will-change: transform;
-    transition: transform 300ms ease;
-    font-family: "ionicons";
-    color: #000;
-    font-size: 1rem;
-    content: "+";
-    left: 0;
-    display: inline-block;
-    width: 1.6rem;
-    text-align: center;
-  }
-  
-  .tree-nav__item-title {
-    cursor: pointer;
-    display: block;
-    outline: 0;
-    color: #000;
-    font-size: 12px;
-    line-height: 1.5rem;
-  }
-  .tree-nav__item-title .icon {
-    display: inline;
-    padding-left: 1.6rem;
-    margin-right: 0.8rem;
-    color: #000;
-    font-size: 1rem;
-    position: relative;
-  }
-  .tree-nav__item-title .icon::before {
-    top: 0;
-    position: absolute;
-    left: 0;
-    display: inline-block;
-    width: 1.6rem;
-    text-align: center;
-  }
-  
-  .tree-nav__item-title::-webkit-details-marker {
-    display: none;
-  }
-  .active-node{
-    color:#fff !important;
-    background-color:royalblue !important;
-  }
-  .main_menu{
-    display: flex;
-    flex-direction: row;
+  display: block;
+  cursor: pointer;
+  outline: 0;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+body {
+  font-size: 10px;
+  font-family: arial;
+  margin: 0;
+  padding: 10px;
+}
+
+
+.tree-nav__item {
+  display: block;
+  white-space: nowrap;
+  color: #000;
+  position: relative;
+}
+
+.tree-nav__item.is-expandable::before {
+  border-left: 1px dotted #333;
+  content: "";
+  height: 100%;
+  left: 0.8rem;
+  position: absolute;
+  top: 2.4rem;
+  height: calc(100% - 2.4rem);
+}
+
+.tree-nav__item .tree-nav__item {
+  margin-left: 1.5rem;
+}
+
+.tree-nav__item.is-expandable[open]>.tree-nav__item-title::before {
+  content: "-";
+}
+
+.tree-nav__item.is-expandable>.tree-nav__item-title {
+  padding-left: 1.5rem;
+}
+
+.tree-nav__item.is-expandable>.tree-nav__item-title::before {
+  position: absolute;
+  will-change: transform;
+  transition: transform 300ms ease;
+  font-family: "ionicons";
+  color: #000;
+  font-size: 1rem;
+  content: "+";
+  left: 0;
+  display: inline-block;
+  width: 1.6rem;
+  text-align: center;
+}
+
+.tree-nav__item-title {
+  cursor: pointer;
+  display: block;
+  outline: 0;
+  color: #000;
+  font-size: 12px;
+  line-height: 1.5rem;
+}
+
+.tree-nav__item-title .icon {
+  display: inline;
+  padding-left: 1.6rem;
+  margin-right: 0.8rem;
+  color: #000;
+  font-size: 1rem;
+  position: relative;
+}
+
+.tree-nav__item-title .icon::before {
+  top: 0;
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  width: 1.6rem;
+  text-align: center;
+}
+
+.tree-nav__item-title::-webkit-details-marker {
+  display: none;
+}
+
+.active-node {
+  color: #fff !important;
+  background-color: royalblue !important;
+}
+
+.main_menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center !important;
+}
+
+.contextMenu {
+  --menu-border: rgba(255, 255, 255, 0.08);
+  --menu-bg: linear-gradient(45deg,
+      rgba(10, 20, 28, 0.2) 0%,
+      rgba(10, 20, 28, 0.7) 100%);
+  --item-border: rgba(255, 255, 255, 0.1);
+  --item-color: #fff;
+  --item-bg-hover: rgba(255, 255, 255, 0.1);
+  height: 0;
+  overflow: hidden;
+  background: var(--menu-bg);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  position: fixed;
+  -webkit-animation: menuAnimation 0.4s 0s both;
+  animation: menuAnimation 0.4s 0s both;
+  transform-origin: left;
+  list-style: none;
+  margin: 4px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 999999999;
+  box-shadow: 0 0 0 1px var(--menu-border), 0 2px 2px rgba(0, 0, 0, 0.03), 0 4px 4px rgba(0, 0, 0, 0.04), 0 10px 8px rgba(0, 0, 0, 0.05), 0 15px 15px rgba(0, 0, 0, 0.06), 0 30px 30px rgba(0, 0, 0, 0.07), 0 70px 65px rgba(0, 0, 0, 0.09);
+}
+
+.contextMenu-item {
+  padding: 4px;
+}
+
+.contextMenu-item[data-divider=top] {
+  border-top: 1px solid;
+}
+
+.contextMenu-item[data-divider=bottom] {
+  border-bottom: 1px solid;
+}
+
+.contextMenu-item[data-divider=top-bottom] {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.contextMenu-item[data-divider] {
+  border-color: var(--item-border);
+}
+
+.contextMenu-button {
+  color: var(--item-color);
+  background: 0;
+  border: 0;
+  white-space: nowrap;
+  width: 100%;
+  border-radius: 4px;
+  padding: 6px 24px 6px 7px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  width: 100%;
+  -webkit-animation: menuItemAnimation 0.2s 0s both;
+  animation: menuItemAnimation 0.2s 0s both;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+}
+
+.contextMenu-button:hover {
+  background-color: var(--item-bg-hover);
+}
+
+.contextMenu[data-theme=light] {
+  --menu-bg: linear-gradient(45deg,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0.85) 100%);
+  --menu-border: rgba(0, 0, 0, 0.08);
+  --item-border: rgba(0, 0, 0, 0.1);
+  --item-color: rgb(10, 20, 28);
+  --item-bg-hover: rgba(10, 20, 28, 0.09);
+}
+
+@-webkit-keyframes menuAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
   }
 
-  .contextMenu {
-    --menu-border: rgba(255, 255, 255, 0.08);
-    --menu-bg: linear-gradient(
-      45deg,
-      rgba(10, 20, 28, 0.2) 0%,
-      rgba(10, 20, 28, 0.7) 100%
-    );
-    --item-border: rgba(255, 255, 255, 0.1);
-    --item-color: #fff;
-    --item-bg-hover: rgba(255, 255, 255, 0.1);
-    height: 0;
-    overflow: hidden;
-    background: var(--menu-bg);
-    -webkit-backdrop-filter: blur(5px);
-            backdrop-filter: blur(5px);
-    position: fixed;
-    -webkit-animation: menuAnimation 0.4s 0s both;
-            animation: menuAnimation 0.4s 0s both;
-    transform-origin: left;
-    list-style: none;
-    margin: 4px;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    z-index: 999999999;
-    box-shadow: 0 0 0 1px var(--menu-border), 0 2px 2px rgba(0, 0, 0, 0.03), 0 4px 4px rgba(0, 0, 0, 0.04), 0 10px 8px rgba(0, 0, 0, 0.05), 0 15px 15px rgba(0, 0, 0, 0.06), 0 30px 30px rgba(0, 0, 0, 0.07), 0 70px 65px rgba(0, 0, 0, 0.09);
+  100% {
+    height: var(--height);
+    opacity: 1;
+    border-radius: 8px;
+    transform: scale(1);
   }
-  .contextMenu-item {
-    padding: 4px;
+}
+
+@keyframes menuAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
   }
-  .contextMenu-item[data-divider=top] {
-    border-top: 1px solid;
+
+  100% {
+    height: var(--height);
+    opacity: 1;
+    border-radius: 8px;
+    transform: scale(1);
   }
-  .contextMenu-item[data-divider=bottom] {
-    border-bottom: 1px solid;
+}
+
+@-webkit-keyframes menuItemAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
   }
-  .contextMenu-item[data-divider=top-bottom] {
-    border-top: 1px solid;
-    border-bottom: 1px solid;
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
-  .contextMenu-item[data-divider] {
-    border-color: var(--item-border);
+}
+
+@keyframes menuItemAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
   }
-  .contextMenu-button {
-    color: var(--item-color);
-    background: 0;
-    border: 0;
-    white-space: nowrap;
-    width: 100%;
-    border-radius: 4px;
-    padding: 6px 24px 6px 7px;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    width: 100%;
-    -webkit-animation: menuItemAnimation 0.2s 0s both;
-            animation: menuItemAnimation 0.2s 0s both;
-    font-family: "Inter", sans-serif;
-    cursor: pointer;
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
-  .contextMenu-button:hover {
-    background-color: var(--item-bg-hover);
-  }
-  .contextMenu[data-theme=light] {
-    --menu-bg: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0.85) 100%
-    );
-    --menu-border: rgba(0, 0, 0, 0.08);
-    --item-border: rgba(0, 0, 0, 0.1);
-    --item-color: rgb(10, 20, 28);
-    --item-bg-hover: rgba(10, 20, 28, 0.09);
-  }
-  
-  @-webkit-keyframes menuAnimation {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    100% {
-      height: var(--height);
-      opacity: 1;
-      border-radius: 8px;
-      transform: scale(1);
-    }
-  }
-  
-  @keyframes menuAnimation {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    100% {
-      height: var(--height);
-      opacity: 1;
-      border-radius: 8px;
-      transform: scale(1);
-    }
-  }
-  @-webkit-keyframes menuItemAnimation {
-    0% {
-      opacity: 0;
-      transform: translateX(-10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  @keyframes menuItemAnimation {
-    0% {
-      opacity: 0;
-      transform: translateX(-10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
+}
+
+.pos-relative select {
+  border: 2px solid gray;
+  height: 25px;
+  background: #fff;
+}
+
+ul.fancytree-container {
+  border: none !important;
+}
+
+.ui-menu {
+  width: 180px;
+  font-size: 63%;
+}
+
+.ui-menu kbd {
+  /* Keyboard shortcuts for ui-contextmenu titles */
+  float: right;
+}
+
+/* custom alignment (set by 'renderColumns'' event) */
+td.alignRight {
+  text-align: right;
+}
+
+td.alignCenter {
+  text-align: center;
+}
+
+td input[type="input"] {
+  width: 40px;
+}
+
+.fancytree-ext-filter span.fancytree-title mark {
+  background-color: #E09090;
+}
+
+.fixed-size {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+  margin-top: 10px
+}
+
+.fixed-size-2 {
+  width: 100%;
+  height: 300px;
+  overflow: auto;
+  position: relative;
+  margin-top: 30px
+}
+
+.fixed-size-color {
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  position: relative;
+}
+
+.sampletree {
+  width: 100%;
+  height: 100%;
+}
+
+#timezone-select {
+  width: 140px;
+  overflow-x: scroll;
+}
+
+#timezone-select option {
+  width: 380px;
+  white-space: nowrap;
+}
+
+#modifierkey-select {
+  width: 90px;
+  overflow-x: scroll;
+}
+
+#modifierkey-select option {
+  width: 150px;
+  white-space: nowrap;
+}
+
+#keyboardkey-select {
+  width: 90px;
+  overflow-x: scroll;
+}
+
+#keyboardkey-select option {
+  width: 150px;
+  white-space: nowrap;
+}

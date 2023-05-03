@@ -1080,7 +1080,7 @@ $(function() {
       ipcRenderer.send("openTextEditor");
       
     });
-    $('#main_file_setting_topmost').click(function(){ 
+    $('#main_file_setting_topmost').click(function(){
       const element = document.getElementById('main_file_setting_topmost_li');
       if (element.classList.contains("simple")) {
         // classList contains "simple", replace with "checked"
@@ -1576,20 +1576,17 @@ function openColorTopMenuDialog(){
   Metro.dialog.create({
       title: "Color Dialog Top Menu",
       width: 380,
-      content: '<div class="fixed-size-color"><div id="color-selector-top-menu" data-on-color-selector-create="onColorSelectorCreate" data-role="color-selector" data-return-value-type="hex" data-show-values="hex"></div></div>',
+      content: '<input type="color" id="color-picker"></input>',
       actions: [
           {
               caption: "Apply",
               cls: "js-dialog-close alert",
               onclick: function(){
-                var colorSelector = $("#color-selector-top-menu").data("colorSelector");
-                if (colorSelector) {
-                  var color = colorSelector.color();
-                  console.log("Color value: " + color);
-                } else {
-                  console.log("Color selector not initialized.");
-                }
-                  console.log("You clicked Save action the value Color Dialog");
+                const colorPicker = document.getElementById('color-picker');
+
+                colorPicker.addEventListener('input', () => {
+                  console.log(colorPicker.value);
+                });
               }
           },
           {

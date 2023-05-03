@@ -2,346 +2,280 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>One Click Access</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <!-- CSS -->
-    <link rel="stylesheet" href="./assets/css/font-awesome4/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
-    <link href="./assets/css/styles.css" rel="stylesheet" type="text/css" />
-    <script>window.$ = window.jQuery = require('jquery');</script>
+  <meta charset="UTF-8">
+  <title>One Click Access</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="./assets/css/font-awesome4/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
+  <link href="./assets/css/styles.css" rel="stylesheet" type="text/css" />
+  <script>window.$ = window.jQuery = require('jquery');</script>
 
-    <!-- <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-vista/ui.fancytree.css">
+  <!-- <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-vista/ui.fancytree.css">
     <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win7/ui.fancytree.css">
     <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win8-n/ui.fancytree.css">
     <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win8-xxl/ui.fancytree.css">
     <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-xp/ui.fancytree.css"> -->
-    <!-- <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-lion/ui.fancytree.css"> -->
-    <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win8/ui.fancytree.css">
-    <link href="./assets/jquery-ui.css" rel="stylesheet"/>
-    <script src="./assets/jquery-ui.min.js"></script>
-    <link href="./assets/sample.css" rel="stylesheet">
-	<!-- <script src="./assets/sample.js"></script> -->
-    <link href="./assets/lib/prettify.css" rel="stylesheet">
-	<script src="./assets/lib/prettify.js"></script>
-    
-    <link rel="stylesheet" href="./assets/js/metro-ui/metro-all.min.css">
-    <script src="./assets/js/metro-ui/metro.js"></script>
+  <!-- <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-lion/ui.fancytree.css"> -->
+  <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win8/ui.fancytree.css">
+  <link href="./assets/jquery-ui.css" rel="stylesheet" />
+  <script src="./assets/jquery-ui.min.js"></script>
+  <link href="./assets/sample.css" rel="stylesheet">
+  <!-- <script src="./assets/sample.js"></script> -->
+  <link href="./assets/lib/prettify.css" rel="stylesheet">
+  <script src="./assets/lib/prettify.js"></script>
 
-    <style type="text/css">
-        .ui-menu {
-          width: 180px;
-          font-size: 63%;
-        }
-        .ui-menu kbd {
-          /* Keyboard shortcuts for ui-contextmenu titles */
-          float: right;
-        }
-        /* custom alignment (set by 'renderColumns'' event) */
-        td.alignRight {
-          text-align: right;
-        }
-        td.alignCenter {
-          text-align: center;
-        }
-        td input[type="input"] {
-          width: 40px;
-        }
-        .fancytree-ext-filter span.fancytree-title mark {
-          background-color: #E09090;
-        }
-        .fixed-size {
-          width: 100%;
-          height: 100%;
-          overflow: auto;
-          position: relative;
-          margin-top:30px
-        }
-        .fixed-size-2 {
-          width: 100%;
-          height: 300px;
-          overflow: auto;
-          position: relative;
-          margin-top:30px
-        }
-        .fixed-size-color {
-          width: 100%;
-          height: 450px;
-          overflow: hidden;
-          position: relative;
-        }
-        .sampletree{
-          width: 100%;
-          height: 100%;
-        }
-        #timezone-select {
-          width: 140px;
-          overflow-x: scroll;
-        }
-        
-        #timezone-select option {
-          width: 380px;
-          white-space: nowrap;
-        }
-        #modifierkey-select {
-          width: 90px;
-          overflow-x: scroll;
-        }
-        
-        #modifierkey-select option {
-          width: 150px;
-          white-space: nowrap;
-        }
-        #keyboardkey-select {
-          width: 90px;
-          overflow-x: scroll;
-        }
-        
-        #keyboardkey-select option {
-          width: 150px;
-          white-space: nowrap;
-        }
-        
-      </style>
+  <link rel="stylesheet" href="./assets/js/metro-ui/metro-all.min.css">
+  <script src="./assets/js/metro-ui/metro.js"></script>
 </head>
 
 <body>
-  
-    <div class="main_menu">
-        <div class="pos-relative">
-            <button class="button flat-button small">File</button>
-            <ul class="ribbon-dropdown" data-role="dropdown">
-              <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save_tree">Tree Save State</a></li>
-              <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save">Save</a></li>
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_sort_selected">Sort Selected</a></li>
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_import">Import</a></li>
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_selective_export">Selective Export</a></li>
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_backup">Backup Now</a></li>
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_notpad">Notpad</a></li>
-                <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Settings</a>
-                    <ul class="ribbon-dropdown" data-role="dropdown">
-                        <li class="simple" id="main_file_setting_topmost_li"><a href="#" class="text-decoration-none" id="main_file_setting_topmost">Topmost</a></li>
-                        <li class="simple dropdown-toggle" ><a href="#" class="text-decoration-none">Start With System</a>
-                            <ul class="ribbon-dropdown" data-role="dropdown">
-                                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_start_system_window">Windows</a></li>
-                            </ul>
-                        </li>
-                        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_setting_incognito">Incognito</a></li>
-                        <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none" >Color Setting</a>
-                            <ul class="ribbon-dropdown" data-role="dropdown">
-                                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_setting_color_top_menu">Top Menu</a></li>
-                                <li class="simple"><a href="#" class="text-decoration-none"class="text-decoration-none"id="main_file_setting_color_main_dialog">Main Dialog</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">About</a></li>
-                <li class="simple"><a href="#" class="text-decoration-none"  id="main_file_exit">Exit</a></li>
-            </ul>
-        </div>
-        <button class="button flat-button small" id="main_add_input">Add Input</button>
-        <button class="button flat-button small" id="main_add_parent">Add Main</button>
-        <button class="button flat-button small" id="main_remove">Remove</button>
-        <!-- <button class="button flat-button small" id="main_move">Move</button> -->
-        <div class="pos-relative">
-            <button class="button flat-button small">Add</button>
-            <ul class="ribbon-dropdown" data-role="dropdown">
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_add_text">Text</a></li>
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_add_image">Image</a></li>
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_add_file">File</a></li>
-                <li class="simple"><a href="#" class="text-decoration-none" id="main_add_folder">Folder</a></li>
-                <li class="simple"><a href="#" id="add_current_datetime" class="text-decoration-none">Current Date and Time</a></li>
-                <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none" >From Excel</a>
-                    <ul class="ribbon-dropdown" data-role="dropdown">
-                        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_contacts">Import Contacts</a></li>
-                        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_ccredentials">Import Credentials</a></li>
-                        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_others">Import Others</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="pos-relative">
-          <select id="modifierkey-select" class="win">
-            <option value="">Select</option>
-            
-            <option value="Ctrl">Control</option>
-            <option value="Alt">Alt</option>
-            <option value="Shift">Shift</option>
-            <option value="Win">Windows key</option>
-          </select>
-          
-          <select id="modifierkey-select" class="mac">
-            <option value="">Select</option>
-            
-            <option value="Cmd">Command</option>
-            <option value="Option">Option</option>
-            <option value="Shift">Shift</option>
-            <option value="Ctrl">Control</option>
-            <option value="Fn">Function</option>
-          </select>
-          
-          <select id="modifierkey-select" class="linux">
-            <option value="">Select</option>
-            
-            <option value="Ctrl">Control</option>
-            <option value="Alt">Alt</option>
-            <option value="Shift">Shift</option>
-            <option value="Super">Super</option>
-            <option value="Meta">Meta</option>
-          </select>
-        </div>
-  
-        <div style="margin-left:2px"></div>
-        <div class="pos-relative">
-          <select id="keyboardkey-select">
-            <option value="">Select</option>
-            <optgroup label="Alphanumeric">
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-              <option value="F">F</option>
-              <option value="G">G</option>
-              <option value="H">H</option>
-              <option value="I">I</option>
-              <option value="J">J</option>
-              <option value="K">K</option>
-              <option value="L">L</option>
-              <option value="M">M</option>
-              <option value="N">N</option>
-              <option value="O">O</option>
-              <option value="P">P</option>
-              <option value="Q">Q</option>
-              <option value="R">R</option>
-              <option value="S">S</option>
-              <option value="T">T</option>
-              <option value="U">U</option>
-              <option value="V">V</option>
-              <option value="W">W</option>
-              <option value="X">X</option>
-              <option value="Y">Y</option>
-              <option value="Z">Z</option>
-            </optgroup>
-            <optgroup label="Function keys">
-              <option value="F1">F1</option>
-              <option value="F2">F2</option>
-              <option value="F3">F3</option>
-              <option value="F4">F4</option>
-              <option value="F5">F5</option>
-              <option value="F6">F6</option>
-              <option value="F7">F7</option>
-              <option value="F8">F8</option>
-              <option value="F9">F9</option>
-              <option value="F10">F10</option>
-              <option value="F11">F11</option>
-              <option value="F12">F12</option>
-              <option value="F13">F13</option>
-              <option value="F14">F14</option>
-              <option value="F15">F15</option>
-              <option value="F16">F16</option>
-              <option value="F17">F17</option>
-              <option value="F18">F18</option>
-              <option value="F19">F19</option>
-              <option value="F20">F20</option>
-              <option value="F21">F21</option>
-              <option value="F22">F22</option>
-              <option value="F23">F23</option>
-              <option value="F24">F24</option>
-            </optgroup>
-            <optgroup label="Punctuation">
-              <option value="`">`</option>
-              <option value="~">~</option>
-              <option value="!">!</option>
-              <option value="@">@</option>
-              <option value="#">#</option>
-              <option value="$">$</option>
-              <option value="%">%</option>
-              <option value="^">^</option>
-              <option value="&amp;">&amp;</option>
-              <option value="*">*</option>
-              <option value="(">(</option>
-              <option value=")">)</option>
-              <option value="-">-</option>
-              <option value="_">_</option>
-              <option value="+">+</option>
-              <option value="=">=</option>
-              <option value="{">{</option>
-              <option value="}">}</option>
-              <option value="[">[</option>
-              <option value="]">]</option>
-              <option value="\">&#92;</option>
-              <option value="|">|</option>
-              <option value=";">>;</option>
-              <option value=":">:</option>
-              <option value="'">'</option>
-              <option value='"'>"</option>
-              <option value=",">,</option>
-              <option value=".">.</option>
-              <option value="/">/</option>
-              <option value="?">?</option>
-            </optgroup>
-            <optgroup label="Special keys">
-              <option value="+">+</option>
-              <option value="Space">Space</option>
-              <option value="Tab">Tab</option>
-              <option value="Capslock">Capslock</option>
-              <option value="Numlock">Numlock</option>
-              <option value="Scrolllock">Scrolllock</option>
-              <option value="Backspace">Backspace</option>
-              <option value="Delete">Delete</option>
-              <option value="Insert">Insert</option>
-              <option value="Enter">Enter</option>
-              <option value="Up">Up arrow</option>
-              <option value="Down">Down arrow</option>
-              <option value="Left">Left arrow</option>
-              <option value="Right">Right arrow</option>
-              <option value="Home">Home</option>
-              <option value="End">End</option>
-              <option value="PageUp">Page up</option>
-              <option value="PageDown">Page down</option>
-              <option value="Escape">Escape</option>
-              <option value="VolumeUp">Volume up</option>
-              <option value="VolumeDown">Volume down</option>
-              <option value="VolumeMute">Volume mute</option>
-              <option value="MediaNextTrack">Next track</option>
-              <option value="MediaPreviousTrack">Previous track</option>
-              <option value="MediaStop">Stop</option>
-              <option value="MediaPlayPause">Play/Pause</option>
-              <option value="PrintScreen">Print screen</option>
-            </optgroup>
-            <optgroup label="NumPad Keys">
-              <option value="num0">Num 0</option>
-              <option value="num1">Num 1</option>
-              <option value="num2">Num 2</option>
-              <option value="num3">Num 3</option>
-              <option value="num4">Num 4</option>
-              <option value="num5">Num 5</option>
-              <option value="num6">Num 6</option>
-              <option value="num7">Num 7</option>
-              <option value="num8">Num 8</option>
-              <option value="num9">Num 9</option>
-              <option value="numdec">Num Decimal</option>
-              <option value="numadd">Num Add</option>
-              <option value="numsub">Num Subtract</option>
-              <option value="nummult">Num Multiply</option>
-              <option value="numdiv">Num Divide</option>
-            </optgroup>
-          </select>
-        </div>
 
-        <button class="button flat-button small"  id="main_assign_shortcut">Assign Key to Selected</button>
-        <!-- <div class="pos-relative">
+  <div class="main_menu">
+    <div class="pos-relative">
+      <button class="button flat-button small">File</button>
+      <ul class="ribbon-dropdown" data-role="dropdown">
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save_tree">Tree Save State</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save">Save</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_sort_selected">Sort Selected</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_import">Import</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_selective_export">Selective Export</a>
+        </li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_backup">Backup Now</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_notpad">Notpad</a></li>
+        <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Settings</a>
+          <ul class="ribbon-dropdown" data-role="dropdown">
+            <li class="simple" id="main_file_setting_topmost_li"><a href="#" class="text-decoration-none"
+                id="main_file_setting_topmost">Topmost</a></li>
+            <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Start With System</a>
+              <ul class="ribbon-dropdown" data-role="dropdown">
+                <li class="simple"><a href="#" class="text-decoration-none"
+                    id="main_file_start_system_window">Windows</a></li>
+              </ul>
+            </li>
+            <li class="simple"><a href="#" class="text-decoration-none" id="main_file_setting_incognito">Incognito</a>
+            </li>
+            <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Color Setting</a>
+              <ul class="ribbon-dropdown" data-role="dropdown">
+                <li class="simple"><a href="#" class="text-decoration-none" id="main_file_setting_color_top_menu">Top
+                    Menu</a></li>
+                <li class="simple"><a href="#" class="text-decoration-none" class="text-decoration-none"
+                    id="main_file_setting_color_main_dialog">Main Dialog</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">About</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_exit">Exit</a></li>
+      </ul>
+    </div>
+    <button class="button flat-button small" id="main_add_input">Add Input</button>
+    <button class="button flat-button small" id="main_add_parent">Add Main</button>
+    <button class="button flat-button small" id="main_remove">Remove</button>
+    <!-- <button class="button flat-button small" id="main_move">Move</button> -->
+    <div class="pos-relative">
+      <button class="button flat-button small">Add</button>
+      <ul class="ribbon-dropdown" data-role="dropdown">
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_text">Text</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_image">Image</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_file">File</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_folder">Folder</a></li>
+        <li class="simple"><a href="#" id="add_current_datetime" class="text-decoration-none">Current Date and Time</a>
+        </li>
+        <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">From Excel</a>
+          <ul class="ribbon-dropdown" data-role="dropdown">
+            <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_contacts">Import
+                Contacts</a></li>
+            <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_ccredentials">Import
+                Credentials</a></li>
+            <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_others">Import
+                Others</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="pos-relative">
+      <select id="modifierkey-select" class="win">
+        <option value="">Select</option>
+
+        <option value="Ctrl">Control</option>
+        <option value="Alt">Alt</option>
+        <option value="Shift">Shift</option>
+        <option value="Win">Windows key</option>
+      </select>
+
+      <select id="modifierkey-select" class="mac">
+        <option value="">Select</option>
+
+        <option value="Cmd">Command</option>
+        <option value="Option">Option</option>
+        <option value="Shift">Shift</option>
+        <option value="Ctrl">Control</option>
+        <option value="Fn">Function</option>
+      </select>
+
+      <select id="modifierkey-select" class="linux">
+        <option value="">Select</option>
+
+        <option value="Ctrl">Control</option>
+        <option value="Alt">Alt</option>
+        <option value="Shift">Shift</option>
+        <option value="Super">Super</option>
+        <option value="Meta">Meta</option>
+      </select>
+    </div>
+
+    <div style="margin-left:2px"></div>
+    <div class="pos-relative">
+      <select id="keyboardkey-select">
+        <option value="">Select</option>
+        <optgroup label="Alphanumeric">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="E">E</option>
+          <option value="F">F</option>
+          <option value="G">G</option>
+          <option value="H">H</option>
+          <option value="I">I</option>
+          <option value="J">J</option>
+          <option value="K">K</option>
+          <option value="L">L</option>
+          <option value="M">M</option>
+          <option value="N">N</option>
+          <option value="O">O</option>
+          <option value="P">P</option>
+          <option value="Q">Q</option>
+          <option value="R">R</option>
+          <option value="S">S</option>
+          <option value="T">T</option>
+          <option value="U">U</option>
+          <option value="V">V</option>
+          <option value="W">W</option>
+          <option value="X">X</option>
+          <option value="Y">Y</option>
+          <option value="Z">Z</option>
+        </optgroup>
+        <optgroup label="Function keys">
+          <option value="F1">F1</option>
+          <option value="F2">F2</option>
+          <option value="F3">F3</option>
+          <option value="F4">F4</option>
+          <option value="F5">F5</option>
+          <option value="F6">F6</option>
+          <option value="F7">F7</option>
+          <option value="F8">F8</option>
+          <option value="F9">F9</option>
+          <option value="F10">F10</option>
+          <option value="F11">F11</option>
+          <option value="F12">F12</option>
+          <option value="F13">F13</option>
+          <option value="F14">F14</option>
+          <option value="F15">F15</option>
+          <option value="F16">F16</option>
+          <option value="F17">F17</option>
+          <option value="F18">F18</option>
+          <option value="F19">F19</option>
+          <option value="F20">F20</option>
+          <option value="F21">F21</option>
+          <option value="F22">F22</option>
+          <option value="F23">F23</option>
+          <option value="F24">F24</option>
+        </optgroup>
+        <optgroup label="Punctuation">
+          <option value="`">`</option>
+          <option value="~">~</option>
+          <option value="!">!</option>
+          <option value="@">@</option>
+          <option value="#">#</option>
+          <option value="$">$</option>
+          <option value="%">%</option>
+          <option value="^">^</option>
+          <option value="&amp;">&amp;</option>
+          <option value="*">*</option>
+          <option value="(">(</option>
+          <option value=")">)</option>
+          <option value="-">-</option>
+          <option value="_">_</option>
+          <option value="+">+</option>
+          <option value="=">=</option>
+          <option value="{">{</option>
+          <option value="}">}</option>
+          <option value="[">[</option>
+          <option value="]">]</option>
+          <option value="\">&#92;</option>
+          <option value="|">|</option>
+          <option value=";">>;</option>
+          <option value=":">:</option>
+          <option value="'">'</option>
+          <option value='"'>"</option>
+          <option value=",">,</option>
+          <option value=".">.</option>
+          <option value="/">/</option>
+          <option value="?">?</option>
+        </optgroup>
+        <optgroup label="Special keys">
+          <option value="+">+</option>
+          <option value="Space">Space</option>
+          <option value="Tab">Tab</option>
+          <option value="Capslock">Capslock</option>
+          <option value="Numlock">Numlock</option>
+          <option value="Scrolllock">Scrolllock</option>
+          <option value="Backspace">Backspace</option>
+          <option value="Delete">Delete</option>
+          <option value="Insert">Insert</option>
+          <option value="Enter">Enter</option>
+          <option value="Up">Up arrow</option>
+          <option value="Down">Down arrow</option>
+          <option value="Left">Left arrow</option>
+          <option value="Right">Right arrow</option>
+          <option value="Home">Home</option>
+          <option value="End">End</option>
+          <option value="PageUp">Page up</option>
+          <option value="PageDown">Page down</option>
+          <option value="Escape">Escape</option>
+          <option value="VolumeUp">Volume up</option>
+          <option value="VolumeDown">Volume down</option>
+          <option value="VolumeMute">Volume mute</option>
+          <option value="MediaNextTrack">Next track</option>
+          <option value="MediaPreviousTrack">Previous track</option>
+          <option value="MediaStop">Stop</option>
+          <option value="MediaPlayPause">Play/Pause</option>
+          <option value="PrintScreen">Print screen</option>
+        </optgroup>
+        <optgroup label="NumPad Keys">
+          <option value="num0">Num 0</option>
+          <option value="num1">Num 1</option>
+          <option value="num2">Num 2</option>
+          <option value="num3">Num 3</option>
+          <option value="num4">Num 4</option>
+          <option value="num5">Num 5</option>
+          <option value="num6">Num 6</option>
+          <option value="num7">Num 7</option>
+          <option value="num8">Num 8</option>
+          <option value="num9">Num 9</option>
+          <option value="numdec">Num Decimal</option>
+          <option value="numadd">Num Add</option>
+          <option value="numsub">Num Subtract</option>
+          <option value="nummult">Num Multiply</option>
+          <option value="numdiv">Num Divide</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <button class="button flat-button small" id="main_assign_shortcut">Assign Key to Selected</button>
+    <!-- <div class="pos-relative">
             <button class="button dropdown-toggle small">CST - China Standard Time</button>
             <ul class="d-menu small" data-role="dropdown">
                 <li class="small"><a href="#">A</a></li>
@@ -349,71 +283,82 @@
                 <li class="small"><a href="#">C</a></li>
             </ul>
         </div> -->
-        
 
-        <div class="pos-relative">
-          <select  id="timezone-select">
-          <option value="UTC-12">Baker Island, Howland Island - UTC-12:00</option>
-          <option value="UTC-11">Niue - UTC-11:00</option>
-          <option value="UTC-10">Honolulu, Rarotonga, Tahiti - UTC-10:00</option>
-          <option value="UTC-9">Anchorage, Juneau, Los Angeles - UTC-09:00</option>
-          <option value="UTC-8">Denver, Phoenix, Tijuana - UTC-08:00</option>
-          <option value="UTC-7">Chicago, Mexico City, Winnipeg - UTC-07:00</option>
-          <option value="UTC-6">Bogota, Dallas, Guatemala City - UTC-06:00</option>
-          <option value="UTC-5">New York, Toronto, Havana - UTC-05:00</option>
-          <option value="UTC-4">Caracas, La Paz, Santiago - UTC-04:00</option>
-          <option value="UTC-3">Buenos Aires, Sao Paulo, Greenland - UTC-03:00</option>
-          <option value="UTC-2">Mid-Atlantic - UTC-02:00</option>
-          <option value="UTC-1">Cape Verde, Azores - UTC-01:00</option>
-          <option value="UTC+0">London, Lisbon, Accra - UTC+00:00</option>
-          <option value="UTC+1">Berlin, Madrid, Paris - UTC+01:00</option>
-          <option value="UTC+2">Cairo, Athens, Istanbul - UTC+02:00</option>
-          <option value="UTC+3">Moscow, Doha, Riyadh - UTC+03:00</option>
-          <option value="UTC+4">Dubai, Baku, Tbilisi - UTC+04:00</option>
-          <option value="UTC+5">Karachi, Tashkent, Yekaterinburg - UTC+05:00</option>
-          <option value="UTC+6">Almaty, Dhaka, Omsk - UTC+06:00</option>
-          <option value="UTC+7">Jakarta, Bangkok, Hanoi - UTC+07:00</option>
-          <option value="UTC+8" selected>Hong Kong, Singapore, Perth - UTC+08:00</option>
-          <option value="UTC+9">Seoul, Tokyo, Pyongyang - UTC+09:00</option>
-          <option value="UTC+10">Brisbane, Sydney, Guam - UTC+10:00</option>
-          <option value="UTC+11">Magadan, Vanuatu, Solomon Islands - UTC+11:00</option>
-          <option value="UTC+12">Auckland, Fiji, Kamchatka - UTC+12:00</option>
-          <option value="UTC+13">Samoa - UTC+13:00</option>
-          <option value="UTC+14">Line Islands - UTC+14:00</option>
-          
-        </select>
-        </div>
-      
-        <label class="button flat-button small" id="timezone-label">+8:00</label>
-        <div class="pos-relative">
-            <button class="button flat-button small" id="searchbtn">Search</button>
-            <ul class="ribbon-dropdown search-dropdown"  style="display: none;">
-                <li class="simple" style="display: inline-block;">
-                  <input name="search" type="text" placeholder="Search..." autocomplete="off">
-                  <button id="btnResetSearch">&times;</button>
-                  <span id="matches"></span>
-                </li>
-            </ul>
-        </div>
-        <button class="button flat-button small"  id="main_refresh">Refresh</button>
-    </div>
-    
-    
-    <div class="dialog" data-role="dialog" id="demoDialog1">
-        <div class="dialog-title">Input</div>
-        <div class="dialog-content">
-            <input id="setNodeTitle" type="text" data-role="input">
-        </div>
-        <div class="dialog-actions">
-            <button class="button js-dialog-close">Cancel</button>
-            <button class="button primary js-dialog-close" >Ok</button>
-        </div>
+
+    <div class="pos-relative">
+      <select id="timezone-select">
+        <option value="UTC-12">Baker Island, Howland Island - UTC-12:00</option>
+        <option value="UTC-11">Niue - UTC-11:00</option>
+        <option value="UTC-10">Honolulu, Rarotonga, Tahiti - UTC-10:00</option>
+        <option value="UTC-9">Anchorage, Juneau, Los Angeles - UTC-09:00</option>
+        <option value="UTC-8">Denver, Phoenix, Tijuana - UTC-08:00</option>
+        <option value="UTC-7">Chicago, Mexico City, Winnipeg - UTC-07:00</option>
+        <option value="UTC-6">Bogota, Dallas, Guatemala City - UTC-06:00</option>
+        <option value="UTC-5">New York, Toronto, Havana - UTC-05:00</option>
+        <option value="UTC-4">Caracas, La Paz, Santiago - UTC-04:00</option>
+        <option value="UTC-3">Buenos Aires, Sao Paulo, Greenland - UTC-03:00</option>
+        <option value="UTC-2">Mid-Atlantic - UTC-02:00</option>
+        <option value="UTC-1">Cape Verde, Azores - UTC-01:00</option>
+        <option value="UTC+0">London, Lisbon, Accra - UTC+00:00</option>
+        <option value="UTC+1">Berlin, Madrid, Paris - UTC+01:00</option>
+        <option value="UTC+2">Cairo, Athens, Istanbul - UTC+02:00</option>
+        <option value="UTC+3">Moscow, Doha, Riyadh - UTC+03:00</option>
+        <option value="UTC+4">Dubai, Baku, Tbilisi - UTC+04:00</option>
+        <option value="UTC+5">Karachi, Tashkent, Yekaterinburg - UTC+05:00</option>
+        <option value="UTC+6">Almaty, Dhaka, Omsk - UTC+06:00</option>
+        <option value="UTC+7">Jakarta, Bangkok, Hanoi - UTC+07:00</option>
+        <option value="UTC+8" selected>Hong Kong, Singapore, Perth - UTC+08:00</option>
+        <option value="UTC+9">Seoul, Tokyo, Pyongyang - UTC+09:00</option>
+        <option value="UTC+10">Brisbane, Sydney, Guam - UTC+10:00</option>
+        <option value="UTC+11">Magadan, Vanuatu, Solomon Islands - UTC+11:00</option>
+        <option value="UTC+12">Auckland, Fiji, Kamchatka - UTC+12:00</option>
+        <option value="UTC+13">Samoa - UTC+13:00</option>
+        <option value="UTC+14">Line Islands - UTC+14:00</option>
+
+      </select>
     </div>
 
-    <div class="fixed-size">
-      <div id="tree" data-source="ajax" class="sampletree "></div>
-      
-      <!-- <table id="tree" data-source="ajax" class="sampletree">
+    <label class="button flat-button small" id="timezone-label">+8:00</label>
+    <div class="pos-relative">
+      <button class="button flat-button small" id="searchbtn">Search</button>
+      <ul class="ribbon-dropdown search-dropdown" style="display: none;">
+        <li class="simple" style="display: inline-block;">
+          <input name="search" type="text" placeholder="Search..." autocomplete="off">
+          <button id="btnResetSearch">&times;</button>
+          <span id="matches"></span>
+        </li>
+      </ul>
+    </div>
+    <button class="button flat-button small" id="main_refresh">Refresh</button>
+  </div>
+
+
+  <div class="dialog" data-role="dialog" id="demoDialog1">
+    <div class="dialog-title">Input</div>
+    <div class="dialog-content">
+      <input id="setNodeTitle" type="text" data-role="input">
+    </div>
+    <div class="dialog-actions">
+      <button class="button js-dialog-close">Cancel</button>
+      <button class="button primary js-dialog-close">Ok</button>
+    </div>
+  </div>
+
+  <div class="dialog" data-role="dialog" id="colorPickerDialog">
+    <div class="dialog-title">Select Color</div>
+    <div class="dialog-content">
+      <input id="color-picker" type="color">
+    </div>
+    <div class="dialog-actions">
+      <button class="button js-dialog-close">Cancel</button>
+      <button class="button primary js-dialog-close">Ok</button>
+    </div>
+  </div>
+
+  <div class="fixed-size">
+    <div id="tree" data-source="ajax" class="sampletree "></div>
+
+    <!-- <table id="tree" data-source="ajax" class="sampletree">
         <colgroup>
           <col width="30px" />
           <col width="50px" />
@@ -458,23 +403,23 @@
           </tr>
         </tbody>
       </table> -->
-      </div>
-      <hr>
-      
-    <div  class="example">
-    
-       <!-- <div>
+  </div>
+
+
+  <div class="example">
+
+    <!-- <div>
          <label for="skinswitcher">Skin:</label>
          <select id="skinswitcher"></select>
        </div> -->
-       <!-- <p>
+    <!-- <p>
          <label>Filter:</label>
          <input name="search" placeholder="Filter..." autocomplete="off">
          <button id="btnResetSearch">&times;</button>
          <span id="matches"></span>
        </p> -->
-       <!-- Start_Exclude: This block is not part of the sample code -->
-       <!-- <fieldset style='display: none;'>
+    <!-- Start_Exclude: This block is not part of the sample code -->
+    <!-- <fieldset style='display: none;'>
          <legend>Options</legend>
          <label for="regex">
            <input type="checkbox" id="regex">
@@ -524,20 +469,17 @@
            hideExpandedCounter
          </label>
        </fieldset> -->
-       <hr>
-       
-       <!-- <p id="sampleButtons">
+
+    <!-- <p id="sampleButtons">
        </p>
-       <hr>
        
        <div>Active node: <span id="echoActive">-</span></div>
        <div>Focused node: <span id="echoFocused">-</span></div>
      -->
-        
-        </div>
-    
-    
-       <hr>
+
+  </div>
+
+
 
        <script src="./renderer.js"></script>
        <script src="./database/JsonHelper.js"></script>

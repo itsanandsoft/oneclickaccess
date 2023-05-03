@@ -1,4 +1,4 @@
-const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard,Tray,Notification,accelerator } = require('electron')
+const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard, Tray, Notification, accelerator } = require('electron')
 const path = require('path')
 const config = require(path.join(__dirname, '/config/app'));
 //const SQLiteHelper = require(path.join(__dirname, '/database/SQLiteHelper'));
@@ -25,7 +25,7 @@ console.log = (message) => {
 
 let x, y = null;
 const jsonFilePath = path.join(__dirname, '/tree-data.json');
-let win,menuWindow;
+let win, menuWindow;
 let menu = null;
 let notification = null;
 let tray = null
@@ -42,7 +42,7 @@ app.whenReady().then(() => {
     y = screen.getCursorScreenPoint().y;
     createElectronMenu(x + 10, y);
   });
-  
+
   if (!shortcut) { console.log('Registration failed.'); }
 
 });
@@ -72,7 +72,7 @@ function checkMachines(data, win) {
             if (json.body.machines[key].mac_address == mac_address && json.body.machines[key].hard_disk_serial == hard_disk_serial) {
               if (json.body.machines[key].active == '1') {
                 win.loadFile(path.join(__dirname, '/index.html'));
-                win.webContents.openDevTools();
+                //win.webContents.openDevTools();
               }
               else {
                 win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
@@ -99,7 +99,7 @@ function checkMachines(data, win) {
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 960,
+    width: 1000,
     height: 500,
     webPreferences: {
       preload: path.join(__dirname, '/preloads.js'),
@@ -112,7 +112,7 @@ function createWindow() {
     }
   })
 
-    data.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
+  data.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
     if (err) {
       console.log(err)
     }
@@ -121,28 +121,27 @@ function createWindow() {
       checkMachines(data, win);
     }
     else {
-       //win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+      //win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
       win.loadFile(path.join(__dirname, '/index.html'));
-      
+
     }
   });
- 
+
 
   //checkMachines(data, win);
- // win.loadFile(path.join(__dirname, '/index.html'));
-  win.webContents.openDevTools();
- win.removeMenu(true);
-  
+  // win.loadFile(path.join(__dirname, '/index.html'));
+  //win.webContents.openDevTools();
+  win.removeMenu(true);
+
   win.on('close', (event) => {
     event.preventDefault();
     win.hide();
     tray = new Tray(path.join(__dirname, 'assets/img/logo.png'));
     tray.on('click', () => {
-      if(win.isVisible()){
+      if (win.isVisible()) {
         win.hide()
       }
-      else
-      {
+      else {
         win.show();
         tray.destroy();
       }
@@ -192,7 +191,7 @@ function createMenuWindow(x, y) {
   });
   // menuWindow.setMenu(menu);
   menuWindow.loadFile(path.join(__dirname, '/menu2.html'));
-  menuWindow.webContents.openDevTools()
+  //menuWindow.webContents.openDevTools()
   // Set the background color to transparent
   //menuWindow.setBackgroundColor('#00000000');
 
@@ -280,12 +279,12 @@ function createMenuWindow(x, y) {
 
 function createElectronMenu(x, y) {
   let menu_template = fancytreeToContextmenuJson(JSON.parse(fs.readFileSync(jsonFilePath)));
-  menuWindow  = new BrowserWindow({
+  menuWindow = new BrowserWindow({
     width: 132,
     height: 54,
     x: x,
     y: y,
-    frame:false,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -316,7 +315,7 @@ function itemClicked(item) {
     keyboard.pressKey(Key.LeftControl, Key.V);
     keyboard.releaseKey(Key.LeftControl, Key.V);
   }
-  if(!menuWindow.isDestroyed()){
+  if (!menuWindow.isDestroyed()) {
     menuWindow.close();
   }
 }
@@ -338,7 +337,7 @@ function fancytreeToContextmenuJson(fancytreeJson) {
   function convertNode(node) {
     const convertedNode = {
       label: node.title,
-    //  key: node.key,
+      //  key: node.key,
       title: node.title,
     };
 
@@ -409,12 +408,11 @@ ipcMain.on('openTextEditor', (event, args) => {
   }).unref();
 });
 
-ipcMain.handle("topmostToggle", (e, d) => {
-  const mainWindow = BrowserWindow.getFocusedWindow();
-  if (mainWindow.isAlwaysOnTop()) {
-    mainWindow.setAlwaysOnTop(false);
+ipcMain.handle("topmostToggle", (event,args) => {
+  if (win.isAlwaysOnTop()) {
+    win.setAlwaysOnTop(false);
   } else {
-    mainWindow.setAlwaysOnTop(true);
+    win.setAlwaysOnTop(true);
   }
 });
 
@@ -505,11 +503,11 @@ ipcMain.handle("saveData", (e, d) => {
 
 
 ipcMain.handle("backupDialog", (e, d) => {
-  
+
   const now = new Date();
-  const backupFileName = `backup_${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}_${now.getHours().toString().padStart(2,'0')}${now.getMinutes().toString().padStart(2,'0')}${now.getSeconds().toString().padStart(2,'0')}.bin`;
+  const backupFileName = `backup_${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}${now.getSeconds().toString().padStart(2, '0')}.bin`;
   var filePath = path.join(__dirname, backupFileName);
-  
+
   dialog.showSaveDialog({
     title: 'Save Backup File',
     defaultPath: filePath,
@@ -526,7 +524,7 @@ ipcMain.handle("backupDialog", (e, d) => {
         if (err) {
           // File does not exist, create it
           console.log(`${filePath} does not exist, creating...`);
-          fs.writeFile(filePath, d, {encoding: 'binary'}, (err) => {
+          fs.writeFile(filePath, d, { encoding: 'binary' }, (err) => {
             if (err) throw err;
             console.log(`${filePath} created and data written!`);
           });
@@ -538,14 +536,14 @@ ipcMain.handle("backupDialog", (e, d) => {
               return;
             }
             console.log(`${filePath} exists, writing data...`);
-            fs.writeFile(filePath, d, {encoding: 'binary'}, (err) => {
+            fs.writeFile(filePath, d, { encoding: 'binary' }, (err) => {
               if (err) throw err;
               console.log(`${filePath} updated with new data!`);
             });
           });
         }
       });
-     
+
     }
   }).catch(err => {
     alert("Error in Save Dialog!");
@@ -562,7 +560,7 @@ ipcMain.on(`display-app-menu`, function (e, args) {
 });
 
 ipcMain.on(`close-app-menu`, function (e) {
-  if(!menuWindow.isDestroyed()){
+  if (!menuWindow.isDestroyed()) {
     menuWindow.close();
   }
 });
@@ -584,8 +582,8 @@ ipcMain.handle('get-excel-data', async (event, arg) => {
   // Do something with the selected file
   const workbook = XLSX.readFile(filePath);
   const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-  const data = XLSX.utils.sheet_to_json(worksheet, {header: 1, raw: false});
-  
+  const data = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
+
   console.log(`Selected file: ${filePath}`);
   return data;
 });
@@ -593,98 +591,95 @@ ipcMain.handle('get-excel-data', async (event, arg) => {
 
 
 
-ipcMain.handle('get-file-folder', async (event, type ) => {
-  
+ipcMain.handle('get-file-folder', async (event, type) => {
+
   var typeDialog;
-    if(type == "image")
-    {
-      typeDialog = {
-        title: 'Select Image file',
-        filters: [
-          { name: 'Image Files', extensions: ['jpg', 'png', 'gif'] }
-        ],
-        properties: ['openFile']
-        };
+  if (type == "image") {
+    typeDialog = {
+      title: 'Select Image file',
+      filters: [
+        { name: 'Image Files', extensions: ['jpg', 'png', 'gif'] }
+      ],
+      properties: ['openFile']
+    };
   }
-    else if(type == "folder")
-    {
-      typeDialog = {
-        title: 'Select Folder',
-        properties: ['openDirectory']
-      };
-    }
-    else
-    {
-      typeDialog = {
-        title: 'Select File',
-        properties: ['openFile']
-      };
-    }
-     const result = await dialog.showOpenDialog(typeDialog);
-      // result.canceled is true if the user closes the dialog without selecting a file
-      if (result.canceled) {
-        throw new Error('No file selected');
-      }
-      const filePath = result.filePaths[0];
-      console.log(`Selected file: ${filePath}`);
-      var pathStr = filePath.toString();
-      const fileName = path.basename(filePath);
-      var icon = type+".png";
-      return newData = {title: fileName,type:type,icon:icon,path:pathStr};
+  else if (type == "folder") {
+    typeDialog = {
+      title: 'Select Folder',
+      properties: ['openDirectory']
+    };
+  }
+  else {
+    typeDialog = {
+      title: 'Select File',
+      properties: ['openFile']
+    };
+  }
+  const result = await dialog.showOpenDialog(typeDialog);
+  // result.canceled is true if the user closes the dialog without selecting a file
+  if (result.canceled) {
+    throw new Error('No file selected');
+  }
+  const filePath = result.filePaths[0];
+  console.log(`Selected file: ${filePath}`);
+  var pathStr = filePath.toString();
+  const fileName = path.basename(filePath);
+  var icon = type + ".png";
+  return newData = { title: fileName, type: type, icon: icon, path: pathStr };
 });
 
 
-ipcMain.handle('edit-file-folder', async (event, path , title, type ) => {
+ipcMain.handle('edit-file-folder', async (event, path, title, type) => {
   console.log(type);
   //const defaultPath = path
 
-// if (fs.existsSync(defaultPath)) {
- 
-//   var typeDialog;
-//     if(type == "image")
-//     {
-//       typeDialog = {
-//         title: 'Update Image file',
-//         filters: [
-//           { name: 'Image Files', extensions: ['jpg', 'png', 'gif'] }
-//         ],
-//         defaultPath: defaultPath,
-//         properties: ['openFile']
-//         };
-//   }
-//     else if(type == "folder")
-//     {
-//       typeDialog = {
-//         title: 'Update Folder',
-//         defaultPath: defaultPath,
-//         properties: ['openDirectory']
-//       };
-//     }
-//     else
-//     {
-//       typeDialog = {
-//         title: 'Update File',
-//         defaultPath: defaultPath,
-//         properties: ['openFile']
-//       };
-//     }
-//      const result = await dialog.showOpenDialog(typeDialog);
-//       // result.canceled is true if the user closes the dialog without selecting a file
-//       if (result.canceled) {
-//         throw new Error('No file selected');
-//       }
-//       const filePath = result.filePaths[0];
-//       console.log(`Selected file: ${filePath}`);
-//       var pathStr = filePath.toString();
-//       const fileName = path.basename(filePath);
-//       var icon = type+".png";
-//       return newData = {title: fileName,type:type,icon:icon,path:pathStr};
+  // if (fs.existsSync(defaultPath)) {
 
-// } else {
-//   dialog.showErrorBox('Error', 'File or Folder path does not exist. It must be deleted or moved');
-//   return newData = {title: title,type:type,icon:"error.png",path:path};
+  //   var typeDialog;
+  //     if(type == "image")
+  //     {
+  //       typeDialog = {
+  //         title: 'Update Image file',
+  //         filters: [
+  //           { name: 'Image Files', extensions: ['jpg', 'png', 'gif'] }
+  //         ],
+  //         defaultPath: defaultPath,
+  //         properties: ['openFile']
+  //         };
+  //   }
+  //     else if(type == "folder")
+  //     {
+  //       typeDialog = {
+  //         title: 'Update Folder',
+  //         defaultPath: defaultPath,
+  //         properties: ['openDirectory']
+  //       };
+  //     }
+  //     else
+  //     {
+  //       typeDialog = {
+  //         title: 'Update File',
+  //         defaultPath: defaultPath,
+  //         properties: ['openFile']
+  //       };
+  //     }
+  //      const result = await dialog.showOpenDialog(typeDialog);
+  //       // result.canceled is true if the user closes the dialog without selecting a file
+  //       if (result.canceled) {
+  //         throw new Error('No file selected');
+  //       }
+  //       const filePath = result.filePaths[0];
+  //       console.log(`Selected file: ${filePath}`);
+  //       var pathStr = filePath.toString();
+  //       const fileName = path.basename(filePath);
+  //       var icon = type+".png";
+  //       return newData = {title: fileName,type:type,icon:icon,path:pathStr};
 
-// }
+  // } else {
+  //   dialog.showErrorBox('Error', 'File or Folder path does not exist. It must be deleted or moved');
+  //   return newData = {title: title,type:type,icon:"error.png",path:path};
+
+  // }
 });
 
 
@@ -720,8 +715,8 @@ ipcMain.handle('import-data', async (event, arg) => {
 
   console.log(`Selected file: ${filePath}`);
   return data;
-  
- 
+
+
 });
 
 ipcMain.handle('show-message-box', async (event, options) => {
