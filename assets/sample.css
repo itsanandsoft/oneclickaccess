@@ -180,3 +180,11 @@ iframe.embedded-jsbin {
 	width: 100%;
 	height: 500px;
 }
+
+
+.fancytree-node.has-shortcut-key span.fancytree-title::after {
+	content: " (" attr(data-shortcut-key) ")";
+	font-size: 80%;
+	color: gray;
+	margin-left: 5px;
+  }

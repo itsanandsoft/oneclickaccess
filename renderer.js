@@ -6,7 +6,7 @@ require('jquery.fancytree/dist/modules/jquery.fancytree.gridnav.js');
 require('jquery.fancytree/dist/modules/jquery.fancytree.table.js');
 require('jquery.fancytree/dist/modules/jquery.fancytree.filter.js');
 require('ui-contextmenu');
-const { ipcRenderer } = require("electron");
+const { ipcRenderer,globalShortcut  } = require("electron");
 // $('#tree').fancytree({
 //     skin: 'skin-win8',
 //     source: [
@@ -85,6 +85,13 @@ const { ipcRenderer } = require("electron");
             source: { url: "tree-data.json" },
 
             extensions: ["edit", "dnd5", "filter"],//, "table", "gridnav"
+
+            extraClasses: {
+              // Add a class to the node based on whether it has a shortcut key
+              get: function(node) {
+                return node.data.shortcutKey ? "has-shortcut-key" : "";
+              }
+            },
 
             filter: {
               autoApply: true,   // Re-apply last filter if lazy data is loaded
@@ -387,9 +394,9 @@ const { ipcRenderer } = require("electron");
               logEvent(event, data);
               var node = data.node;
               title = node.title;
-              if(typeof node.shortcutKeys !== 'undefined')
+              if(typeof node.data.shortcutKeys !== 'undefined')
               {
-                title += "  --("+node.shortcutKeys+")";
+                title += "  --("+node.data.shortcutKeys+")";
               }
               // Concatenate the post text with the title
              // title += " (post text)";
@@ -1145,7 +1152,9 @@ $(function() {
     $('#main_remove').click(function(){
       var node = $.ui.fancytree.getTree("#tree").getActiveNode();
       if( !node ) return;
+      //alert(node.shortcutKeys);
 			node.remove(); 
+      
     });
     $('#main_add_text').click(function(){ 
 
@@ -1213,31 +1222,39 @@ $(function() {
         $('.search-dropdown').hide();
       }
     });
-
+    
+    
     $('#main_assign_shortcut').click(function(){ 
       var node = $.ui.fancytree.getTree("#tree").getActiveNode();
       var modifierkey = $('#modifierkey-select').val();
       var keyboardkey = $('#keyboardkey-select').val();
-      if( !node )
-      {
+      if (!node) {
         alert("Select a node First!");
-      }
-      else if(!modifierkey)
-      {
+      } else if (!modifierkey) {
         alert("Select a Modifier Key First!");
-      }
-      else if(!keyboardkey)
-      {
+      } else if (!keyboardkey) {
         alert("Select a Keyboard Key First!");
+      } else {
+        var newShortcutKey = modifierkey + "+"+ keyboardkey;
+        // Send a message to the main process to check if a global shortcut is registered
+        ipcRenderer.invoke('check-global-shortcut', newShortcutKey).then((isRegistered) => {
+          if (isRegistered) {
+            alert("This Key already Registered in the System Try Some New Combination");
+          } else {
+            // Register a global shortcut
+            ipcRenderer.invoke('register-shortcut', newShortcutKey).then((ret) => {
+              if (ret) {
+                alert('Shortcut key registered successfully');
+                //node.setTitle(node.title + "  --(" + newShortcutKey + ")");
+                node.data.shortcutKeys = newShortcutKey;
+                node.render(true);
+              } else {
+                alert('Shortcut key registration failed');
+              }
+            });
+          }
+        });
       }
-      else
-      {
-        var newKey = modifierkey + "+"+ keyboardkey;
-
-        node.setTitle(node.title + "  --(" + newKey+ ")");
-        node.shortcutKeys = newKey;
-      }
-
     });
     
  

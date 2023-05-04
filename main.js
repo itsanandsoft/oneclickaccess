@@ -29,6 +29,7 @@ let win, menuWindow;
 let menu = null;
 let notification = null;
 let tray = null
+let tempRegisteredShortcut;
 const functionMap = {
   itemClicked
 };
@@ -130,7 +131,7 @@ function createWindow() {
 
   //checkMachines(data, win);
   // win.loadFile(path.join(__dirname, '/index.html'));
-  //win.webContents.openDevTools();
+  win.webContents.openDevTools();
   win.removeMenu(true);
 
   win.on('close', (event) => {
@@ -722,4 +723,33 @@ ipcMain.handle('import-data', async (event, arg) => {
 ipcMain.handle('show-message-box', async (event, options) => {
   const response = await dialog.showMessageBox(options);
   return response.response;
+});
+
+// Listen for the 'check-global-shortcut' message from the renderer process
+ipcMain.handle('check-global-shortcut', (event, shortcut) => {
+  const isRegistered = globalShortcut.isRegistered(shortcut);
+  return isRegistered;
+});
+
+
+
+// Listen for messages from the renderer process
+
+ipcMain.handle('register-shortcut', async (event, newShortcutKey) => {
+  // Register a global shortcut
+  const success = globalShortcut.register(newShortcutKey, () => {
+    // Handle the global shortcut event
+    // ...
+  });
+
+  return success;
+});
+
+
+// Listen for messages from the renderer process to unregister the shortcut
+ipcMain.on('unregister-shortcut', (event) => {
+  if (tempRegisteredShortcut) {
+    globalShortcut.unregister(tempRegisteredShortcut);
+    tempRegisteredShortcut = null;
+  }
 });
