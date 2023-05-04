@@ -1115,7 +1115,7 @@ $(function() {
       
     });
     $('#main_file_setting_color_main_dialog').click(function(){
-      openColorDialog(); 
+      openColorMainDialog(); 
     });
     $('#main_file_about').click(function(){ 
       openAboutDialog();
@@ -1600,6 +1600,35 @@ function openColorTopMenuDialog(){
               cls: "js-dialog-close alert",
               onclick: function(){
                 const colorPicker = document.getElementById('color-picker');
+                document.getElementById('top-main-menu').style.backgroundColor = colorPicker.value;
+                // colorPicker.addEventListener('input', () => {
+                //   console.log(colorPicker.value);
+                // });
+              }
+          },
+          {
+              caption: "Cancel",
+              cls: "js-dialog-close",
+              onclick: function(){
+                  console.log("You clicked Cancel Color Dialog");
+              }
+          }
+      ]
+  });
+}
+
+
+function openColorMainDialog(){
+  Metro.dialog.create({
+      title: "Color Dialog Main Dialog",
+      width: 380,
+      content: '<input type="color" id="color-picker"></input>',
+      actions: [
+          {
+              caption: "Apply",
+              cls: "js-dialog-close alert",
+              onclick: function(){
+                const colorPicker = document.getElementById('color-picker');
 
                 colorPicker.addEventListener('input', () => {
                   console.log(colorPicker.value);
@@ -1616,7 +1645,6 @@ function openColorTopMenuDialog(){
       ]
   });
 }
-
 
 function treeDataChangeEvent(){
   if ($.ui.fancytree && $.ui.fancytree.getTree("#tree") && $.ui.fancytree.getTree("#tree").getNodes().length > 0) {
