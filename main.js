@@ -123,7 +123,7 @@ function createWindow() {
     }
     else {
       //win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
-      win.loadFile(path.join(__dirname, '/index.html'));
+      win.loadFile(path.join(__dirname, '/index_mac.html'));
 
     }
   });

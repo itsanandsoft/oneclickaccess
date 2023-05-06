@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>One Click Access</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <link rel="stylesheet" href="./node_modules/jquery.fancytree/dist/skin-win8/ui.fancytree.css">
+    <link href="./assets/jquery-ui.css" rel="stylesheet" />
+    <script src="./assets/jquery-ui.min.js"></script>
+    <link href="./assets/sample.css" rel="stylesheet">
+    <link href="./assets/lib/prettify.css" rel="stylesheet">
+    <script src="./assets/lib/prettify.js"></script>
+    <link rel="stylesheet" href="./assets/css/mac-styles.css">
+    <link rel="stylesheet" href="./assets/css/photon.css">
+</head>
+
+<body>
+
+    <header id="head">
+		<nav id="menu">
+			<ul>
+				<li class="here">
+					<a href="#file">File</a>
+					<ul class="sublist">
+						<li><a href="#finder" data-rel="show" id="main_file_save_tree">Save</a></li>
+						<li><a href="#finder" data-rel="show" id="main_file_save">Save</a></li>
+						<li class="divider"></li>
+						<li id="main_file_sort_selected">Sort Selected</li>
+						<li class="divider"></li>
+						<li id="main_file_import">Import</li>
+						<li class="divider"></li>
+						<li id="main_file_selective_export">Selective Export</li>
+						<li class="divider"></li>
+						<li id="main_file_backup">Backup Now</li>
+						<li id="main_file_notpad">Notepad</li>
+						<li>Setting
+							<span class="arrow"></span>
+							<ul class="sublist-menu">
+								<li id="main_file_setting_topmost">Topmost</li>
+								<li id="main_file_start_system_window">Start with system (Darwin)</li>
+								<li id="main_file_setting_incognito">Incognito</li>
+								<li id="main_file_setting_color_top_menu">Color (Top Menu)</li>
+								<li id="main_file_setting_color_main_dialog">Color (Main Dialog)</li>
+							</ul>
+						</li>
+						<li id="main_file_about">About</li>
+						<li id="main_file_exit">Exit</li>
+					</ul>
+				</li>
+				<li class="here" id="main_add_input">
+					<a href="#all" >Add Input</a>
+				</li>
+				<li class="here" id="main_remove">
+					<a href="#all">Remove</a>
+				</li>
+				<li class="here">
+					<a href="#all">Add</a>
+                    <ul class="sublist">
+                        <li><a href="#finder" data-rel="show" id="main_add_text">Text</a></li>
+                        <li><a href="#finder" data-rel="show" id="main_add_image">Image</a></li>
+                        <li><a href="#finder" data-rel="show" id="main_add_file">File</a></li>
+                        <li><a href="#finder" data-rel="show" id="main_add_folder">Folder</a></li>
+                        <li><a href="#finder" data-rel="show" id="add_current_datetime">Current Date and Time</a></li>
+                        <li><a href="#finder" data-rel="show" id="main_add_excel_import_contacts">Import Contacts</a></li>
+                        <li><a href="#finder" data-rel="show" id="main_add_excel_import_ccredentials">Import Credentials</a></li>
+                        <li><a href="#finder" data-rel="show" id="main_add_excel_import_others">Import Others</a></li>
+                    </ul>
+				</li>
+                <li>
+					<select class="form-control mac-dropdown" id="modifierkey-select">
+                        <option value="">Select</option>
+                        <option value="Cmd">Command</option>
+                        <option value="Option">Option</option>
+                        <option value="Shift">Shift</option>
+                        <option value="Ctrl">Control</option>
+                        <option value="Fn">Function</option>
+					</select>
+				</li>
+				<li>
+					<select class="form-control mac-dropdown" id="keyboardkey-select">
+                        <option value="">Select</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                        <option value="H">H</option>
+                        <option value="I">I</option>
+                        <option value="J">J</option>
+                        <option value="K">K</option>
+                        <option value="L">L</option>
+                        <option value="M">M</option>
+                        <option value="N">N</option>
+                        <option value="O">O</option>
+                        <option value="P">P</option>
+                        <option value="Q">Q</option>
+                        <option value="R">R</option>
+                        <option value="S">S</option>
+                        <option value="T">T</option>
+                        <option value="U">U</option>
+                        <option value="V">V</option>
+                        <option value="W">W</option>
+                        <option value="X">X</option>
+                        <option value="Y">Y</option>
+                        <option value="Z">Z</option>
+                        <option value="F1">F1</option>
+                        <option value="F2">F2</option>
+                        <option value="F3">F3</option>
+                        <option value="F4">F4</option>
+                        <option value="F5">F5</option>
+                        <option value="F6">F6</option>
+                        <option value="F7">F7</option>
+                        <option value="F8">F8</option>
+                        <option value="F9">F9</option>
+                        <option value="F10">F10</option>
+                        <option value="F11">F11</option>
+                        <option value="F12">F12</option>
+                        <option value="F13">F13</option>
+                        <option value="F14">F14</option>
+                        <option value="F15">F15</option>
+                        <option value="F16">F16</option>
+                        <option value="F17">F17</option>
+                        <option value="F18">F18</option>
+                        <option value="F19">F19</option>
+                        <option value="F20">F20</option>
+                        <option value="F21">F21</option>
+                        <option value="F22">F22</option>
+                        <option value="F23">F23</option>
+                        <option value="F24">F24</option>
+                        <option value="`">`</option>
+                        <option value="~">~</option>
+                        <option value="!">!</option>
+                        <option value="@">@</option>
+                        <option value="#">#</option>
+                        <option value="$">$</option>
+                        <option value="%">%</option>
+                        <option value="^">^</option>
+                        <option value="&amp;">&amp;</option>
+                        <option value="*">*</option>
+                        <option value="(">(</option>
+                        <option value=")">)</option>
+                        <option value="-">-</option>
+                        <option value="_">_</option>
+                        <option value="+">+</option>
+                        <option value="=">=</option>
+                        <option value="{">{</option>
+                        <option value="}">}</option>
+                        <option value="[">[</option>
+                        <option value="]">]</option>
+                        <option value="\">&#92;</option>
+                        <option value="|">|</option>
+                        <option value=";">>;</option>
+                        <option value=":">:</option>
+                        <option value="'">'</option>
+                        <option value='"'>"</option>
+                        <option value=",">,</option>
+                        <option value=".">.</option>
+                        <option value="/">/</option>
+                        <option value="?">?</option>
+                        <option value="+">+</option>
+                        <option value="Space">Space</option>
+                        <option value="Tab">Tab</option>
+                        <option value="Capslock">Capslock</option>
+                        <option value="Numlock">Numlock</option>
+                        <option value="Scrolllock">Scrolllock</option>
+                        <option value="Backspace">Backspace</option>
+                        <option value="Delete">Delete</option>
+                        <option value="Insert">Insert</option>
+                        <option value="Enter">Enter</option>
+                        <option value="Up">Up arrow</option>
+                        <option value="Down">Down arrow</option>
+                        <option value="Left">Left arrow</option>
+                        <option value="Right">Right arrow</option>
+                        <option value="Home">Home</option>
+                        <option value="End">End</option>
+                        <option value="PageUp">Page up</option>
+                        <option value="PageDown">Page down</option>
+                        <option value="Escape">Escape</option>
+                        <option value="VolumeUp">Volume up</option>
+                        <option value="VolumeDown">Volume down</option>
+                        <option value="VolumeMute">Volume mute</option>
+                        <option value="MediaNextTrack">Next track</option>
+                        <option value="MediaPreviousTrack">Previous track</option>
+                        <option value="MediaStop">Stop</option>
+                        <option value="MediaPlayPause">Play/Pause</option>
+                        <option value="PrintScreen">Print screen</option>
+                        <option value="num0">Num 0</option>
+                        <option value="num1">Num 1</option>
+                        <option value="num2">Num 2</option>
+                        <option value="num3">Num 3</option>
+                        <option value="num4">Num 4</option>
+                        <option value="num5">Num 5</option>
+                        <option value="num6">Num 6</option>
+                        <option value="num7">Num 7</option>
+                        <option value="num8">Num 8</option>
+                        <option value="num9">Num 9</option>
+                        <option value="numdec">Num Decimal</option>
+                        <option value="numadd">Num Add</option>
+                        <option value="numsub">Num Subtract</option>
+                        <option value="nummult">Num Multiply</option>
+                        <option value="numdiv">Num Divide</option>\
+					</select>
+				</li>
+				<li class="here" id="main_assign_shortcut">
+					<a href="#all">Asign Key to Selected</a>
+				</li>
+				<li class="here">
+					<select class="form-control mac-dropdown" id="timezone-select">
+                        <option value="UTC-12">Baker Island, Howland Island - UTC-12:00</option>
+                        <option value="UTC-11">Niue - UTC-11:00</option>
+                        <option value="UTC-10">Honolulu, Rarotonga, Tahiti - UTC-10:00</option>
+                        <option value="UTC-9">Anchorage, Juneau, Los Angeles - UTC-09:00</option>
+                        <option value="UTC-8">Denver, Phoenix, Tijuana - UTC-08:00</option>
+                        <option value="UTC-7">Chicago, Mexico City, Winnipeg - UTC-07:00</option>
+                        <option value="UTC-6">Bogota, Dallas, Guatemala City - UTC-06:00</option>
+                        <option value="UTC-5">New York, Toronto, Havana - UTC-05:00</option>
+                        <option value="UTC-4">Caracas, La Paz, Santiago - UTC-04:00</option>
+                        <option value="UTC-3">Buenos Aires, Sao Paulo, Greenland - UTC-03:00</option>
+                        <option value="UTC-2">Mid-Atlantic - UTC-02:00</option>
+                        <option value="UTC-1">Cape Verde, Azores - UTC-01:00</option>
+                        <option value="UTC+0">London, Lisbon, Accra - UTC+00:00</option>
+                        <option value="UTC+1">Berlin, Madrid, Paris - UTC+01:00</option>
+                        <option value="UTC+2">Cairo, Athens, Istanbul - UTC+02:00</option>
+                        <option value="UTC+3">Moscow, Doha, Riyadh - UTC+03:00</option>
+                        <option value="UTC+4">Dubai, Baku, Tbilisi - UTC+04:00</option>
+                        <option value="UTC+5">Karachi, Tashkent, Yekaterinburg - UTC+05:00</option>
+                        <option value="UTC+6">Almaty, Dhaka, Omsk - UTC+06:00</option>
+                        <option value="UTC+7">Jakarta, Bangkok, Hanoi - UTC+07:00</option>
+                        <option value="UTC+8" selected>Hong Kong, Singapore, Perth - UTC+08:00</option>
+                        <option value="UTC+9">Seoul, Tokyo, Pyongyang - UTC+09:00</option>
+                        <option value="UTC+10">Brisbane, Sydney, Guam - UTC+10:00</option>
+                        <option value="UTC+11">Magadan, Vanuatu, Solomon Islands - UTC+11:00</option>
+                        <option value="UTC+12">Auckland, Fiji, Kamchatka - UTC+12:00</option>
+                        <option value="UTC+13">Samoa - UTC+13:00</option>
+                        <option value="UTC+14">Line Islands - UTC+14:00</option>
+					</select>
+				</li>
+				<li class="here" >
+					<a href="#all" id="timezone-label">+11:00</a>
+				</li>
+				<li class="here">
+					<a href="#all" id="searchbtn">Search</a>
+					<ul class="sublist">
+						<li>
+                            <input name="search" type="text" placeholder="Search..." autocomplete="off">
+                            <span id="matches"></span>
+                        </li>
+					</ul>
+				</li>
+				<li class="here">
+					<a href="#search" id="main_refresh">Refresh</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+
+    <div class="fixed-size">
+        <div id="tree" data-source="ajax" class="sampletree "></div>
+    </div>
+
+
+    <div class="example">
+    </div>
+
+
+
+    <script src="./renderer.js"></script>
+    <script src="./database/JsonHelper.js"></script>
+    <script src="./renderer/index.js"></script>
+</body>
+
+
+
+</html>

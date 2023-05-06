@@ -1601,6 +1601,7 @@ function openColorTopMenuDialog(){
               onclick: function(){
                 const colorPicker = document.getElementById('color-picker');
                 document.getElementById('top-main-menu').style.backgroundColor = colorPicker.value;
+                document.getElementById('head').style.backgroundColor = colorPicker.value;
                 // colorPicker.addEventListener('input', () => {
                 //   console.log(colorPicker.value);
                 // });
