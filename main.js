@@ -16,10 +16,10 @@ const XLSX = require('xlsx');
 const { promisify } = require('util');
 const url = require('url');
 
-const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
-console.log = (message) => {
-  logFile.write(`${new Date().toISOString()}: ${message}\n`);
-};
+// const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
+// console.log = (message) => {
+//   logFile.write(`${new Date().toISOString()}: ${message}\n`);
+// };
 
 
 
@@ -185,7 +185,6 @@ function createMenuWindow(x, y) {
   menuWindow.removeMenu(true);
   menu = Menu.buildFromTemplate(menu_template);
   menu.forEach(item => {
-    console.log(item)
     if (item.click) {
       item.click = () => {
         // Call the function specified in the click property
@@ -310,15 +309,53 @@ function createElectronMenu(x, y) {
 }
 
 function itemClicked(item) {
-  clipboard.writeText(item.label)
-  mouse.setPosition(new Point(x, y));
-  mouse.leftClick();
-  if (process.platform === 'darwin') {
-    exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
-  } else if (process.platform === 'win32') {
-    keyboard.pressKey(Key.LeftControl, Key.V);
-    keyboard.releaseKey(Key.LeftControl, Key.V);
+  if (item.hasOwnProperty('data')) {
+    if (item.data.hasOwnProperty('type')) {
+      if (item.data.type == 'text') {
+        clipboard.writeText(item.label)
+        mouse.setPosition(new Point(x, y));
+        mouse.leftClick();
+        if (process.platform === 'darwin') {
+          exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
+        } else if (process.platform === 'win32') {
+          keyboard.pressKey(Key.LeftControl, Key.V);
+          keyboard.releaseKey(Key.LeftControl, Key.V);
+        }
+      }
+      if (item.data.type == 'folder' || item.data.type == 'image' || item.data.type == 'file') {
+        if (process.platform === 'win32') {
+          exec(`start "" "${item.data.path}"`);
+        } else if (process.platform === 'darwin') {
+          exec(`open "${item.data.path}"`);
+        } else {
+          exec(`xdg-open "${item.data.path}"`);
+        }
+      }
+    }
+    else {
+      clipboard.writeText(item.label)
+      mouse.setPosition(new Point(x, y));
+      mouse.leftClick();
+      if (process.platform === 'darwin') {
+        exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
+      } else if (process.platform === 'win32') {
+        keyboard.pressKey(Key.LeftControl, Key.V);
+        keyboard.releaseKey(Key.LeftControl, Key.V);
+      }
+    }
   }
+  else {
+    clipboard.writeText(item.label)
+    mouse.setPosition(new Point(x, y));
+    mouse.leftClick();
+    if (process.platform === 'darwin') {
+      exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
+    } else if (process.platform === 'win32') {
+      keyboard.pressKey(Key.LeftControl, Key.V);
+      keyboard.releaseKey(Key.LeftControl, Key.V);
+    }
+  }
+
   if (!menuWindow.isDestroyed()) {
     menuWindow.close();
   }
@@ -358,6 +395,9 @@ function fancytreeToContextmenuJson(fancytreeJson) {
       convertedNode.submenu = node.children.map(convertNode);
     } else {
       convertedNode.click = "itemClicked";
+    }
+    if (node.data) {
+      convertedNode.data = node.data;
     }
 
     return convertedNode;
@@ -644,7 +684,7 @@ ipcMain.handle('get-file-folder', async (event, type) => {
   var pathStr = filePath.toString();
   const fileName = path.basename(filePath);
   var icon = type + ".png";
-  return newData = { title: fileName, icon: icon , data:{type: type, path: pathStr  }};
+  return newData = { title: fileName, icon: icon, data: { type: type, path: pathStr } };
 });
 
 
