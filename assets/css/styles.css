@@ -332,3 +332,6 @@ td input[type="input"] {
   width: 150px;
   white-space: nowrap;
 }
+.pos-relative {
+  font-size: 12px !important;
+}
