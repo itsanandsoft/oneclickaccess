@@ -321,15 +321,7 @@ function itemClicked(item) {
   if (item.hasOwnProperty('data')) {
     if (item.data.hasOwnProperty('type')) {
       if (item.data.type == 'text') {
-        clipboard.writeText(item.label)
-        mouse.setPosition(new Point(x, y));
-        mouse.leftClick();
-        if (process.platform === 'darwin') {
-          exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
-        } else if (process.platform === 'win32') {
-          keyboard.pressKey(Key.LeftControl, Key.V);
-          keyboard.releaseKey(Key.LeftControl, Key.V);
-        }
+          printTextonScreen(item.label);
       }
       if (item.data.type == 'folder' || item.data.type == 'image' || item.data.type == 'file') {
         if (process.platform === 'win32') {
@@ -342,27 +334,11 @@ function itemClicked(item) {
       }
     }
     else {
-      clipboard.writeText(item.label)
-      mouse.setPosition(new Point(x, y));
-      mouse.leftClick();
-      if (process.platform === 'darwin') {
-        exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
-      } else if (process.platform === 'win32') {
-        keyboard.pressKey(Key.LeftControl, Key.V);
-        keyboard.releaseKey(Key.LeftControl, Key.V);
-      }
+      printTextonScreen(item.label);
     }
   }
   else {
-    clipboard.writeText(item.label)
-    mouse.setPosition(new Point(x, y));
-    mouse.leftClick();
-    if (process.platform === 'darwin') {
-      exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
-    } else if (process.platform === 'win32') {
-      keyboard.pressKey(Key.LeftControl, Key.V);
-      keyboard.releaseKey(Key.LeftControl, Key.V);
-    }
+    printTextonScreen(item.label);
   }
 
   if (!menuWindow.isDestroyed()) {
@@ -415,6 +391,57 @@ function fancytreeToContextmenuJson(fancytreeJson) {
   contextmenuJson.push(...fancytreeJson.map(convertNode));
 
   return contextmenuJson;
+}
+
+function isLink(text) {
+  const urlPattern = /^(https?:\/\/)?([\w.-]+)\.([a-zA-Z]{2,6})(\/[\w.-]*)*\/?$/;
+  const wwwUrlPattern = /^(www\.)?([\w.-]+)\.([a-zA-Z]{2,6})(\/[\w.-]*)*\/?$/;
+  return urlPattern.test(text) || wwwUrlPattern.test(text);
+}
+function printTextonScreen(text){
+    console.log(isLink(text))
+    if(isLink(text)){
+      openURLinChrome(text);
+    }
+    else{
+      clipboard.writeText(text)
+      mouse.setPosition(new Point(x, y));
+      mouse.leftClick();
+      if (process.platform === 'darwin') {
+        exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
+      } else if (process.platform === 'win32') {
+        keyboard.pressKey(Key.LeftControl, Key.V);
+        keyboard.releaseKey(Key.LeftControl, Key.V);
+      }
+    }
+    
+}
+function openURLinChrome(url){
+  let chromePath = '';
+  let command = '';
+  // let incognito = '--incognito';
+  let incognito = '';
+
+  if (process.platform === 'darwin') {
+    chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+    command = `"${chromePath}" --args --start-fullscreen "${url}"`;
+  } else if (process.platform === 'win32') {
+    chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+    command = `"${chromePath}" --new-window ${incognito} --start-fullscreen "${url}"`;
+  }
+
+  if (command != '') {
+    exec(command, (err, data) => {
+      if(err){
+        if(process.platform === 'win32'){
+          chromePath = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe';
+          command = `"${chromePath}" --new-window ${incognito} --start-fullscreen "${url}"`;
+          exec(command);
+        }
+      }
+      console.log(data)
+    });
+  }
 }
 
 // IPC MAIN
