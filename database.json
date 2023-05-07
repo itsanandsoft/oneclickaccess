@@ -1,1 +1,13 @@
-[]
+[
+	{
+		"user": {
+		"id": "1",
+		"email": "",
+		"token": ""
+		},
+		"setting": {
+		"id": "1",
+		"incognito": "0",
+		}
+  	}
+]

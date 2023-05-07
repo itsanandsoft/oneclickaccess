@@ -16,7 +16,7 @@ const XLSX = require('xlsx');
 const { promisify } = require('util');
 const url = require('url');
 const AutoLaunch = require('auto-launch');
-// const { edialog } = require('electron-dialog');
+const { edialog } = require('electron-dialog');
 
 const autoLauncher = new AutoLaunch({
   name: 'oneclickaccess',
@@ -531,16 +531,31 @@ ipcMain.handle("showDialog", (e, d) => {
   //dialog.showMessageBox(mainWindow, { message });
 });
 
+ipcMain.handle("showSelectiveExportDialog", (e, d) => {
+  var dialogWindow = new BrowserWindow({
+    width: 400,
+    height: 280,
+    resizable: false,
+    modal: true,
+    show: false,
+    parent: win, // mainWindow is the parent window
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  dialogWindow.loadFile('export.html');
+
+  dialogWindow.once('ready-to-show', () => {
+    dialogWindow.show();
+  });
+
+  dialogWindow.on('closed', () => {
+    dialogWindow = null;
+  });
+});
+
 ipcMain.handle("saveData", (e, d) => {
-  // edialog.show({
-  //   title: 'My Dialog',
-  //   content: '<html><body><h1>Hello World</h1></body></html>',
-  //   buttons: ['OK']
-  // }).then(result => {
-  //   console.log(result);
-  // }).catch(err => {
-  //   console.log(err);
-  // });
   var filePath = path.join(__dirname, '/tree-data.json');
   fs.access(filePath, fs.constants.F_OK, (err) => {
     if (err) {
@@ -821,4 +836,26 @@ ipcMain.on('requestAutoLaunchStatus', (event) => {
     })
     .catch((error) => console.log(error));
 });
+
+function updateIncognitoSetting(incognitoValue) {
+  fs.readFile('database.json', (err, data) => {
+    if (err) throw err;
+    const setting = JSON.parse(data);
+    const index = setting.findIndex(user => setting.id === "1");
+    if (index !== -1) {
+      setting[index].setting.incognito = incognitoValue.toString();
+      fs.writeFile('database.json', JSON.stringify(settings), err => {
+        if (err) throw err;
+        console.log(`Setting 1 setting updated with incognito value: ${incognitoValue}`);
+      });
+    } else {
+      console.log(`Setting with id 1 not found.`);
+    }
+  });
+}
+
+ipcMain.on('incognitoToggle', (event, args) => {
+  updateIncognitoSetting(args);
+});
+
 

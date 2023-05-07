@@ -91,6 +91,9 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               // Add a class to the node based on whether it has a shortcut key
               get: function(node) {
                 return node.data.shortcutKey ? "has-shortcut-key" : "";
+              },
+              get: function(node) {
+                return node.data.timezone ? "has-timezone-key" : "";
               }
             },
             createNode: function(event, data) {
@@ -223,6 +226,9 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               // Add your custom title content to the existing title span
               if ((typeof node.data.shortcutKeys !== "undefined") && (node.data.shortcutKeys != "")) {
                 $titleSpan.append(" (" + node.data.shortcutKeys + ")");
+              }
+              if ((typeof node.data.timezone !== "undefined") && (node.data.timezone != "")) {
+                $titleSpan.append(" - Current Date and Time");
               }
             },
             renderTitle: function(event, data) {
@@ -490,15 +496,18 @@ $(function() {
   $('#add_current_datetime').click(function(){ 
      var node = $.ui.fancytree.getTree("#tree").getActiveNode();
     if( !node ) return;
+    node.data.timezone = $('#timezone-select').val();
+    node.render(true);
 
         // Set a custom UTC timezone value
-    var customUtcOffset = $('#timezone-select').val().replace('UTC', '');
+   // var customUtcOffset = $('#timezone-select').val().replace('UTC', '');
     // Create a Date object with the custom UTC timezone value
-    var customDate = new Date(Date.UTC(2023, 3, 26, 12, 0, 0) + (customUtcOffset * 60 * 60 * 1000));
+    //var customDate = new Date(Date.UTC(2023, 3, 26, 12, 0, 0) + (customUtcOffset * 60 * 60 * 1000));
     // Output the date and time in ISO format
     //console.log(customDate.toISOString());
 
-    node.setTitle(node.title + ", " + customDate); });
+    //node.setTitle(node.title + ", " + customDate); 
+  });
 
     $('#main_file_save').click(function(){ 
       var tree = $.ui.fancytree.getTree("#tree");
@@ -563,10 +572,12 @@ $(function() {
         console.error(error)
       })
     });
-    $('#main_file_selective_export').click(function(){ 
-      exportSelectedDialog();
+    $('#main_file_selective_export').click(function(){
+      var d = "";
+      ipcRenderer.invoke("showSelectiveExportDialog", d); 
+      //exportSelectedDialog();
       setTimeout(function(){
-        initializetree2();
+      
       }, 500);
     });
     $('#main_file_backup').click(function(){ 
@@ -629,18 +640,18 @@ $(function() {
     // Request auto-launch status from main process on app start
     ipcRenderer.send("requestAutoLaunchStatus");
 
-    $('#main_file_start_system_window').click(function(){ 
-      const element = document.getElementById('main_file_start_system_window_li');
-      if (element.classList.contains("simple")) {
-        element.classList.remove("simple");
-        element.classList.add("checked");
-        ipcRenderer.send("autoLaunchToggle", true); // Enable auto-launch
-      } else {
-        element.classList.remove("checked");
-        element.classList.add("simple");
-        ipcRenderer.send("autoLaunchToggle", false); // Disable auto-launch
-      }
-    });
+    // $('#main_file_start_system_window').click(function(){ 
+    //   const element = document.getElementById('main_file_start_system_window_li');
+    //   if (element.classList.contains("simple")) {
+    //     element.classList.remove("simple");
+    //     element.classList.add("checked");
+    //     ipcRenderer.send("autoLaunchToggle", true); // Enable auto-launch
+    //   } else {
+    //     element.classList.remove("checked");
+    //     element.classList.add("simple");
+    //     ipcRenderer.send("autoLaunchToggle", false); // Disable auto-launch
+    //   }
+    // });
 
     $('#main_file_setting_incognito').click(function(){ 
       const element = document.getElementById('main_file_setting_incognito_li');
@@ -648,14 +659,15 @@ $(function() {
         // classList contains "simple", replace with "checked"
         element.classList.remove("simple");
         element.classList.add("checked");
+        ipcRenderer.send("incognitoToggle", "1");
 
       } else {
         // classList contains "checked", replace with "simple"
         element.classList.remove("checked");
         element.classList.add("simple");
+        ipcRenderer.send("incognitoToggle", "0");
       }
-      console.log("incognitoToggle Toggle button clicked");
-      ipcRenderer.send("incognitoToggle");
+      
     });
   
 
