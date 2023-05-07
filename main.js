@@ -24,6 +24,8 @@ console.log = (message) => {
 
 
 let x, y = null;
+
+let isTopmost = false;
 const jsonFilePath = path.join(__dirname, '/tree-data.json');
 let win, menuWindow;
 let menu = null;
@@ -123,7 +125,7 @@ function createWindow() {
     }
     else {
       //win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
-      win.loadFile(path.join(__dirname, '/index_mac.html'));
+      win.loadFile(path.join(__dirname, '/index.html'));
 
     }
   });
@@ -131,6 +133,7 @@ function createWindow() {
 
   //checkMachines(data, win);
   // win.loadFile(path.join(__dirname, '/index.html'));
+  win.setAlwaysOnTop(false, 'floating');
   win.webContents.openDevTools();
   win.removeMenu(true);
 
@@ -409,13 +412,28 @@ ipcMain.on('openTextEditor', (event, args) => {
   }).unref();
 });
 
-ipcMain.handle("topmostToggle", (event,args) => {
-  if (win.isAlwaysOnTop()) {
-    win.setAlwaysOnTop(false);
-  } else {
-    win.setAlwaysOnTop(true);
-  }
+
+
+// ipcMain.handle("topmostToggle", (event,args) => {
+//   // if (win.isAlwaysOnTop()) {
+//   //   win.setAlwaysOnTop(false);
+//   // } else {
+//   //   win.setAlwaysOnTop(true);
+//   // }
+//   console.log("topmostToggle event received with args: ", args);
+//   isTopmost = !isTopmost;
+//   win.setAlwaysOnTop(isTopmost, 'floating');
+//   console.log("win.alwaysOnTop set to ", isTopmost);
+// });
+ipcMain.on(`topmostToggle`, function (e, args) {
+  console.log("topmostToggle event received with args: ", args);
+  isTopmost = !isTopmost;
+  win.setAlwaysOnTop(isTopmost, 'floating');
+  console.log("win.alwaysOnTop set to ", isTopmost);
 });
+// ipcMain.handle("topmostToggle", (event, args) => {
+  
+// });
 
 
 
@@ -626,7 +644,7 @@ ipcMain.handle('get-file-folder', async (event, type) => {
   var pathStr = filePath.toString();
   const fileName = path.basename(filePath);
   var icon = type + ".png";
-  return newData = { title: fileName, type: type, icon: icon, path: pathStr };
+  return newData = { title: fileName, icon: icon , data:{type: type, path: pathStr  }};
 });
 
 

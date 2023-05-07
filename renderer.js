@@ -2,58 +2,44 @@ const $ = require('jquery');
 require('jquery.fancytree');
 require('jquery.fancytree/dist/modules/jquery.fancytree.dnd5.js');
 require('jquery.fancytree/dist/modules/jquery.fancytree.edit.js');
-require('jquery.fancytree/dist/modules/jquery.fancytree.gridnav.js');
-require('jquery.fancytree/dist/modules/jquery.fancytree.table.js');
+//require('jquery.fancytree/dist/modules/jquery.fancytree.gridnav.js');
+//require('jquery.fancytree/dist/modules/jquery.fancytree.table.js');
 require('jquery.fancytree/dist/modules/jquery.fancytree.filter.js');
 require('ui-contextmenu');
 const { ipcRenderer,globalShortcut  } = require("electron");
-// $('#tree').fancytree({
-//     skin: 'skin-win8',
-//     source: [
-//         {title: 'Node 1',key: '1'},
-//         {title: 'Node 2', children: [
-//             {title: 'Subnode 2.1'},
-//             {title: 'Subnode 2.2'}
-//         ]}
-//       ],
-// });
-
-//   var tree = $.ui.fancytree.getTree("#tree");
-
-//   // Expand all tree nodes
-//   tree.visit(function(node){
-//     node.setExpanded(true);
+// $(function() {
+//   $('#tree').fancytree({
+//       skin: 'skin-win8',
+//       source: [
+//           {title: 'Node 1',key: '1'},
+//           {title: 'Node 2', children: [
+//               {title: 'Subnode 2.1'},
+//               {title: 'Subnode 2.2'}
+//           ]}
+//         ],
 //   });
-
-// // Get a reference to the node
-// const myNode = tree.getNodeByKey('1');
-
-// // Check if the node exists before adding children
-// if (myNode) {
-//   myNode.addChildren([{ title: 'Child Node 3' }, { title: 'Child Node 4' }]);
-// }
-
+  
+//     var tree = $.ui.fancytree.getTree("#tree");
+  
+//     // Expand all tree nodes
+//     tree.visit(function(node){
+//       node.setExpanded(true);
+//     });
+  
+//   // Get a reference to the node
+//   const myNode = tree.getNodeByKey('1');
+  
+//   // Check if the node exists before adding children
+//   if (myNode) {
+//     myNode.addChildren([{ title: 'Child Node 3' }, { title: 'Child Node 4' }]);
+//   }
+//   });
 
     var CLIPBOARD = null;
 
-      $(function() {
+    $(function() {
 
-        var platform = window.navigator.platform.toLowerCase();
-
-        // Show the corresponding key list based on the operating system
-        if (platform.includes('win')) {
-          // Windows
-          $('.mac').hide();
-          $('.linux').hide();
-        } else if (platform.includes('mac')) {
-          // macOS
-          $('.win').hide();
-          $('.linux').hide();
-        } else {
-          // Linux or other
-          $('.win').hide();
-          $('.mac').hide();
-        }
+        
         $("#tree")
           .fancytree({
             activeVisible: true, // Make sure, active nodes are visible (expanded)
@@ -61,7 +47,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             autoActivate: true, // Automatically activate a node when it is focused using keyboard
             autoCollapse: false, // Automatically collapse all siblings, when a node is expanded
             autoScroll: false, // Automatically scroll nodes into visible area
-            clickFolderMode: 4, // 1:activate, 2:expand, 3:activate and expand, 4:activate (dblclick expands)
+            clickFolderMode: 1, // 1:activate, 2:expand, 3:activate and expand, 4:activate (dblclick expands)
             checkbox: false, // Show check boxes
             checkboxAutoHide: true, // Display check boxes on hover only
             debugLevel: 4, // 0:quiet, 1:errors, 2:warnings, 3:infos, 4:debug
@@ -71,7 +57,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             escapeTitles: false, // Escape `node.title` content for display
             generateIds: false, // Generate id attributes like <span id='fancytree-id-KEY'>
             idPrefix: "ft_", // Used to generate node idÂ´s like <span id='fancytree-id-<key>'>
-            icon: true, // Display node icons
+            icon: false, // Display node icons
             keyboard: true, // Support keyboard navigation
             keyPathSeparator: "/", // Used by node.getKeyPath() and tree.loadKeyPath()
             minExpandLevel: 1, // 1: root node is not collapsible
@@ -82,16 +68,21 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             titlesTabbable: true, // Add all node titles to TAB chain// Node titles can receive keyboard focus
             quicksearch: true, // Jump to nodes when pressing first character///must true for filter 
             
+            skin: 'skin-win8',
             source: { url: "tree-data.json" },
 
             extensions: ["edit", "dnd5", "filter"],//, "table", "gridnav"
 
-            extraClasses: {
-              // Add a class to the node based on whether it has a shortcut key
-              get: function(node) {
-                return node.data.shortcutKey ? "has-shortcut-key" : "";
-              }
-            },
+           
+            // icon: function(event, data) {
+            //   // Hide the default icon if node does not have an icon property
+            //   if (!data.node.icon) {
+            //     data.node.addClass("no-icon");
+            //     return "hide-icon";
+            //   }
+            //   // Otherwise, return the icon property value
+            //   return data.node.icon;
+            // },
 
             filter: {
               autoApply: true,   // Re-apply last filter if lazy data is loaded
@@ -176,6 +167,12 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             // lazyLoad: function(event, data) {
             //   data.result = { url: "ajax-sub2.json" };
             // },
+            extraClasses: {
+              // Add a class to the node based on whether it has a shortcut key
+              get: function(node) {
+                return node.data.shortcutKey ? "has-shortcut-key" : "";
+              }
+            },
             createNode: function(event, data) {
               var node = data.node,
                 $tdList = $(node.tr).find(">td");
@@ -255,7 +252,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               logEvent(event, data);
               var node = data.node;
               // acces node attributes
-              $("#echoActive").text(node.title);
+              //$("#echoActive").text(node.title);
               if( !$.isEmptyObject(node.data) ){
       //					alert("custom node data: " + JSON.stringify(node.data));
               }
@@ -285,7 +282,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             blur: function(event, data) {
               
               logEvent(event, data);
-              $("#echoFocused").text("-");
+              //$("#echoFocused").text("-");
             },
             click: function(event, data) {
               
@@ -324,7 +321,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             },
             deactivate: function(event, data) {
               logEvent(event, data);
-              $("#echoActive").text("-");
+              //$("#echoActive").text("-");
               
             },
             expand: function(event, data) {
@@ -337,7 +334,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             },
             focus: function(event, data) {
               logEvent(event, data);
-              $("#echoFocused").text(data.node.title);
+             // $("#echoFocused").text(data.node.title);
               
             },
             keydown: function(event, data) {
@@ -385,11 +382,14 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             
       //       },
             renderNode: function(event, data) {
-              // Optionally tweak data.node.span
-      //              $(data.node.span).text(">>" + data.node.title);
+              // Add CSS class to the node if it does not have an icon
+              // if (!data.node.icon) {
+              //   data.node.addClass("no-icon");
+              // }
               logEvent(event, data);
-              
+             
             },
+      
             renderTitle: function(event, data) {
               logEvent(event, data);
               var node = data.node;
@@ -420,9 +420,6 @@ const { ipcRenderer,globalShortcut  } = require("electron");
       //		    logEvent(event, data);
       
               
-          }).on("change", function(event, data){
-            console.log("Firing");  
-            alert("fsafds");
           })
           .on("mouseenter mouseleave", ".fancytree-title", function(event){
             // Add a hover handler to all node titles (using event delegation)
@@ -680,7 +677,11 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             }, 100);
           },
         });
-      });
+
+
+    });
+
+    
 
 
 
@@ -979,11 +980,28 @@ function logEvent(event, data, msg){
       $.ui.fancytree.info("Event('" + event.type + "', node=" + data.node + ")" + msg);
     }
 
-    function showSaveFileDialog(d) {
-      ipcRenderer.invoke("showDialog", d);
-    }
+function showSaveFileDialog(d) {
+  ipcRenderer.invoke("showDialog", d);
+}
 
 $(function() {
+
+  var platform = window.navigator.platform.toLowerCase();
+
+  // Show the corresponding key list based on the operating system
+  if (platform.includes('win')) {
+    // Windows
+    $('.mac').hide();
+    $('.linux').hide();
+  } else if (platform.includes('mac')) {
+    // macOS
+    $('.win').hide();
+    $('.linux').hide();
+  } else {
+    // Linux or other
+    $('.win').hide();
+    $('.mac').hide();
+  }
 
   $('#timezone-select').on('change', function() {
     var selectedOptionValue = $(this).val();
@@ -1099,24 +1117,50 @@ $(function() {
         element.classList.remove("checked");
         element.classList.add("simple");
       }
+      console.log("Toggle button clicked");
       ipcRenderer.send("topmostToggle");
     });
     $('#main_file_start_system_window').click(function(){ 
     });
     $('#main_file_setting_incognito').click(function(){ 
     });
-    $('#main_file_setting_color_top_menu').click(function(){
-     
-      openColorTopMenuDialog(); 
-      setTimeout(function(){
-       // initializetree2();
-      }, 500);
+    // $('#main_file_setting_color_top_menu').click(function(){
+    //   const topMenu = document.getElementById('top-main-menu');
+    //   var topMenuColor = rgbToHex(getComputedStyle(topMenu).backgroundColor);
+    //   if(!topMenuColor)
+    //   {
+    //     topMenuColor = "#000000";
+    //   }
+    //   console.log(topMenuColor);
+    //   openColorTopMenuDialog(topMenuColor); 
+    //   setTimeout(function(){
+    //    // initializetree2();
+    //   }, 500);
       
       
+    // });
+    
+    $('#main_file_setting_color_top_menu').on('change', function() {
+      const colorPicker = this;
+      console.log($(colorPicker).val());
+      $('#top-main-menu').css('background-color', $(colorPicker).val());
     });
-    $('#main_file_setting_color_main_dialog').click(function(){
-      openColorMainDialog(); 
+
+    $('#main_file_setting_color_main_dialog').on('change', function() {
+      const colorPicker = this;
+      console.log($(colorPicker).val());
+      $('#tree').find('.fancytree-container').css('background-color', $(colorPicker).val());
+      // Invert color of text inside .fancytree-title
+      $('#tree').find('.fancytree-title').css('color', invertColor($(colorPicker).val()));
+      //$('.fancytree-title').css('color', invertColor($(colorPicker).val()));
     });
+
+    
+
+    // $('#').click(function(){
+    //   openColorMainDialog(); 
+    // });
+
     $('#main_file_about').click(function(){ 
       openAboutDialog();
     });
@@ -1126,7 +1170,7 @@ $(function() {
     $('#main_add_input').click(function(){ 
       var tree = $.ui.fancytree.getTree("#tree"),
 				node = tree.getActiveNode();
-				newData = {title: "...",type:"text",icon:"text.png"};
+				newData = {title: "...", data:{type: "text"}};
         if( node )
         {
 				  newSibling = node.addChildren(newData);
@@ -1139,7 +1183,7 @@ $(function() {
     $('#main_add_parent').click(function(){ 
       var tree = $.ui.fancytree.getTree("#tree"),
 				node = tree.getRootNode();
-				newData = {title: "...",type:"text",icon:"text.png"};
+				newData = {title: "...", data:{type: "text"}};
         if( node )
         {
 				  newSibling = node.addChildren(newData);
@@ -1160,13 +1204,13 @@ $(function() {
 
       var tree = $.ui.fancytree.getTree("#tree"),
 				node = tree.getActiveNode();
-				newData = {title: "...",type:"text",icon:"text.png"};
+				newData = {title: "...", data:{type: "text"}};
         if( node )
         {
 				  newSibling = node.addChildren(newData);
           //newSibling.extraClasses = "custom1";
          // newSibling.renderTitle();
-          //newSibling.icon = "text.png";
+          //newSibling.icon = "blank.png";
           //newSibling.renderTitle();
         }
         else
@@ -1174,7 +1218,7 @@ $(function() {
           newnode = $.ui.fancytree.getTree("#tree").getRootNode().addChildren(newData);
          // newnode.extraClasses = "custom1";
          // newnode.renderTitle();
-         // newnode.icon = "text.png";
+         // newnode.icon = "blank.png";
          // newnode.renderTitle();
         }
     });
@@ -1584,69 +1628,6 @@ function initializetree2()
           });
 }
 
-function onColorSelectorCreate()
-{
-  console.log("hahahhahah");
-}
-
-function openColorTopMenuDialog(){
-  Metro.dialog.create({
-      title: "Color Dialog Top Menu",
-      width: 380,
-      content: '<input type="color" id="color-picker"></input>',
-      actions: [
-          {
-              caption: "Apply",
-              cls: "js-dialog-close alert",
-              onclick: function(){
-                const colorPicker = document.getElementById('color-picker');
-                document.getElementById('top-main-menu').style.backgroundColor = colorPicker.value;
-                document.getElementById('head').style.backgroundColor = colorPicker.value;
-                // colorPicker.addEventListener('input', () => {
-                //   console.log(colorPicker.value);
-                // });
-              }
-          },
-          {
-              caption: "Cancel",
-              cls: "js-dialog-close",
-              onclick: function(){
-                  console.log("You clicked Cancel Color Dialog");
-              }
-          }
-      ]
-  });
-}
-
-
-function openColorMainDialog(){
-  Metro.dialog.create({
-      title: "Color Dialog Main Dialog",
-      width: 380,
-      content: '<input type="color" id="color-picker"></input>',
-      actions: [
-          {
-              caption: "Apply",
-              cls: "js-dialog-close alert",
-              onclick: function(){
-                const colorPicker = document.getElementById('color-picker');
-
-                colorPicker.addEventListener('input', () => {
-                  console.log(colorPicker.value);
-                });
-              }
-          },
-          {
-              caption: "Cancel",
-              cls: "js-dialog-close",
-              onclick: function(){
-                  console.log("You clicked Cancel Color Dialog");
-              }
-          }
-      ]
-  });
-}
-
 function treeDataChangeEvent(){
   if ($.ui.fancytree && $.ui.fancytree.getTree("#tree") && $.ui.fancytree.getTree("#tree").getNodes().length > 0) {
     // Fancytree is initialized and data is loaded
@@ -1814,4 +1795,30 @@ function editImgFileFolder(node)
   // .catch(error => {
   //   console.error(error)
   // })
+}
+
+function rgbToHex(rgb) {
+  const matches = rgb.match(/rgb\((\d+), (\d+), (\d+)\)/);
+  if (!matches) {
+    return null;
+  }
+  const r = parseInt(matches[1], 10).toString(16).padStart(2, '0');
+  const g = parseInt(matches[2], 10).toString(16).padStart(2, '0');
+  const b = parseInt(matches[3], 10).toString(16).padStart(2, '0');
+  return `#${r}${g}${b}`;
+}
+
+function invertColor(hex) {
+  // Convert hex color code to RGB format
+  var r = parseInt(hex.substring(1,3), 16);
+  var g = parseInt(hex.substring(3,5), 16);
+  var b = parseInt(hex.substring(5,7), 16);
+
+  // Invert each color channel
+  r = 255 - r;
+  g = 255 - g;
+  b = 255 - b;
+
+  // Convert back to hex format
+  return "#" + r.toString(16) + g.toString(16) + b.toString(16);
 }

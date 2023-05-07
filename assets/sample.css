@@ -188,3 +188,8 @@ iframe.embedded-jsbin {
 	color: gray;
 	margin-left: 5px;
   }
+/* 
+  .no-icon-tree .fancytree-node.no-icon span.fancytree-icon {
+	margin-right: 0px !important;
+  } */
+  
