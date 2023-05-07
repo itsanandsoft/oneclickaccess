@@ -15,6 +15,14 @@ const os = require('os');
 const XLSX = require('xlsx');
 const { promisify } = require('util');
 const url = require('url');
+const AutoLaunch = require('auto-launch');
+// const { edialog } = require('electron-dialog');
+
+const autoLauncher = new AutoLaunch({
+  name: 'oneclickaccess',
+  path: app.getPath('exe'),
+});
+
 
 const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
 console.log = (message) => {
@@ -32,6 +40,7 @@ let menu = null;
 let notification = null;
 let tray = null
 let tempRegisteredShortcut;
+let autoLaunchEnabled = false;
 const functionMap = {
   itemClicked
 };
@@ -413,29 +422,18 @@ ipcMain.on('openTextEditor', (event, args) => {
 });
 
 
-
-// ipcMain.handle("topmostToggle", (event,args) => {
-//   // if (win.isAlwaysOnTop()) {
-//   //   win.setAlwaysOnTop(false);
-//   // } else {
-//   //   win.setAlwaysOnTop(true);
-//   // }
-//   console.log("topmostToggle event received with args: ", args);
-//   isTopmost = !isTopmost;
-//   win.setAlwaysOnTop(isTopmost, 'floating');
-//   console.log("win.alwaysOnTop set to ", isTopmost);
-// });
 ipcMain.on(`topmostToggle`, function (e, args) {
   console.log("topmostToggle event received with args: ", args);
   isTopmost = !isTopmost;
   win.setAlwaysOnTop(isTopmost, 'floating');
   console.log("win.alwaysOnTop set to ", isTopmost);
 });
-// ipcMain.handle("topmostToggle", (event, args) => {
-  
-// });
-
-
+ipcMain.on(`startWithSystemToggle`, function (e, args) {
+  console.log("startWithSystemToggle event received with args: ", args);
+  isTopmost = !isTopmost;
+  win.setAlwaysOnTop(isTopmost, 'floating');
+  console.log("startWithSystemToggle set to ", isTopmost);
+});
 
 ipcMain.handle("showDialog", (e, d) => {
   var filePath = path.join(__dirname, '/new_file.json');
@@ -494,6 +492,15 @@ ipcMain.handle("showDialog", (e, d) => {
 });
 
 ipcMain.handle("saveData", (e, d) => {
+  // edialog.show({
+  //   title: 'My Dialog',
+  //   content: '<html><body><h1>Hello World</h1></body></html>',
+  //   buttons: ['OK']
+  // }).then(result => {
+  //   console.log(result);
+  // }).catch(err => {
+  //   console.log(err);
+  // });
   var filePath = path.join(__dirname, '/tree-data.json');
   fs.access(filePath, fs.constants.F_OK, (err) => {
     if (err) {
@@ -742,32 +749,36 @@ ipcMain.handle('show-message-box', async (event, options) => {
   const response = await dialog.showMessageBox(options);
   return response.response;
 });
-
-// Listen for the 'check-global-shortcut' message from the renderer process
-ipcMain.handle('check-global-shortcut', (event, shortcut) => {
-  const isRegistered = globalShortcut.isRegistered(shortcut);
-  return isRegistered;
+ipcMain.on('autoLaunchToggle', (event) => {
+  autoLauncher.isEnabled()
+    .then((isEnabled) => {
+      if (isEnabled) {
+        autoLauncher.disable()
+          .then(() => {
+            console.log('Auto launch disabled');
+            autoLaunchEnabled = false;
+            event.sender.send('autoLaunchEnabled', false); // Send enabled status to renderer
+          })
+          .catch((error) => console.log(error));
+      } else {
+        autoLauncher.enable()
+          .then(() => {
+            console.log('Auto launch enabled');
+            autoLaunchEnabled = true;
+            event.sender.send('autoLaunchEnabled', true); // Send enabled status to renderer
+          })
+          .catch((error) => console.log(error));
+      }
+    })
+    .catch((error) => console.log(error));
 });
 
-
-
-// Listen for messages from the renderer process
-
-ipcMain.handle('register-shortcut', async (event, newShortcutKey) => {
-  // Register a global shortcut
-  const success = globalShortcut.register(newShortcutKey, () => {
-    // Handle the global shortcut event
-    // ...
-  });
-
-  return success;
+ipcMain.on('requestAutoLaunchStatus', (event) => {
+  autoLauncher.isEnabled()
+    .then((isEnabled) => {
+      autoLaunchEnabled = isEnabled;
+      event.sender.send('autoLaunchEnabled', isEnabled); // Send enabled status to renderer
+    })
+    .catch((error) => console.log(error));
 });
 
-
-// Listen for messages from the renderer process to unregister the shortcut
-ipcMain.on('unregister-shortcut', (event) => {
-  if (tempRegisteredShortcut) {
-    globalShortcut.unregister(tempRegisteredShortcut);
-    tempRegisteredShortcut = null;
-  }
-});

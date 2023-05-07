@@ -2,38 +2,9 @@ const $ = require('jquery');
 require('jquery.fancytree');
 require('jquery.fancytree/dist/modules/jquery.fancytree.dnd5.js');
 require('jquery.fancytree/dist/modules/jquery.fancytree.edit.js');
-//require('jquery.fancytree/dist/modules/jquery.fancytree.gridnav.js');
-//require('jquery.fancytree/dist/modules/jquery.fancytree.table.js');
 require('jquery.fancytree/dist/modules/jquery.fancytree.filter.js');
 require('ui-contextmenu');
 const { ipcRenderer,globalShortcut  } = require("electron");
-// $(function() {
-//   $('#tree').fancytree({
-//       skin: 'skin-win8',
-//       source: [
-//           {title: 'Node 1',key: '1'},
-//           {title: 'Node 2', children: [
-//               {title: 'Subnode 2.1'},
-//               {title: 'Subnode 2.2'}
-//           ]}
-//         ],
-//   });
-  
-//     var tree = $.ui.fancytree.getTree("#tree");
-  
-//     // Expand all tree nodes
-//     tree.visit(function(node){
-//       node.setExpanded(true);
-//     });
-  
-//   // Get a reference to the node
-//   const myNode = tree.getNodeByKey('1');
-  
-//   // Check if the node exists before adding children
-//   if (myNode) {
-//     myNode.addChildren([{ title: 'Child Node 3' }, { title: 'Child Node 4' }]);
-//   }
-//   });
 
     var CLIPBOARD = null;
 
@@ -68,21 +39,10 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             titlesTabbable: true, // Add all node titles to TAB chain// Node titles can receive keyboard focus
             quicksearch: true, // Jump to nodes when pressing first character///must true for filter 
             
+           
             skin: 'skin-win8',
             source: { url: "tree-data.json" },
-
-            extensions: ["edit", "dnd5", "filter"],//, "table", "gridnav"
-
-           
-            // icon: function(event, data) {
-            //   // Hide the default icon if node does not have an icon property
-            //   if (!data.node.icon) {
-            //     data.node.addClass("no-icon");
-            //     return "hide-icon";
-            //   }
-            //   // Otherwise, return the icon property value
-            //   return data.node.icon;
-            // },
+            extensions: ["edit", "dnd5", "filter"],
 
             filter: {
               autoApply: true,   // Re-apply last filter if lazy data is loaded
@@ -96,12 +56,6 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               nodata: true,      // Display a 'no data' status node if result is empty
               mode: "dimm"       // Grayout unmatched nodes (pass "hide" to remove unmatched node instead)
             },
-        
-            // lazyLoad: function(event, data) {
-            //   data.result = {url: "ajax-sub2.json"}
-            // },
-
-            
             dnd5: {
               preventVoidMoves: true,
               preventRecursion: true,
@@ -131,42 +85,8 @@ const { ipcRenderer,globalShortcut  } = require("electron");
                     cmd: "addSibling",
                   });
                 }
-                //treeDataChangeEvent();
               },
             },
-            // // Bind an event listener for the 'change' event
-            // change: function(event, data){
-            //  // var tree = $.ui.fancytree.getTree("#tree");
-            //  // var jsonData = tree.toDict(true);
-            //  // var jsonString = JSON.stringify(jsonData, null, 2);
-            //   alert("hahah");
-            //  // var da = tree.toDict(true);
-            //  // var d = JSON.stringify(da);
-            //  // ipcRenderer.invoke("saveData", d);
-            //   // Send an AJAX request to update the JSON file with the updated data
-            //   // $.ajax({
-            //   //   type: "POST",
-            //   //   url: "update-json.php",
-            //   //   data: { jsonData: jsonString },
-            //   //   success: function(response) {
-            //   //     console.log("JSON file updated successfully.");
-            //   //   }
-            //   // });
-            // },
-          
-            // table: {
-            //   indentation: 20,
-            //   nodeColumnIdx: 2,
-            //   checkboxColumnIdx: 0,
-            // },
-            // gridnav: {
-            //   autofocusInput: false,
-            //   handleCursorKeys: true,
-            // },
-
-            // lazyLoad: function(event, data) {
-            //   data.result = { url: "ajax-sub2.json" };
-            // },
             extraClasses: {
               // Add a class to the node based on whether it has a shortcut key
               get: function(node) {
@@ -174,134 +94,77 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               }
             },
             createNode: function(event, data) {
-              var node = data.node,
-                $tdList = $(node.tr).find(">td");
-
-              // Span the remaining columns if it's a folder.
-              // We can do this in createNode instead of renderColumns, because
-              // the `isFolder` status is unlikely to change later
-              if (node.isFolder()) {
-                $tdList
-                  .eq(2)
-                  .prop("colspan", 6)
-                  .nextAll()
-                  .remove();
-              }
-              //treeDataChangeEvent();
+              var node = data.node;
             },
-            renderColumns: function(event, data) {
-              var node = data.node,
-                $tdList = $(node.tr).find(">td");
-
-              // (Index #0 is rendered by fancytree by adding the checkbox)
-              // Set column #1 info from node data:
-              $tdList.eq(1).text(node.getIndexHier());
-              // (Index #2 is rendered by fancytree)
-              // Set column #3 info from node data:
-              $tdList
-                .eq(3)
-                .find("input")
-                .val(node.key);
-              $tdList
-                .eq(4)
-                .find("input")
-                .val(node.data.foo);
-
-              // Static markup (more efficiently defined as html row template):
-              // $tdList.eq(3).html("<input type='input' value='"  "" + "'>");
-              // ...
-            },
-            // renderColumns: function(event, data) {
-            //   var node = data.node,
-            //     $tdList = $(node.tr).find(">td");
-            //   // (index #0 is rendered by fancytree by adding the checkbox)
-            //   $tdList.eq(1).text(node.getIndexHier()).addClass("alignRight");
-            //   // (index #2 is rendered by fancytree)
-            //   $tdList.eq(3).text(node.key);
-            //   // $tdList.eq(4).html("<input type='checkbox' name='like' value='" + node.key + "'>");
-            // }
             modifyChild: function(event, data) {
               data.tree.info(event.type, data);
-              //treeDataChangeEvent();
             },
-
-            //events
             // --- Tree events -------------------------------------------------
             blurTree: function(event, data) {
-              logEvent(event, data);
-              
+              //////logEvent(event, data);
             },
             create: function(event, data) {
-              logEvent(event, data);
-              
+              //////logEvent(event, data);
             },
             init: function(event, data, flag) {
-              logEvent(event, data, "flag=" + flag);
+              //////logEvent(event, data, "flag=" + flag);
               
             },
             focusTree: function(event, data) {
-              logEvent(event, data);
-              
+              //////logEvent(event, data);
             },
             restore: function(event, data) {
-              logEvent(event, data);
-              
+              //////logEvent(event, data);
             },
             // --- Node events -------------------------------------------------
             activate: function(event, data) {
-              logEvent(event, data);
+              //////logEvent(event, data);
               var node = data.node;
               // acces node attributes
               //$("#echoActive").text(node.title);
               if( !$.isEmptyObject(node.data) ){
-      //					alert("custom node data: " + JSON.stringify(node.data));
+              //					alert("custom node data: " + JSON.stringify(node.data));
               }
-              
             },
             beforeActivate: function(event, data) {
-              logEvent(event, data, "current state=" + data.node.isActive());
-              
+              //////logEvent(event, data, "current state=" + data.node.isActive());
               // return false to prevent default behavior (i.e. activation)
-      //              return false;
+              //              return false;
             },
             beforeExpand: function(event, data) {
-              logEvent(event, data, "current state=" + data.node.isExpanded());
+              //////logEvent(event, data, "current state=" + data.node.isExpanded());
               // return false to prevent default behavior (i.e. expanding or collapsing)
-      //				return false;
+              //				return false;
               
             },
             beforeSelect: function(event, data) {
-      //				console.log("select", event.originalEvent);
+              //				console.log("select", event.originalEvent);
               
-              logEvent(event, data, "current state=" + data.node.isSelected());
+              //////logEvent(event, data, "current state=" + data.node.isSelected());
               // return false to prevent default behavior (i.e. selecting or deselecting)
-      //				if( data.node.isFolder() ){
-      //					return false;
-      //				}
+              //				if( data.node.isFolder() ){
+              //					return false;
+              //				}
             },
             blur: function(event, data) {
-              
-              logEvent(event, data);
+              //////logEvent(event, data);
               //$("#echoFocused").text("-");
             },
             click: function(event, data) {
-              
-              logEvent(event, data, ", targetType=" + data.targetType);
+              //////logEvent(event, data, ", targetType=" + data.targetType);
               // return false to prevent default behavior (i.e. activation, ...)
               //return false;
             },
             collapse: function(event, data) {
-              
-              logEvent(event, data);
+              //////logEvent(event, data);
             },
             createNode: function(event, data) {
-              
               // Optionally tweak data.node.span or bind handlers here
-              logEvent(event, data);
+              //////logEvent(event, data);
               //treeDataChangeEvent();
             },
             dblclick: function(event, data) {
-              logEvent(event, data);
+              //////logEvent(event, data);
               var node = $.ui.fancytree.getTree("#tree").getActiveNode();
               if( node ){
                 //if(node.type)
@@ -310,35 +173,31 @@ const { ipcRenderer,globalShortcut  } = require("electron");
                 //}
                 //else
                 //{
-                  openChildClickValueDialog(node);
+                    openChildClickValueDialog(node);
                 //}
                 console.log("Currently active: " + node.title);
               }else{
                 console.log("No active node.");
               }
-      //				data.node.toggleSelect();
-              
+                //				data.node.toggleSelect();
             },
             deactivate: function(event, data) {
-              logEvent(event, data);
+              //////logEvent(event, data);
               //$("#echoActive").text("-");
-              
             },
             expand: function(event, data) {
-              logEvent(event, data);
-              
+              //////logEvent(event, data);
             },
             enhanceTitle: function(event, data) {
-              logEvent(event, data);
+              //////logEvent(event, data);
               //treeDataChangeEvent();
             },
             focus: function(event, data) {
-              logEvent(event, data);
+              //////logEvent(event, data);
              // $("#echoFocused").text(data.node.title);
-              
             },
             keydown: function(event, data) {
-              logEvent(event, data);
+              //////logEvent(event, data);
               switch( event.which ) {
               case 32: // [space]
                 data.node.toggleSelected();
@@ -348,79 +207,37 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             },
             keypress: function(event, data) {
               // currently unused
-              logEvent(event, data);
+              //////logEvent(event, data);
               //treeDataChangeEvent();
             },
-      //       lazyLoad: function(event, data) {
-      //         logEvent(event, data);
-      //         // return children or any other node source
-      //         data.result = {url: "ajax-sub2.json"};
-      // //				data.result = [
-      // //					{title: "A Lazy node", lazy: true},
-      // //					{title: "Another node", selected: true}
-      // //					];
-      //       },
             loadChildren: function(event, data) {
-              logEvent(event, data);
-              
+              //////logEvent(event, data);
             },
             loadError: function(event, data) {
-              logEvent(event, data);
-              
+              //////logEvent(event, data);
             },
-            // modifyChild: function(event, data) {
-            //   logEvent(event, data, "operation=" + data.operation +
-            //     ", child=" + data.childNode);
-            //     //treeDataChangeEvent();
-            //   },
-      //       postProcess: function(event, data) {
-      //         logEvent(event, data);
-      //         // either modify the Ajax response directly
-      //         //data.response[0].title += " - hello from postProcess";
-      //         // or setup and return a new response object
-      // //				data.result = [{title: "set by postProcess"}];
-            
-      //       },
             renderNode: function(event, data) {
-              // Add CSS class to the node if it does not have an icon
-              // if (!data.node.icon) {
-              //   data.node.addClass("no-icon");
-              // }
-              logEvent(event, data);
-             
-            },
-      
-            renderTitle: function(event, data) {
-              logEvent(event, data);
+              //////logEvent(event, data);
               var node = data.node;
-              title = node.title;
-              if(typeof node.data.shortcutKeys !== 'undefined')
-              {
-                title += "  --("+node.data.shortcutKeys+")";
+              var $titleSpan = $(node.span).find(".fancytree-title");
+              // Add your custom title content to the existing title span
+              if ((typeof node.data.shortcutKeys !== "undefined") && (node.data.shortcutKeys != "")) {
+                $titleSpan.append(" (" + node.data.shortcutKeys + ")");
               }
-              // Concatenate the post text with the title
-             // title += " (post text)";
-              
-              return title;
-              // NOTE: may be removed!
-              // When defined, must return a HTML string for the node title
-              
-      //				return "new title";
-              
+            },
+            renderTitle: function(event, data) {
+              //////logEvent(event, data);
             },
             select: function(event, data) {
-              logEvent(event, data, "current state=" + data.node.isSelected());
+              //////logEvent(event, data, "current state=" + data.node.isSelected());
               var s = data.tree.getSelectedNodes().join(", ");
               $("#echoSelected").text(s);
               
             }
-          })
-          .on("fancytreeactivate", function(event, data){
+          }).on("fancytreeactivate", function(event, data){
             // alternative way to bind to 'activate' event
-      //		    logEvent(event, data);
-      
-              
-          })
+            //		    logEvent(event, data);
+           })
           .on("mouseenter mouseleave", ".fancytree-title", function(event){
             // Add a hover handler to all node titles (using event delegation)
             var node = $.ui.fancytree.getNode(event);
@@ -475,8 +292,6 @@ const { ipcRenderer,globalShortcut  } = require("electron");
                 alert("Unhandled command: " + data.cmd);
                 return;
             }
-            //treeDataChangeEvent();
-            
           })
           .on("keydown", function(e) {
             var cmd = null;
@@ -530,459 +345,123 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               $(this).trigger("nodeCommand", { cmd: cmd });
               return false;
             }
-            //treeDataChangeEvent();
           });
 
-             
+          $("input[name=search]").on("keyup", function(e){
+            var n,
+              tree = $.ui.fancytree.getTree(),
+              args = "autoApply autoExpand fuzzy hideExpanders highlight leavesOnly nodata".split(" "),
+              opts = {},
+              filterFunc = $("#branchMode").is(":checked") ? tree.filterBranches : tree.filterNodes,
+              match = $(this).val();
 
-          var tree = $.ui.fancytree.getTree("#tree");
-
-          // tree.fancytree("getTree").bind("change", function(event, data){
-          //   // Check if the change was an add or remove action
-          //   if(data && (data.action === "addNode" || data.action === "removeNode")){
-          //     // Perform your action here
-          //     alert("Node added or removed!");
-          //   }
-          // });
-          // Bind an event listener for the 'change' event
-          // tree.bind("change", function(event, data){
-          //   alert("hahah");
-          //   var da = tree.toDict(true);
-          //   var d = JSON.stringify(da);
-          //   ipcRenderer.invoke("saveData", d);
-          // });
-            /*
-            * Event handlers for our little demo interface
-            */
-            $("input[name=search]").on("keyup", function(e){
-              var n,
-                tree = $.ui.fancytree.getTree(),
-                args = "autoApply autoExpand fuzzy hideExpanders highlight leavesOnly nodata".split(" "),
-                opts = {},
-                filterFunc = $("#branchMode").is(":checked") ? tree.filterBranches : tree.filterNodes,
-                match = $(this).val();
-
-              $.each(args, function(i, o) {
-                opts[o] = $("#" + o).is(":checked");
-              });
-              opts.mode = $("#hideMode").is(":checked") ? "hide" : "dimm";
-
-              if(e && e.which === $.ui.keyCode.ESCAPE || $.trim(match) === ""){
-                $("button#btnResetSearch").trigger("click");
-                return;
-              }
-              if($("#regex").is(":checked")) {
-                // Pass function to perform match
-                n = filterFunc.call(tree, function(node) {
-                  return new RegExp(match, "i").test(node.title);
-                }, opts);
-              } else {
-                // Pass a string to perform case insensitive matching
-                n = filterFunc.call(tree, match, opts);
-              }
-              $("button#btnResetSearch").attr("disabled", false);
-              $("span#matches").text("(" + n + " matches)");
-            }).focus();
-
-            $("button#btnResetSearch").click(function(e){
-              $("input[name=search]").val("");
-              $("span#matches").text("");
-              tree.clearFilter();
-            }).attr("disabled", true);
-
-            $("fieldset input:checkbox").change(function(e){
-                var id = $(this).attr("id"),
-                  flag = $(this).is(":checked");
-
-                // Some options can only be set with general filter options (not method args):
-                switch( id ){
-                case "counter":
-                case "hideExpandedCounter":
-                  tree.options.filter[id] = flag;
-                  break;
-                }
-                tree.clearFilter();
-                $("input[name=search]").keyup();
+            $.each(args, function(i, o) {
+              opts[o] = $("#" + o).is(":checked");
             });
+            opts.mode = $("#hideMode").is(":checked") ? "hide" : "dimm";
 
-        /*
-         * Tooltips
-         */
-        // $("#tree").tooltip({
-        //   content: function () {
-        //     return $(this).attr("title");
-        //   }
-        // });
+            if(e && e.which === $.ui.keyCode.ESCAPE || $.trim(match) === ""){
+              $("button#btnResetSearch").trigger("click");
+              return;
+            }
+            if($("#regex").is(":checked")) {
+              // Pass function to perform match
+              n = filterFunc.call(tree, function(node) {
+                return new RegExp(match, "i").test(node.title);
+              }, opts);
+            } else {
+              // Pass a string to perform case insensitive matching
+              n = filterFunc.call(tree, match, opts);
+            }
+            $("button#btnResetSearch").attr("disabled", false);
+            $("span#matches").text("(" + n + " matches)");
+          }).focus();
 
-        /*
-         * Context menu (https://github.com/mar10/jquery-ui-contextmenu)
-         */
-        $("#tree").contextmenu({
-          delegate: "span.fancytree-node",
-          menu: [
-            {
-              title: "Edit <kbd>[F2]</kbd>",
-              cmd: "rename",
-              uiIcon: "ui-icon-pencil",
-            },
-            {
-              title: "Delete <kbd>[Del]</kbd>",
-              cmd: "remove",
-              uiIcon: "ui-icon-trash",
-            },
-            { title: "----" },
-            {
-              title: "New sibling <kbd>[Ctrl+N]</kbd>",
-              cmd: "addSibling",
-              uiIcon: "ui-icon-plus",
-            },
-            {
-              title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
-              cmd: "addChild",
-              uiIcon: "ui-icon-arrowreturn-1-e",
-            },
-            { title: "----" },
-            {
-              title: "Cut <kbd>Ctrl+X</kbd>",
-              cmd: "cut",
-              uiIcon: "ui-icon-scissors",
-            },
-            {
-              title: "Copy <kbd>Ctrl-C</kbd>",
-              cmd: "copy",
-              uiIcon: "ui-icon-copy",
-            },
-            {
-              title: "Paste as child<kbd>Ctrl+V</kbd>",
-              cmd: "paste",
-              uiIcon: "ui-icon-clipboard",
-              disabled: true,
-            },
-          ],
-          beforeOpen: function(event, ui) {
-            var node = $.ui.fancytree.getNode(ui.target);
-            $("#tree").contextmenu(
-              "enableEntry",
-              "paste",
-              !!CLIPBOARD
-            );
-            node.setActive();
-          },
-          select: function(event, ui) {
-            var that = this;
-            // delay the event, so the menu can close and the click event does
-            // not interfere with the edit control
-            setTimeout(function() {
-              $(that).trigger("nodeCommand", { cmd: ui.cmd });
-            }, 100);
-          },
-        });
+          $("button#btnResetSearch").click(function(e){
+            $("input[name=search]").val("");
+            $("span#matches").text("");
+            tree.clearFilter();
+          }).attr("disabled", true);
 
+          $("fieldset input:checkbox").change(function(e){
+              var id = $(this).attr("id"),
+                flag = $(this).is(":checked");
 
+              // Some options can only be set with general filter options (not method args):
+              switch( id ){
+              case "counter":
+              case "hideExpandedCounter":
+                tree.options.filter[id] = flag;
+                break;
+              }
+              tree.clearFilter();
+              $("input[name=search]").keyup();
+          });
+          $("#tree").contextmenu({
+            delegate: "span.fancytree-node",
+            menu: [
+              {
+                title: "Edit <kbd>[F2]</kbd>",
+                cmd: "rename",
+                uiIcon: "ui-icon-pencil",
+              },
+              {
+                title: "Delete <kbd>[Del]</kbd>",
+                cmd: "remove",
+                uiIcon: "ui-icon-trash",
+              },
+              { title: "----" },
+              {
+                title: "New sibling <kbd>[Ctrl+N]</kbd>",
+                cmd: "addSibling",
+                uiIcon: "ui-icon-plus",
+              },
+              {
+                title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
+                cmd: "addChild",
+                uiIcon: "ui-icon-arrowreturn-1-e",
+              },
+              { title: "----" },
+              {
+                title: "Cut <kbd>Ctrl+X</kbd>",
+                cmd: "cut",
+                uiIcon: "ui-icon-scissors",
+              },
+              {
+                title: "Copy <kbd>Ctrl-C</kbd>",
+                cmd: "copy",
+                uiIcon: "ui-icon-copy",
+              },
+              {
+                title: "Paste as child<kbd>Ctrl+V</kbd>",
+                cmd: "paste",
+                uiIcon: "ui-icon-clipboard",
+                disabled: true,
+              },
+            ],
+            menuStyle: {
+              fontSize: "12px" // adjust to a smaller value as needed
+            },
+            beforeOpen: function(event, ui) {
+              var node = $.ui.fancytree.getNode(ui.target);
+              $("#tree").contextmenu(
+                "enableEntry",
+                "paste",
+                !!CLIPBOARD
+              );
+              node.setActive();
+            },
+            select: function(event, ui) {
+              var that = this;
+              // delay the event, so the menu can close and the click event does
+              // not interfere with the edit control
+              setTimeout(function() {
+                $(that).trigger("nodeCommand", { cmd: ui.cmd });
+              }, 100);
+            },
+          });
     });
-
-    
-
-
-
-
-
-
-
-
-
-
-$(function(){
-	// addSampleButton({
-	// 	label: "Disable",
-	// 	id: "btnDisable",
-	// 	code: function(){
-	// 		var tree = $.ui.fancytree.getTree("#tree"),
-	// 			wasEnabled = !tree.options.disabled;
-
-	// 		tree.enable(!wasEnabled);
-	// 		$("#btnDisable").text(wasEnabled ? "Enable" : "Disable");
-	// 	}
-	// });
-	// addSampleButton({
-	// 	label: "Expand all",
-	// 	newline: false,
-	// 	code: function(){
-	// 		$.ui.fancytree.getTree("#tree").expandAll();
-	// 	}
-	// });
-	// addSampleButton({
-	// 	label: "Collapse all",
-	// 	newline: false,
-	// 	code: function(){
-	// 		$.ui.fancytree.getTree("#tree").expandAll(false);
-	// 	}
-	// });
-	// addSampleButton({
-	// 	label: "Toggle expand",
-	// 	code: function(){
-	// 		$.ui.fancytree.getTree("#tree").visit(function(node){
-	// 			node.toggleExpanded();
-	// 		});
-	// 	}
-	// });
-// 	addSampleButton({
-// 		label: "tree.getActiveNode()",
-// 		newline: false,
-// 		code: function(){
-// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-// 			if( node ){
-// 				alert("Currently active: " + node.title);
-// 			}else{
-// 				alert("No active node.");
-// 			}
-// 		}
-// 	});
-// 	addSampleButton({
-// 		label: "tree.toDict()",
-// 		code: function(){
-// 			// Convert the whole tree into an dictionary
-// 			var tree = $.ui.fancytree.getTree("#tree");
-// 			var d = tree.toDict(true);
-// 			alert(JSON.stringify(d));
-// 		}
-// 	});
-// 	addSampleButton({
-// 		label: "activateKey('id4.3.2')",
-// 		code: function(){
-// 			$.ui.fancytree.getTree("#tree").activateKey("id4.3.2");
-// 			// also possible:
-// //	              $.ui.fancytree.getTree("#tree").getNodeByKey("id4.3.2").setActive();
-// 		}
-// 	});
-// 	addSampleButton({
-// 		label: "setTitle()",
-// 		code: function(){
-// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-// 			if( !node ) return;
-// 			node.setTitle(node.title + ", " + new Date());
-// 			// this is a shortcut for
-// 			// node.fromDict({title: data.node.title + new Date()});
-// 		}
-// 	});
-// 	addSampleButton({
-// 		label: "Sort tree",
-// 		newline: false,
-// 		code: function(){
-// 			var node = $.ui.fancytree.getTree("#tree").getRootNode();
-// 			node.sortChildren(null, true);
-// 		}
-// 	});
-	
-// 	addSampleButton({
-// 		header: "Create nodes",
-// 		tooltip: "Use node.addChildren() with single objects",
-// 		label: "Add single nodes",
-// 		newline: false,
-// 		code: function(){
-// 			// Sample: add an hierarchic branch using code.
-// 			// This is how we would add tree nodes programatically
-// 			var rootNode = $.ui.fancytree.getTree("#tree").getRootNode();
-// 			var childNode = rootNode.addChildren({
-// 				title: "Programatically addded nodes",
-// 				tooltip: "This folder and all child nodes were added programmatically.",
-// 				folder: true
-// 			});
-// 			childNode.addChildren({
-// 				title: "Document using a custom icon",
-// 				icon: "customdoc1.gif"
-// 			});
-// 		}
-// 	});
-// 	addSampleButton({
-// 		tooltip: "Use node.appendSibling()",
-// 		label: "Apppend a sibling node",
-// 		newline: false,
-// 		code: function(){
-// 			var tree = $.ui.fancytree.getTree("#tree"),
-// 				node = tree.getActiveNode(),
-// 				newData = {title: "New Node"},
-// 				newSibling = node.appendSibling(newData);
-// 		}
-// 	});
-// 	// addSampleButton({
-// 	// 	label: "ROOT.addChildren()",
-// 	// 	tooltip: "Use node.addChildren() with recursive arrays",
-// 	// 	code: function(){
-// 	// 		// Sample: add an hierarchic branch using an array
-// 	// 		var obj = [
-// 	// 			{ title: "Lazy node 1", lazy: true },
-// 	// 			{ title: "Lazy node 2", lazy: true },
-// 	// 			{ title: "Folder node 3", folder: true,
-// 	// 				children: [
-// 	// 					{ title: "node 3.1" },
-// 	// 					{ title: "node 3.2",
-// 	// 						children: [
-// 	// 							{ title: "node 3.2.1" },
-// 	// 							{ title: "node 3.2.2",
-// 	// 								children: [
-// 	// 									{ title: "node 3.2.2.1" }
-// 	// 								]
-// 	// 							}
-// 	// 						]
-// 	// 					}
-// 	// 				]
-// 	// 			}
-// 	// 		];
-// 	// 		$.ui.fancytree.getTree("#tree").getRootNode().addChildren(obj);
-// 	// 	}
-// 	// });
-// 	addSampleButton({
-// 		label: "node.fromDict()",
-// 		code: function(){
-// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-// 			if( !node ) return;
-// 			// Set node data and - optionally - replace children
-// 			node.fromDict({
-// 				title: node.title + new Date(),
-// 				children: [{title: "t1"}, {title: "t2"}]
-// 			});
-// 		}
-// 	});
-// 	CLIPBOARD = null;
-// 	addSampleButton({
-// 		label: "Clipboard = node.toDict()",
-// 		newline: false,
-// 		code: function(){
-// 			// Convert active node (and descendants) to a dictionary and store
-// 			// in
-// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-// 			var d = node.toDict(true, function(dict, node){
-// 				// Remove keys, so they will be re-generated when this dict is
-// 				// passed to addChildren()
-// 				delete dict.key;
-// 			});
-// 			// Store in a globael variable
-// 			CLIPBOARD = d;
-// 			alert("CLIPBOARD = " + JSON.stringify(d));
-// 		}
-// 	});
-// 	addSampleButton({
-// 		label: "node.fromDict(Clipboard)",
-// 		code: function(){
-// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-// 			if( !node ) return;
-// 			// Set node data and - optionally - replace children
-// 			node.fromDict(CLIPBOARD);
-// 		}
-// 	});
-// 	addSampleButton({
-// 		label: "Remove selected nodes (but keep children)",
-// 		newline: true,
-// 		code: function(){
-// 			var tree = $.ui.fancytree.getTree("#tree"),
-// 				selNodes = tree.getSelectedNodes();
-
-// 			selNodes.forEach(function(node) {
-// 				while( node.hasChildren() ) {
-// 					node.getFirstChild().moveTo(node.parent, "child");
-// 				}
-// 				node.remove();
-// 			});
-// 		}
-// 	});
-
-
-
-
-//   ///filter buttons
-//   addSampleButton({
-//     label: "Filter active branch",
-//     newline: false,
-//     code: function(){
-//       if( !tree.getActiveNode() ) {
-//         alert("Please activate a folder.");
-//         return;
-//       }
-//       tree.filterBranches(function(node){
-//         return node.isActive();
-//       }, {
-//         mode: "hide",
-//       });
-//     }
-//   });
-//   addSampleButton({
-//     label: "Reset filter",
-//     newline: false,
-//     code: function(){
-//       tree.clearFilter();
-//     }
-//   });
-
-
-
-
-//   addSampleButton({
-//     label: "destroy all",
-//     newline: false,
-//     code: function(){
-//       $(":ui-fancytree").fancytree("destroy");
-//     }
-//   });
-//   addSampleButton({
-//     label: "init all",
-//     newline: false,
-//     code: function(){
-//       $(".sampletree").fancytree();
-//     }
-//   });
-//   addSampleButton({
-//     label: "Reload() #1",
-//     newline: false,
-//     code: function(){
-//       $.ui.fancytree.getTree("#tree").reload([
-//         {title: "node1"},
-//         {title: "node2"}
-//       ]).done(function(){
-//         alert("reloaded");
-//       });
-//     }
-//   });
-//   addSampleButton({
-//     label: "Set 'source' option (all)",
-//     newline: false,
-//     code: function(){
-//       $(".sampletree").fancytree("option", "source", [
-//         {title: "node1"}
-//       ]);
-//     }
-//   });
-
-
-
-//   addSampleButton({
-// 		label: "(De)Select active node",
-// 		newline: false,
-// 		code: function(){
-// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-// 			node.setSelected( !node.isSelected() );
-// 		}
-// 	});
-// 	addSampleButton({
-// 		label: "Remove active node",
-// 		newline: false,
-// 		code: function(){
-// 			var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-// 			node.remove();
-// 		}
-// 	});
-
-});
-
-function logEvent(event, data, msg){
-  //        var args = Array.isArray(args) ? args.join(", ") :
-      msg = msg ? ": " + msg : "";
-      $.ui.fancytree.info("Event('" + event.type + "', node=" + data.node + ")" + msg);
-    }
-
-function showSaveFileDialog(d) {
-  ipcRenderer.invoke("showDialog", d);
-}
+ 
 
 $(function() {
 
@@ -1120,26 +599,66 @@ $(function() {
       console.log("Toggle button clicked");
       ipcRenderer.send("topmostToggle");
     });
-    $('#main_file_start_system_window').click(function(){ 
-    });
-    $('#main_file_setting_incognito').click(function(){ 
-    });
-    // $('#main_file_setting_color_top_menu').click(function(){
-    //   const topMenu = document.getElementById('top-main-menu');
-    //   var topMenuColor = rgbToHex(getComputedStyle(topMenu).backgroundColor);
-    //   if(!topMenuColor)
-    //   {
-    //     topMenuColor = "#000000";
-    //   }
-    //   console.log(topMenuColor);
-    //   openColorTopMenuDialog(topMenuColor); 
-    //   setTimeout(function(){
-    //    // initializetree2();
-    //   }, 500);
-      
-      
-    // });
     
+    $('#main_file_start_system_window').click(function(){ 
+      const element = document.getElementById('main_file_start_system_window_li');
+      if (element.classList.contains("simple")) {
+        element.classList.remove("simple");
+        element.classList.add("checked");
+        ipcRenderer.send("autoLaunchToggle", true); // Send enabled true
+      } else {
+        element.classList.remove("checked");
+        element.classList.add("simple");
+        ipcRenderer.send("autoLaunchToggle", false); // Send enabled false
+      }
+      console.log(" Toggle button clicked");
+    });
+    
+   // Receive response from main process
+    ipcRenderer.on("autoLaunchEnabled", (event, isEnabled) => {
+      const element = document.getElementById('main_file_start_system_window_li');
+      if (isEnabled) {
+        element.classList.remove("simple");
+        element.classList.add("checked");
+      } else {
+        element.classList.remove("checked");
+        element.classList.add("simple");
+      }
+    });
+
+    // Request auto-launch status from main process on app start
+    ipcRenderer.send("requestAutoLaunchStatus");
+
+    $('#main_file_start_system_window').click(function(){ 
+      const element = document.getElementById('main_file_start_system_window_li');
+      if (element.classList.contains("simple")) {
+        element.classList.remove("simple");
+        element.classList.add("checked");
+        ipcRenderer.send("autoLaunchToggle", true); // Enable auto-launch
+      } else {
+        element.classList.remove("checked");
+        element.classList.add("simple");
+        ipcRenderer.send("autoLaunchToggle", false); // Disable auto-launch
+      }
+    });
+
+    $('#main_file_setting_incognito').click(function(){ 
+      const element = document.getElementById('main_file_setting_incognito_li');
+      if (element.classList.contains("simple")) {
+        // classList contains "simple", replace with "checked"
+        element.classList.remove("simple");
+        element.classList.add("checked");
+
+      } else {
+        // classList contains "checked", replace with "simple"
+        element.classList.remove("checked");
+        element.classList.add("simple");
+      }
+      console.log("incognitoToggle Toggle button clicked");
+      ipcRenderer.send("incognitoToggle");
+    });
+  
+
     $('#main_file_setting_color_top_menu').on('change', function() {
       const colorPicker = this;
       console.log($(colorPicker).val());
@@ -1154,12 +673,6 @@ $(function() {
       $('#tree').find('.fancytree-title').css('color', invertColor($(colorPicker).val()));
       //$('.fancytree-title').css('color', invertColor($(colorPicker).val()));
     });
-
-    
-
-    // $('#').click(function(){
-    //   openColorMainDialog(); 
-    // });
 
     $('#main_file_about').click(function(){ 
       openAboutDialog();
@@ -1300,11 +813,15 @@ $(function() {
         });
       }
     });
-    
- 
-    
-
 });
+
+function logEvent(event, data, msg){
+  msg = msg ? ": " + msg : "";
+  $.ui.fancytree.info("Event('" + event.type + "', node=" + data.node + ")" + msg);
+}
+function showSaveFileDialog(d) {
+ipcRenderer.invoke("showDialog", d);
+}
 
 function openChildClickValueDialog(node){
   Metro.dialog.create({
@@ -1391,6 +908,7 @@ function exportSelectedDialog(){
   Metro.dialog.create({
       title: "Export Selected Dialog",
       content: '<div class="fixed-size-2"><div id="tree2" data-source="ajax" class="sampletree"></div></div>',
+
       actions: [
         {
           caption: "Cancel",
@@ -1412,16 +930,8 @@ function exportSelectedDialog(){
                 showSaveFileDialog(JSON.stringify(d));
                 console.log("You clicked Done action on Export Selected Dialog");
               }
-          }
-          
+          }   
       ]
-      //,
-      // onCreate: function(dialog){tree.getSelectedNodes().toDict(true)
-      //   setTimeout(function(){
-      //     initializetree2();
-      //   }, 500);
-       
-      // }
   });
 }
 
@@ -1456,62 +966,10 @@ function initializetree2()
             
             source: { url: "tree-data.json" },
 
-            // lazyLoad: function(event, data) {
-            //   data.result = {url: "ajax-sub2.json"}
-            // },
-
-            createNode: function(event, data) {
-              var node = data.node,
-                $tdList = $(node.tr).find(">td");
-
-              if (node.isFolder()) {
-                $tdList
-                  .eq(2)
-                  .prop("colspan", 6)
-                  .nextAll()
-                  .remove();
-              }
-            },
-            renderColumns: function(event, data) {
-              var node = data.node,
-                $tdList = $(node.tr).find(">td");
-
-              // (Index #0 is rendered by fancytree by adding the checkbox)
-              // Set column #1 info from node data:
-              $tdList.eq(1).text(node.getIndexHier());
-              // (Index #2 is rendered by fancytree)
-              // Set column #3 info from node data:
-              $tdList
-                .eq(3)
-                .find("input")
-                .val(node.key);
-              $tdList
-                .eq(4)
-                .find("input")
-                .val(node.data.foo);
-
-            },
             modifyChild: function(event, data) {
               data.tree.info(event.type, data);
             },
 
-            //events
-            // --- Tree events -------------------------------------------------
-            blurTree: function(event, data) {
-              logEvent(event, data);
-            },
-            create: function(event, data) {
-              logEvent(event, data);
-            },
-            init: function(event, data, flag) {
-              logEvent(event, data, "flag=" + flag);
-            },
-            focusTree: function(event, data) {
-              logEvent(event, data);
-            },
-            restore: function(event, data) {
-              logEvent(event, data);
-            },
             // --- Node events -------------------------------------------------
             activate: function(event, data) {
               logEvent(event, data);
@@ -1519,26 +977,25 @@ function initializetree2()
               // acces node attributes
               $("#echoActive").text(node.title);
               if( !$.isEmptyObject(node.data) ){
-      //					alert("custom node data: " + JSON.stringify(node.data));
               }
             },
             beforeActivate: function(event, data) {
               logEvent(event, data, "current state=" + data.node.isActive());
               // return false to prevent default behavior (i.e. activation)
-      //              return false;
+              //              return false;
             },
             beforeExpand: function(event, data) {
               logEvent(event, data, "current state=" + data.node.isExpanded());
               // return false to prevent default behavior (i.e. expanding or collapsing)
-      //				return false;
+              //				return false;
             },
             beforeSelect: function(event, data) {
-      //				console.log("select", event.originalEvent);
+              //				console.log("select", event.originalEvent);
               logEvent(event, data, "current state=" + data.node.isSelected());
               // return false to prevent default behavior (i.e. selecting or deselecting)
-      //				if( data.node.isFolder() ){
-      //					return false;
-      //				}
+              //				if( data.node.isFolder() ){
+              //					return false;
+              //				}
             },
             blur: function(event, data) {
               logEvent(event, data);
@@ -1579,42 +1036,23 @@ function initializetree2()
               // currently unused
               logEvent(event, data);
             },
-      //       lazyLoad: function(event, data) {
-      //         logEvent(event, data);
-      //         // return children or any other node source
-      //         data.result = {url: "ajax-sub2.json"};
-      // //				data.result = [
-      // //					{title: "A Lazy node", lazy: true},
-      // //					{title: "Another node", selected: true}
-      // //					];
-      //       },
             loadChildren: function(event, data) {
               logEvent(event, data);
             },
             loadError: function(event, data) {
               logEvent(event, data);
             },
-            // modifyChild: function(event, data) {
-            //   logEvent(event, data, "operation=" + data.operation +
-            //     ", child=" + data.childNode);
-            // },
-      //       postProcess: function(event, data) {
-      //         logEvent(event, data);
-      //         // either modify the Ajax response directly
-      //         //data.response[0].title += " - hello from postProcess";
-      //         // or setup and return a new response object
-      // //				data.result = [{title: "set by postProcess"}];
-      //       },
+           
             renderNode: function(event, data) {
               // Optionally tweak data.node.span
-      //              $(data.node.span).text(">>" + data.node.title);
+              //              $(data.node.span).text(">>" + data.node.title);
               logEvent(event, data);
             },
             renderTitle: function(event, data) {
               // NOTE: may be removed!
               // When defined, must return a HTML string for the node title
               logEvent(event, data);
-      //				return "new title";
+              //				return "new title";
             },
             select: function(event, data) {
               logEvent(event, data, "current state=" + data.node.isSelected());
@@ -1624,7 +1062,7 @@ function initializetree2()
           })
           .on("fancytreeactivate", function(event, data){
             // alternative way to bind to 'activate' event
-      //		    logEvent(event, data);
+            //		    logEvent(event, data);
           });
 }
 

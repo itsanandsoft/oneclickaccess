@@ -24,7 +24,7 @@
   <!-- <script src="./assets/sample.js"></script> -->
   <link href="./assets/lib/prettify.css" rel="stylesheet">
   <script src="./assets/lib/prettify.js"></script>
-
+  
   <link rel="stylesheet" href="./assets/js/metro-ui/metro-all.min.css">
   <script src="./assets/js/metro-ui/metro.js"></script>
 </head>
@@ -42,18 +42,18 @@
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_selective_export">Selective Export</a>
         </li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_backup">Backup Now</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_notpad">Notpad</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_notpad">Notepad</a></li>
         <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Settings</a>
           <ul class="ribbon-dropdown" data-role="dropdown">
             <li class="simple" id="main_file_setting_topmost_li"><a href="#" class="text-decoration-none"
                 id="main_file_setting_topmost">Topmost</a></li>
             <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Start With System</a>
               <ul class="ribbon-dropdown" data-role="dropdown">
-                <li class="simple"><a href="#" class="text-decoration-none"
+                <li class="simple" id="main_file_start_system_window_li"><a href="#" class="text-decoration-none"
                     id="main_file_start_system_window">Windows</a></li>
               </ul>
             </li>
-            <li class="simple"><a href="#" class="text-decoration-none" id="main_file_setting_incognito">Incognito</a>
+            <li class="simple" id="main_file_setting_incognito_li"><a href="#" class="text-decoration-none" id="main_file_setting_incognito">Incognito</a>
             </li>
             <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Color Setting</a>
               <ul class="ribbon-dropdown" data-role="dropdown">
@@ -308,6 +308,17 @@
         <option value="UTC-8">Denver, Phoenix, Tijuana - UTC-08:00</option>
         <option value="UTC-7">Chicago, Mexico City, Winnipeg - UTC-07:00</option>
         <option value="UTC-6">Bogota, Dallas, Guatemala City - UTC-06:00</option>
+        <option value="UTC-6">Chicago, Illinois - UTC-06:00</option>
+        <option value="UTC-6">Dallas, Texas - UTC-06:00</option>
+        <option value="UTC-6">Houston, Texas - UTC-06:00</option>
+        <option value="UTC-6">Kansas City, Missouri - UTC-06:00</option>
+        <option value="UTC-6">Memphis, Tennessee - UTC-06:00</option>
+        <option value="UTC-6">Minneapolis, Minnesota - UTC-06:00</option>
+        <option value="UTC-6">Nashville, Tennessee - UTC-06:00</option>
+        <option value="UTC-6">New Orleans, Louisiana - UTC-06:00</option>
+        <option value="UTC-6">Oklahoma City, Oklahoma - UTC-06:00</option>
+        <option value="UTC-6">San Antonio, Texas - UTC-06:00</option>
+        <option value="UTC-6">St. Louis, Missouri - UTC-06:00</option>
         <option value="UTC-5">New York, Toronto, Havana - UTC-05:00</option>
         <option value="UTC-4">Caracas, La Paz, Santiago - UTC-04:00</option>
         <option value="UTC-3">Buenos Aires, Sao Paulo, Greenland - UTC-03:00</option>
@@ -346,28 +357,6 @@
     <button class="button flat-button small" id="main_refresh">Refresh</button>
   </div>
 
-
-  <div class="dialog" data-role="dialog" id="demoDialog1">
-    <div class="dialog-title">Input</div>
-    <div class="dialog-content">
-      <input id="setNodeTitle" type="text" data-role="input">
-    </div>
-    <div class="dialog-actions">
-      <button class="button js-dialog-close">Cancel</button>
-      <button class="button primary js-dialog-close">Ok</button>
-    </div>
-  </div>
-
-  <div class="dialog" data-role="dialog" id="colorPickerDialog">
-    <div class="dialog-title">Select Color</div>
-    <div class="dialog-content">
-      <input id="color-picker" type="color">
-    </div>
-    <div class="dialog-actions">
-      <button class="button js-dialog-close">Cancel</button>
-      <button class="button primary js-dialog-close">Ok</button>
-    </div>
-  </div>
 
   <div class="fixed-size" id="body-of-tree-parent-div">
     <div id="tree" data-source="ajax" class="sampletree " ></div>
