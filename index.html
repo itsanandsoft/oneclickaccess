@@ -32,78 +32,15 @@
 <body id="body">
 
   <div class="main_menu" id="top-main-menu">
-    <div class="pos-relative">
-      <button class="button flat-button small">File</button>
-      <ul class="ribbon-dropdown" data-role="dropdown">
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save_tree">Tree Save State</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save">Save</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_sort_selected">Sort Selected</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_import">Import</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_selective_export">Selective Export</a>
-        </li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_backup">Backup Now</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_notpad">Notepad</a></li>
-        <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Settings</a>
-          <ul class="ribbon-dropdown" data-role="dropdown">
-            <li class="simple" id="main_file_setting_topmost_li"><a href="#" class="text-decoration-none"
-                id="main_file_setting_topmost">Topmost</a></li>
-            <li class="simple"  id="main_file_start_system_window_li"><a href="#" id="main_file_start_system_window" class="text-decoration-none">Start With System</a>
-            
-            </li>
-            <li class="simple" id="main_file_setting_incognito_li"><a href="#" class="text-decoration-none" id="main_file_setting_incognito">Incognito</a>
-            </li>
-            <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Color Setting</a>
-              <ul class="ribbon-dropdown" data-role="dropdown">
-                <li class="simple dropdown-toggle"> <a href="#" class="text-decoration-none">Top Menu</a>
-                  <ul class="ribbon-dropdown" data-role="dropdown">
-                    <li class="simple" style="height: 30px;"><a href="#" class="text-decoration-none">
-                      <span>
-                        <input type="color" id="main_file_setting_color_top_menu" onclick="event.stopPropagation();"/>
-                      </span></a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="simple dropdown-toggle"> <a href="#" class="text-decoration-none">Main Dialog</a>
-                  <ul class="ribbon-dropdown" data-role="dropdown">
-                    <li class="simple" style="height: 30px;"><a href="#" class="text-decoration-none">
-                      <span>
-                        <input type="color" id="main_file_setting_color_main_dialog" onclick="event.stopPropagation();"/>
-                      </span></a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">About</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_exit">Exit</a></li>
-      </ul>
+    <div class="pos-relative" id="file_menu">
+      
     </div>
     <button class="button flat-button small" id="main_add_input">Add Input</button>
     <button class="button flat-button small" id="main_add_parent">Add Main</button>
     <button class="button flat-button small" id="main_remove">Remove</button>
     <!-- <button class="button flat-button small" id="main_move">Move</button> -->
-    <div class="pos-relative">
-      <button class="button flat-button small">Add</button>
-      <ul class="ribbon-dropdown" data-role="dropdown">
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_text">Text</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_image">Image</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_file">File</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_add_folder">Folder</a></li>
-        <li class="simple"><a href="#" id="add_current_datetime" class="text-decoration-none">Current Date and Time</a>
-        </li>
-        <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">From Excel</a>
-          <ul class="ribbon-dropdown" data-role="dropdown">
-            <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_contacts">Import
-                Contacts</a></li>
-            <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_ccredentials">Import
-                Credentials</a></li>
-            <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_others">Import
-                Others</a></li>
-          </ul>
-        </li>
-      </ul>
+    <div class="pos-relative" id="add_menu">
+      
     </div>
     <div class="pos-relative">
       <select id="modifierkey-select" class="win">

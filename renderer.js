@@ -9,7 +9,16 @@ const { ipcRenderer,globalShortcut  } = require("electron");
     var CLIPBOARD = null;
 
     $(function() {
-
+      function saveTreeState(){
+        var tree = $.ui.fancytree.getTree("#tree");
+        var da = tree.toDict(true);
+        var d = JSON.stringify(da);
+        const jsonObj = JSON.parse(d);
+        const children = jsonObj.children;
+        const newJsonStr = JSON.stringify(children);
+        console.log(newJsonStr);
+        ipcRenderer.invoke("saveData", newJsonStr);
+      }
         
         $("#tree")
           .fancytree({
@@ -101,6 +110,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             },
             modifyChild: function(event, data) {
               data.tree.info(event.type, data);
+              saveTreeState();
             },
             // --- Tree events -------------------------------------------------
             blurTree: function(event, data) {
@@ -471,6 +481,87 @@ const { ipcRenderer,globalShortcut  } = require("electron");
 
 $(function() {
 
+  fs.readFile('database.json', (err, data) => {
+    if (err) throw err;
+    data = JSON.parse(data);
+    if(data.length>0){
+      if(data[0].settings.hasOwnProperty('id')){
+        if(data[0].settings.incognito == 1){
+          const element = document.getElementById('main_file_setting_incognito_li');
+          element.classList.remove("simple");
+          element.classList.add("checked");
+        }
+      }
+    }
+  });
+
+
+  $('#file_menu').html(`<button class="button flat-button small">File</button>
+      <ul class="ribbon-dropdown" data-role="dropdown">
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save_tree">Tree Save State</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save">Save</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_sort_selected">Sort Selected</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_import">Import</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_selective_export">Selective Export</a>
+        </li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_backup">Backup Now</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_notpad">Notepad</a></li>
+        <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Settings</a>
+          <ul class="ribbon-dropdown" data-role="dropdown">
+            <li class="simple" id="main_file_setting_topmost_li"><a href="#" class="text-decoration-none"
+                id="main_file_setting_topmost">Topmost</a></li>
+            <li class="simple"  id="main_file_start_system_window_li"><a href="#" id="main_file_start_system_window" class="text-decoration-none">Start With System</a>
+            
+            </li>
+            <li class="simple" id="main_file_setting_incognito_li"><a href="#" class="text-decoration-none" id="main_file_setting_incognito">Incognito</a>
+            </li>
+            <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">Color Setting</a>
+              <ul class="ribbon-dropdown" data-role="dropdown">
+                <li class="simple dropdown-toggle"> <a href="#" class="text-decoration-none">Top Menu</a>
+                  <ul class="ribbon-dropdown" data-role="dropdown">
+                    <li class="simple" style="height: 30px;"><a href="#" class="text-decoration-none">
+                      <span>
+                        <input type="color" id="main_file_setting_color_top_menu" onclick="event.stopPropagation();"/>
+                      </span></a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="simple dropdown-toggle"> <a href="#" class="text-decoration-none">Main Dialog</a>
+                  <ul class="ribbon-dropdown" data-role="dropdown">
+                    <li class="simple" style="height: 30px;"><a href="#" class="text-decoration-none">
+                      <span>
+                        <input type="color" id="main_file_setting_color_main_dialog" onclick="event.stopPropagation();"/>
+                      </span></a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">About</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_exit">Exit</a></li>
+      </ul>`);
+    $('#add_menu').html(`<button class="button flat-button small">Add</button>
+    <ul class="ribbon-dropdown" data-role="dropdown">
+      <li class="simple"><a href="#" class="text-decoration-none" id="main_add_text">Text</a></li>
+      <li class="simple"><a href="#" class="text-decoration-none" id="main_add_image">Image</a></li>
+      <li class="simple"><a href="#" class="text-decoration-none" id="main_add_file">File</a></li>
+      <li class="simple"><a href="#" class="text-decoration-none" id="main_add_folder">Folder</a></li>
+      <li class="simple"><a href="#" id="add_current_datetime" class="text-decoration-none">Current Date and Time</a>
+      </li>
+      <li class="simple dropdown-toggle"><a href="#" class="text-decoration-none">From Excel</a>
+        <ul class="ribbon-dropdown" data-role="dropdown">
+          <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_contacts">Import
+              Contacts</a></li>
+          <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_ccredentials">Import
+              Credentials</a></li>
+          <li class="simple"><a href="#" class="text-decoration-none" id="main_add_excel_import_others">Import
+              Others</a></li>
+        </ul>
+      </li>
+    </ul>`);
+
   var platform = window.navigator.platform.toLowerCase();
 
   // Show the corresponding key list based on the operating system
@@ -508,6 +599,7 @@ $(function() {
 
     //node.setTitle(node.title + ", " + customDate); 
   });
+    
 
     $('#main_file_save').click(function(){ 
       var tree = $.ui.fancytree.getTree("#tree");
@@ -522,14 +614,7 @@ $(function() {
      });
      $('#main_file_save_tree').click(function(){ 
       
-      var tree = $.ui.fancytree.getTree("#tree");
-      var da = tree.toDict(true);
-      var d = JSON.stringify(da);
-      const jsonObj = JSON.parse(d);
-      const children = jsonObj.children;
-      const newJsonStr = JSON.stringify(children);
-      console.log(newJsonStr);
-      ipcRenderer.invoke("saveData", newJsonStr);
+        saveTreeState();
 
      });
      

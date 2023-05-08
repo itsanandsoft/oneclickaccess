@@ -23,12 +23,28 @@ const autoLauncher = new AutoLaunch({
   path: app.getPath('exe'),
 });
 
-
 // const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
 // console.log = (message) => {
 //   logFile.write(`${new Date().toISOString()}: ${message}\n`);
 // };
-
+if (!fs.existsSync('database.json')) {
+  let data = [{
+    "users": {
+      "id": "0",
+      "email": "",
+      "token": ""
+    },
+    "settings": {
+      "id": "1",
+      "incognito": "1"
+    }
+  }];
+  const updatedJson = JSON.stringify(data, null, 2);
+  fs.writeFile('database.json', updatedJson, err => {
+    if (err) throw err;
+    console.log(`Setting 1 setting updated with incognito value: ${updatedJson}`);
+  });
+}
 
 
 let x, y = null;
@@ -48,7 +64,6 @@ const functionMap = {
 app.whenReady().then(() => {
   createMacAddressFiles();
   createWindow();
-
   const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
     x = screen.getCursorScreenPoint().x;
     y = screen.getCursorScreenPoint().y;
@@ -419,8 +434,15 @@ function printTextonScreen(text){
 function openURLinChrome(url){
   let chromePath = '';
   let command = '';
-  // let incognito = '--incognito';
   let incognito = '';
+  const data = JSON.parse(fs.readFileSync('database.json', 'utf-8'));
+  if(data.length>0){
+    if(data[0].settings.hasOwnProperty('id')){
+      if(data[0].settings.incognito == 1){
+        incognito = '--incognito';
+      }
+    }
+  }
 
   if (process.platform === 'darwin') {
     chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
@@ -439,7 +461,6 @@ function openURLinChrome(url){
           exec(command);
         }
       }
-      console.log(data)
     });
   }
 }
@@ -867,16 +888,39 @@ ipcMain.on('requestAutoLaunchStatus', (event) => {
 function updateIncognitoSetting(incognitoValue) {
   fs.readFile('database.json', (err, data) => {
     if (err) throw err;
-    const setting = JSON.parse(data);
-    const index = setting.findIndex(user => setting.id === "1");
-    if (index !== -1) {
-      setting[index].setting.incognito = incognitoValue.toString();
-      fs.writeFile('database.json', JSON.stringify(settings), err => {
+    data = JSON.parse(data);
+    if(data.length>0){
+      if(data[0].settings.hasOwnProperty('id')){
+        data[0].settings.incognito = incognitoValue.toString();
+      }
+      else{
+        data[0].settings.incognito = '0';
+      }
+      const updatedJson = JSON.stringify(data, null, 2);
+      fs.writeFile('database.json', updatedJson, err => {
         if (err) throw err;
         console.log(`Setting 1 setting updated with incognito value: ${incognitoValue}`);
       });
-    } else {
-      console.log(`Setting with id 1 not found.`);
+    }
+  });
+}
+
+function updateIncognitoSetting(incognitoValue) {
+  fs.readFile('database.json', (err, data) => {
+    if (err) throw err;
+    data = JSON.parse(data);
+    if(data.length>0){
+      if(data[0].settings.hasOwnProperty('id')){
+        data[0].settings.incognito = incognitoValue.toString();
+      }
+      else{
+        data[0].settings.incognito = '0';
+      }
+      const updatedJson = JSON.stringify(data, null, 2);
+      fs.writeFile('database.json', updatedJson, err => {
+        if (err) throw err;
+        console.log(`Setting 1 setting updated with incognito value: ${incognitoValue}`);
+      });
     }
   });
 }
