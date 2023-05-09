@@ -110,7 +110,9 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             },
             modifyChild: function(event, data) {
               data.tree.info(event.type, data);
-              saveTreeState();
+              setTimeout(function() {
+                saveTreeState();
+              }, 500);
             },
             // --- Tree events -------------------------------------------------
             blurTree: function(event, data) {
@@ -495,10 +497,9 @@ $(function() {
     }
   });
 
-
+{/* <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save_tree">Tree Save State</a></li> */}
   $('#file_menu').html(`<button class="button flat-button small">File</button>
       <ul class="ribbon-dropdown" data-role="dropdown">
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save_tree">Tree Save State</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_save">Save</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_sort_selected">Sort Selected</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_import">Import</a></li>

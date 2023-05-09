@@ -48,7 +48,7 @@ if (!fs.existsSync('database.json')) {
 
 
 let x, y = null;
-
+let close = false;
 let isTopmost = false;
 const jsonFilePath = path.join(__dirname, '/tree-data.json');
 let win, menuWindow;
@@ -163,25 +163,8 @@ function createWindow() {
 
   win.on('close', (event) => {
     event.preventDefault();
-    win.hide();
-    tray = new Tray(path.join(__dirname, 'assets/img/logo.png'));
-    tray.on('click', () => {
-      if (win.isVisible()) {
-        win.hide()
-      }
-      else {
-        win.show();
-        tray.destroy();
-      }
-    });
-    notification = new Notification({
-      title: config.app_name,
-      body: 'Click on tray icon to maximize',
-      icon: path.join(__dirname, 'assets/img/logo.png'),
-      silent: false,
-      timeoutType: 'default'
-    });
-    notification.show();
+    closeOrMinimizeWindow(close);
+    close = false;
   });
 
   // win.once('ready-to-show', () => {
@@ -189,6 +172,37 @@ function createWindow() {
   //       const modifierKeys = accelerator.getModifierState();
   //       console.log(modifierKeys); 
   //     });
+}
+function closeOrMinimizeWindow(close){
+    if(!close){
+      win.hide();
+      tray = new Tray(path.join(__dirname, 'assets/img/logo.png'));
+      tray.on('click', () => {
+        if (win.isVisible()) {
+          win.hide()
+        }
+        else {
+          win.show();
+          tray.destroy();
+        }
+      });
+      notification = new Notification({
+        title: config.app_name,
+        body: 'Click on tray icon to maximize',
+        icon: path.join(__dirname, 'assets/img/logo.png'),
+        silent: false,
+        timeoutType: 'default'
+      });
+      notification.show();
+    }
+    else{
+      try{
+        win.close();
+      }catch(e){
+
+      }
+    }
+    
 }
 
 function createMenuWindow(x, y) {
@@ -478,7 +492,8 @@ ipcMain.on('close-me', (evt, arg) => {
 })
 
 ipcMain.on('close-window', () => {
-  win.close();
+  close = true;
+  closeOrMinimizeWindow(close);
 });
 
 // ipcMain.on('close-context-window', () => {
@@ -582,7 +597,7 @@ ipcMain.handle("showDialog", (e, d) => {
 ipcMain.handle("showSelectiveExportDialog", (e, d) => {
   var dialogWindow = new BrowserWindow({
     width: 400,
-    height: 280,
+    height: 320,
     resizable: false,
     modal: true,
     show: false,
@@ -595,7 +610,8 @@ ipcMain.handle("showSelectiveExportDialog", (e, d) => {
   });
 
   dialogWindow.loadFile('export.html');
-  //dialogWindow.webContents.openDevTools();
+  // dialogWindow.webContents.openDevTools();
+  dialogWindow.removeMenu(true);
   dialogWindow.once('ready-to-show', () => {
     dialogWindow.show();
   });

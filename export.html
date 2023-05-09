@@ -19,6 +19,19 @@
   
   <link rel="stylesheet" href="./assets/js/metro-ui/metro-all.min.css">
   <script src="./assets/js/metro-ui/metro.js"></script>
+  <style>
+    body{
+      overflow: hidden !important;
+    }
+    button#perform_selective_export {
+      margin-right: 6px;
+    }
+    .example {
+      display: flex;
+      justify-content: end;
+      right: 15px;
+    }
+  </style>
 </head>
 
 <body id="body">
@@ -27,8 +40,7 @@
 
 
   <div class="example">
-    <button type="button" id="perform_selective_export">Export</button>
-    <button type="button" id="cancel_export">Cancel</button>
+    <button class="button secondary" type="button" id="perform_selective_export">Export</button>
   </div>
 
 

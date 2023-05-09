@@ -288,7 +288,7 @@ td input[type="input"] {
   height: 230px;
   overflow: auto;
   position: relative;
-  margin-top: 30px
+  margin-top: 10px
 }
 
 .fixed-size-color {
