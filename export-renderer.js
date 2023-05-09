@@ -131,40 +131,30 @@ const { ipcRenderer  } = require("electron");
     //		    logEvent(event, data);
   });
 
+
+  $('#perform_selective_export').click(function(){
+    var d = "";
+    var tree = $.ui.fancytree.getTree("#tree2");
+    var selectedNodes = tree.getSelectedNodes();
+    var d = selectedNodes.map(function(node) {
+        return node.toDict(true);
+    });
+    showSaveFileDialog(JSON.stringify(d));
+    console.log("You clicked Done action on Export Selected Dialog");
+
+  });
+  $('#cancel_export').click(function(){
+    console.log("You clicked Cancel action Export Selected Dialog");
+
+  });
 });
+
+
+function showSaveFileDialog(d) {
+  ipcRenderer.invoke("showDialog", d);
+}
 
 function logEvent(event, data, msg){
   msg = msg ? ": " + msg : "";
   $.ui.fancytree.info("Event('" + event.type + "', node=" + data.node + ")" + msg);
-}
-
-function exportSelectedDialog(){
-  Metro.dialog.create({
-      title: "Export Selected Dialog",
-      content: '<div class="fixed-size-2"><div id="tree2" data-source="ajax" class="sampletree"></div></div>',
-
-      actions: [
-        {
-          caption: "Cancel",
-          cls: "js-dialog-close",
-          onclick: function(){
-            
-              console.log("You clicked Cancel action Export Selected Dialog");
-          }
-        },
-          {
-              caption: "Export",
-              cls: "js-dialog-close alert",
-              onclick: function(){
-                var tree = $.ui.fancytree.getTree("#tree2");
-                var selectedNodes = tree.getSelectedNodes();
-                var d = selectedNodes.map(function(node) {
-                    return node.toDict(true);
-                });
-                showSaveFileDialog(JSON.stringify(d));
-                console.log("You clicked Done action on Export Selected Dialog");
-              }
-          }   
-      ]
-  });
 }

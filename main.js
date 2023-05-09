@@ -588,12 +588,14 @@ ipcMain.handle("showSelectiveExportDialog", (e, d) => {
     show: false,
     parent: win, // mainWindow is the parent window
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
     }
   });
 
   dialogWindow.loadFile('export.html');
-
+  //dialogWindow.webContents.openDevTools();
   dialogWindow.once('ready-to-show', () => {
     dialogWindow.show();
   });
@@ -601,6 +603,10 @@ ipcMain.handle("showSelectiveExportDialog", (e, d) => {
   dialogWindow.on('closed', () => {
     dialogWindow = null;
   });
+});
+
+ipcMain.handle("performSelectiveExport", (e, d) => {
+ 
 });
 
 ipcMain.handle("saveData", (e, d) => {
