@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Export Selected Dialog</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../../../assets/css/font-awesome4/css/font-awesome.min.css">
+  <link href="../../../../assets/css/styles.css" rel="stylesheet" type="text/css" />
+  <script>window.$ = window.jQuery = require('jquery');</script>
+  
+  <link rel="stylesheet" href="../../../../node_modules/jquery.fancytree/dist/skin-win8/ui.fancytree.css">
+  <link href="../../../../assets/jquery-ui.css" rel="stylesheet" />
+  <script src="../../../../assets/jquery-ui.min.js"></script>
+  <link href="../../../../assets/sample.css" rel="stylesheet">
+  <link href="../../../../assets/lib/prettify.css" rel="stylesheet">
+  <script src="../../../../assets/lib/prettify.js"></script>
+  
+  <link rel="stylesheet" href="../../../../assets/js/metro-ui/metro-all.min.css">
+  <script src="../../../../assets/js/metro-ui/metro.js"></script>
+  <style>
+    body{
+      overflow: hidden !important;
+    }
+    button#perform_selective_export {
+      margin-right: 6px;
+    }
+    .example {
+      display: flex;
+      justify-content: end;
+      right: 15px;
+    }
+  </style>
+</head>
+
+<body id="body">
+
+    <div class="fixed-size-2"><div id="tree2" data-source="ajax" class="sampletree"></div></div>
+
+
+  <div class="example">
+    <button class="button secondary" type="button" id="perform_selective_export">Export</button>
+  </div>
+
+
+
+       <script src="./export-renderer.js"></script>
+</body>
+
+
+
+</html>

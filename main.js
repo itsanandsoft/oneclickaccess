@@ -57,6 +57,15 @@ let notification = null;
 let tray = null
 let tempRegisteredShortcut;
 let autoLaunchEnabled = false;
+let theme = 'win';
+let mainHtml = 'index';
+if (process.platform === 'win32') {
+  theme = 'win';
+  mainHtml = 'index_mac';
+} else if (process.platform === 'darwin') {
+  theme = 'mac';
+  mainHtml = 'index_mac';
+}
 const functionMap = {
   itemClicked
 };
@@ -98,29 +107,29 @@ function checkMachines(data, win) {
           for (let key in json.body.machines) {
             if (json.body.machines[key].mac_address == mac_address && json.body.machines[key].hard_disk_serial == hard_disk_serial) {
               if (json.body.machines[key].active == '1') {
-                win.loadFile(path.join(__dirname, '/index.html'));
+                win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
                 //win.webContents.openDevTools();
               }
               else {
-                win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+                win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
               }
             }
             else {
-              win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+              win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
             }
           }
         }
         else {
-          win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+          win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
         }
       }
       else {
-        win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+        win.loadFile(path.join(__dirname, `/renderer/${theme}/login/login.html`));
       }
     });
   }).on('error', (error) => {
     console.error(error);
-    win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'))
+    win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`))
   });
 }
 
@@ -149,14 +158,14 @@ function createWindow() {
     }
     else {
       //win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
-      win.loadFile(path.join(__dirname, '/index.html'));
+      win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
 
     }
   });
 
 
   //checkMachines(data, win);
-  // win.loadFile(path.join(__dirname, '/index.html'));
+  // win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
   win.setAlwaysOnTop(false, 'floating');
   win.webContents.openDevTools();
   win.removeMenu(true);
@@ -173,36 +182,36 @@ function createWindow() {
   //       console.log(modifierKeys); 
   //     });
 }
-function closeOrMinimizeWindow(close){
-    if(!close){
-      win.hide();
-      tray = new Tray(path.join(__dirname, 'assets/img/logo.png'));
-      tray.on('click', () => {
-        if (win.isVisible()) {
-          win.hide()
-        }
-        else {
-          win.show();
-          tray.destroy();
-        }
-      });
-      notification = new Notification({
-        title: config.app_name,
-        body: 'Click on tray icon to maximize',
-        icon: path.join(__dirname, 'assets/img/logo.png'),
-        silent: false,
-        timeoutType: 'default'
-      });
-      notification.show();
-    }
-    else{
-      try{
-        win.close();
-      }catch(e){
-
+function closeOrMinimizeWindow(close) {
+  if (!close) {
+    win.hide();
+    tray = new Tray(path.join(__dirname, 'assets/img/logo.png'));
+    tray.on('click', () => {
+      if (win.isVisible()) {
+        win.hide()
       }
+      else {
+        win.show();
+        tray.destroy();
+      }
+    });
+    notification = new Notification({
+      title: config.app_name,
+      body: 'Click on tray icon to maximize',
+      icon: path.join(__dirname, 'assets/img/logo.png'),
+      silent: false,
+      timeoutType: 'default'
+    });
+    notification.show();
+  }
+  else {
+    try {
+      win.close();
+    } catch (e) {
+
     }
-    
+  }
+
 }
 
 function createMenuWindow(x, y) {
@@ -219,8 +228,9 @@ function createMenuWindow(x, y) {
       contextIsolation: false,
       enableRemoteModule: true,
     }
-  })
+  });
   menuWindow.removeMenu(true);
+  menuWindow.loadFile(path.join(__dirname, `/renderer/${theme}/pages/context_menu/menu.html`));
   menu = Menu.buildFromTemplate(menu_template);
   menu.forEach(item => {
     if (item.click) {
@@ -231,7 +241,6 @@ function createMenuWindow(x, y) {
     }
   });
   // menuWindow.setMenu(menu);
-  menuWindow.loadFile(path.join(__dirname, '/menu2.html'));
   //menuWindow.webContents.openDevTools()
   // Set the background color to transparent
   //menuWindow.setBackgroundColor('#00000000');
@@ -333,6 +342,7 @@ function createElectronMenu(x, y) {
     }
   });
   menuWindow.removeMenu(true);
+  menuWindow.loadFile(path.join(__dirname, `/renderer/${theme}/pages/context_menu/menu.html`));
   menu = Menu.buildFromTemplate(menu_template.map(item => {
     if (item.click && functionMap[item.click]) {
       item.click = functionMap[item.click];
@@ -343,14 +353,13 @@ function createElectronMenu(x, y) {
     return item;
   }));
   // menuWindow.setMenu(menu);
-  menuWindow.loadFile(path.join(__dirname, '/menu2.html'));
 }
 
 function itemClicked(item) {
   if (item.hasOwnProperty('data')) {
     if (item.data.hasOwnProperty('type')) {
       if (item.data.type == 'text') {
-          printTextonScreen(item.label);
+        printTextonScreen(item.label);
       }
       if (item.data.type == 'folder' || item.data.type == 'image' || item.data.type == 'file') {
         if (process.platform === 'win32') {
@@ -427,32 +436,32 @@ function isLink(text) {
   const wwwUrlPattern = /^(www\.)?([\w.-]+)\.([a-zA-Z]{2,6})(\/[\w.-]*)*\/?$/;
   return urlPattern.test(text) || wwwUrlPattern.test(text);
 }
-function printTextonScreen(text){
-    console.log(isLink(text))
-    if(isLink(text)){
-      openURLinChrome(text);
+function printTextonScreen(text) {
+  console.log(isLink(text))
+  if (isLink(text)) {
+    openURLinChrome(text);
+  }
+  else {
+    clipboard.writeText(text)
+    mouse.setPosition(new Point(x, y));
+    mouse.leftClick();
+    if (process.platform === 'darwin') {
+      exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
+    } else if (process.platform === 'win32') {
+      keyboard.pressKey(Key.LeftControl, Key.V);
+      keyboard.releaseKey(Key.LeftControl, Key.V);
     }
-    else{
-      clipboard.writeText(text)
-      mouse.setPosition(new Point(x, y));
-      mouse.leftClick();
-      if (process.platform === 'darwin') {
-        exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
-      } else if (process.platform === 'win32') {
-        keyboard.pressKey(Key.LeftControl, Key.V);
-        keyboard.releaseKey(Key.LeftControl, Key.V);
-      }
-    }
-    
+  }
+
 }
-function openURLinChrome(url){
+function openURLinChrome(url) {
   let chromePath = '';
   let command = '';
   let incognito = '';
   const data = JSON.parse(fs.readFileSync('database.json', 'utf-8'));
-  if(data.length>0){
-    if(data[0].settings.hasOwnProperty('id')){
-      if(data[0].settings.incognito == 1){
+  if (data.length > 0) {
+    if (data[0].settings.hasOwnProperty('id')) {
+      if (data[0].settings.incognito == 1) {
         incognito = '--incognito';
       }
     }
@@ -468,8 +477,8 @@ function openURLinChrome(url){
 
   if (command != '') {
     exec(command, (err, data) => {
-      if(err){
-        if(process.platform === 'win32'){
+      if (err) {
+        if (process.platform === 'win32') {
           chromePath = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe';
           command = `"${chromePath}" --new-window ${incognito} --start-fullscreen "${url}"`;
           exec(command);
@@ -608,8 +617,7 @@ ipcMain.handle("showSelectiveExportDialog", (e, d) => {
       enableRemoteModule: true,
     }
   });
-
-  dialogWindow.loadFile('export.html');
+  dialogWindow.loadFile(path.join(__dirname, `/renderer/${theme}/pages/selective_export/export.html`));
   // dialogWindow.webContents.openDevTools();
   dialogWindow.removeMenu(true);
   dialogWindow.once('ready-to-show', () => {
@@ -622,7 +630,7 @@ ipcMain.handle("showSelectiveExportDialog", (e, d) => {
 });
 
 ipcMain.handle("performSelectiveExport", (e, d) => {
- 
+
 });
 
 ipcMain.handle("saveData", (e, d) => {
@@ -911,11 +919,11 @@ function updateIncognitoSetting(incognitoValue) {
   fs.readFile('database.json', (err, data) => {
     if (err) throw err;
     data = JSON.parse(data);
-    if(data.length>0){
-      if(data[0].settings.hasOwnProperty('id')){
+    if (data.length > 0) {
+      if (data[0].settings.hasOwnProperty('id')) {
         data[0].settings.incognito = incognitoValue.toString();
       }
-      else{
+      else {
         data[0].settings.incognito = '0';
       }
       const updatedJson = JSON.stringify(data, null, 2);
@@ -931,11 +939,11 @@ function updateIncognitoSetting(incognitoValue) {
   fs.readFile('database.json', (err, data) => {
     if (err) throw err;
     data = JSON.parse(data);
-    if(data.length>0){
-      if(data[0].settings.hasOwnProperty('id')){
+    if (data.length > 0) {
+      if (data[0].settings.hasOwnProperty('id')) {
         data[0].settings.incognito = incognitoValue.toString();
       }
-      else{
+      else {
         data[0].settings.incognito = '0';
       }
       const updatedJson = JSON.stringify(data, null, 2);

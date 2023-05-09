@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>One Click Access</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../../../assets/css/font-awesome4/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../../../assets/css/bootstrap.min.css">
+    <link href="../../../../assets/css/styles.css" rel="stylesheet" type="text/css" />
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <link rel="stylesheet" href="../../../../assets/js/metro-ui/metro-all.min.css">
+    <link rel="stylesheet" href="../../../../assets/js/bootstrap.bundle.min.js">
+    <script src="../../../../assets/js/metro-ui/metro.js"></script>
+</head>
+
+<body>
+    <section class="">
+        <div class="container-fluid h-custom">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5 mt-5">
+                <div class="row">
+                    <h1 class="text-center">OneClickAccess</h1>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+              <form id="oca-form">
+                <div class="alert alert-danger" role="alert" style="display: none;">
+                  
+                </div>
+                <div class="alert alert-success" role="alert" style="display: none;">
+                  
+                </div>
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input type="email" id="email" class="form-control form-control-lg"
+                    placeholder="Enter a valid email address" />
+                  <label class="form-label" for="email">Email address</label>
+                </div>
+      
+                <!-- Password input -->
+                <div class="form-outline mb-3">
+                  <input type="password" id="password" class="form-control form-control-lg"
+                    placeholder="Enter password" />
+                  <label class="form-label" for="password">Password</label>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-3" id="confrim-password-div" style="display: none;">
+                  <input type="password" id="confrim-password" class="form-control form-control-lg"
+                    placeholder="Confirm password" />
+                  <label class="form-label" for="confrim-password">Re-write Password</label>
+                </div>
+      
+                <div class="d-flex justify-content-between align-items-center">
+                  <!-- Checkbox -->
+                  <div class="form-check mb-0">
+                    
+                  </div>
+                  <a href="#!" class="text-body">Forgot password?</a>
+                </div>
+      
+                <div class="text-center text-lg-start mt-4 pt-2">
+                  <button type="button" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;" id="login-btn">Login</button>
+                  <p class="small fw-bold mt-2 pt-1 mb-0" id="have-account">Account? <a href="#!"
+                      class="link-danger" id="register-btn">Register</a></p>
+                </div>
+      
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <script src="../../../database/JsonHelper.js"></script>
+    <script src="./login.js"></script>
+</body>
+
+
+</html>

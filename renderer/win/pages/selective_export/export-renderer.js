@@ -1,7 +1,7 @@
 const $ = require('jquery');
 require('jquery.fancytree');
 const { ipcRenderer  } = require("electron");
-
+const path = require('path')
     $(function() {
 
   $("#tree2").fancytree({
@@ -30,7 +30,7 @@ const { ipcRenderer  } = require("electron");
     titlesTabbable: true, // Add all node titles to TAB chain// Node titles can receive keyboard focus
     quicksearch: true, // Jump to nodes when pressing first character///must true for filter 
     
-    source: { url: "tree-data.json" },
+    source: { url: path.join(__dirname, `/../../../../tree-data.json`) },
 
     modifyChild: function(event, data) {
       data.tree.info(event.type, data);
