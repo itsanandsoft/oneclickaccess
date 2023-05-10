@@ -607,7 +607,7 @@ ipcMain.handle("showSelectiveExportDialog", (e, d) => {
   var dialogWindow = new BrowserWindow({
     width: 400,
     height: 320,
-    resizable: true,
+    resizable: false,
     modal: true,
     show: false,
     parent: win, // mainWindow is the parent window
