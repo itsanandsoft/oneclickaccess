@@ -59,9 +59,9 @@ let tempRegisteredShortcut;
 let autoLaunchEnabled = false;
 let theme = 'win';
 let mainHtml = 'index';
-if (process.platform === 'win32' || process.platform === 'win64') {
+if (process.platform === 'win32') {
   theme = 'win';
-  mainHtml = 'index_mac';
+  mainHtml = 'index';
 } else if (process.platform === 'darwin') {
   theme = 'mac';
   mainHtml = 'index_mac';

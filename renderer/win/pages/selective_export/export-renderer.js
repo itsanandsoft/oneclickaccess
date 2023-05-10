@@ -5,6 +5,7 @@ const path = require('path')
     $(function() {
 
   $("#tree2").fancytree({
+    generateIds: true,
     activeVisible: true, // Make sure, active nodes are visible (expanded)
     aria: true, // Enable WAI-ARIA support
     autoActivate: true, // Automatically activate a node when it is focused using keyboard
@@ -173,7 +174,23 @@ const path = require('path')
     var d = selectedNodes.map(function(node) {
         return node.toDict(true);
     });
-    showSaveFileDialog(JSON.stringify(d));
+
+    // Remove "partsel" and "selected" attributes
+    var jsonString = JSON.stringify(d, function(key, value) {
+        if (key === "partsel" || key === "selected") {
+            return;
+        }
+        return value;
+    });
+
+    showSaveFileDialog(jsonString);
+
+    // var tree = $.ui.fancytree.getTree("#tree2");
+    // var selectedNodes = tree.getSelectedNodes();
+    // var d = selectedNodes.map(function(node) {
+    //     return node.toDict(true);
+    // });
+    // showSaveFileDialog(JSON.stringify(d));
     console.log("You clicked Done action on Export Selected Dialog");
 
   });
