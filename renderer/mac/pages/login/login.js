@@ -1,5 +1,5 @@
 const { ipcRenderer } = require('electron');
-const config = require('../../../config/app');
+const config = require('../../../../config/app');
 const fs = require('fs');
 const macAddFilePath = path.join(__dirname, '/../../../mac.txt');
 const hDSFilePath = path.join(__dirname, '/../../../hds.txt');
