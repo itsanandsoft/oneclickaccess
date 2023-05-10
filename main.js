@@ -598,7 +598,7 @@ ipcMain.handle("showSelectiveExportDialog", (e, d) => {
   var dialogWindow = new BrowserWindow({
     width: 400,
     height: 320,
-    resizable: false,
+    resizable: true,
     modal: true,
     show: false,
     parent: win, // mainWindow is the parent window
@@ -610,7 +610,7 @@ ipcMain.handle("showSelectiveExportDialog", (e, d) => {
   });
 
   dialogWindow.loadFile('export.html');
-  // dialogWindow.webContents.openDevTools();
+   dialogWindow.webContents.openDevTools();
   dialogWindow.removeMenu(true);
   dialogWindow.once('ready-to-show', () => {
     dialogWindow.show();
@@ -775,7 +775,7 @@ ipcMain.handle('get-file-folder', async (event, type) => {
   console.log(`Selected file: ${filePath}`);
   var pathStr = filePath.toString();
   const fileName = path.basename(filePath);
-  var icon = type + ".png";
+  var icon = "assets\\img\\" + type + ".png";
   return newData = { title: fileName, icon: icon, data: { type: type, path: pathStr } };
 });
 
