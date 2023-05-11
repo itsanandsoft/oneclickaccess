@@ -490,8 +490,10 @@ $(function() {
       if(data[0].settings.hasOwnProperty('id')){
         if(data[0].settings.incognito == 1){
           const element = document.getElementById('main_file_setting_incognito_li');
-          element.classList.remove("simple");
-          element.classList.add("checked");
+          if(process.platform == 'win32'){
+            element.classList.remove("simple");
+            element.classList.add("checked");
+          }
         }
       }
     }
@@ -685,13 +687,17 @@ $(function() {
       const element = document.getElementById('main_file_setting_topmost_li');
       if (element.classList.contains("simple")) {
         // classList contains "simple", replace with "checked"
-        element.classList.remove("simple");
-        element.classList.add("checked");
+        if(process.platform == 'win32'){
+          element.classList.remove("simple");
+          element.classList.add("checked");
+        }
 
       } else {
         // classList contains "checked", replace with "simple"
-        element.classList.remove("checked");
-        element.classList.add("simple");
+        if(process.platform == 'win32'){
+          element.classList.remove("checked");
+          element.classList.add("simple");
+        }
       }
       console.log("Toggle button clicked");
       ipcRenderer.send("topmostToggle");
@@ -700,12 +706,16 @@ $(function() {
     $('#main_file_start_system_window').click(function(){ 
       const element = document.getElementById('main_file_start_system_window_li');
       if (element.classList.contains("simple")) {
-        element.classList.remove("simple");
-        element.classList.add("checked");
+        if(process.platform == 'win32'){
+          element.classList.remove("simple");
+          element.classList.add("checked");
+        }
         ipcRenderer.send("autoLaunchToggle", true); // Send enabled true
       } else {
-        element.classList.remove("checked");
-        element.classList.add("simple");
+        if(process.platform == 'win32'){
+          element.classList.remove("checked");
+          element.classList.add("simple");
+        }
         ipcRenderer.send("autoLaunchToggle", false); // Send enabled false
       }
       console.log(" Toggle button clicked");
@@ -715,11 +725,15 @@ $(function() {
     ipcRenderer.on("autoLaunchEnabled", (event, isEnabled) => {
       const element = document.getElementById('main_file_start_system_window_li');
       if (isEnabled) {
-        element.classList.remove("simple");
-        element.classList.add("checked");
+        if(process.platform == 'win32'){
+          element.classList.remove("simple");
+          element.classList.add("checked");
+        }
       } else {
-        element.classList.remove("checked");
-        element.classList.add("simple");
+        if(process.platform == 'win32'){
+          element.classList.remove("checked");
+          element.classList.add("simple");
+        }
       }
     });
 
@@ -743,8 +757,10 @@ $(function() {
       const element = document.getElementById('main_file_setting_incognito_li');
       if (element.classList.contains("simple")) {
         // classList contains "simple", replace with "checked"
-        element.classList.remove("simple");
-        element.classList.add("checked");
+        if(process.platform == 'win32'){
+          element.classList.remove("simple");
+          element.classList.add("checked");
+        }
         ipcRenderer.send("incognitoToggle", "1");
 
       } else {
