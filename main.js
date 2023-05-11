@@ -402,6 +402,7 @@ function itemClicked(item) {
                 }
                 const utcTimeString = utcDate.toUTCString();
                 console.log(utcTimeString);
+                printTextonScreen(utcTimeString);
             }
           }
         });
