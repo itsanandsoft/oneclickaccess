@@ -370,6 +370,42 @@ function itemClicked(item) {
           exec(`xdg-open "${item.data.path}"`);
         }
       }
+      if (item.data.type == 'date') {
+
+        fs.readFile('database.json', (err, data) => {
+          if (err) throw err;
+          data = JSON.parse(data);
+          if(data.length>0){
+            if(data[0].settings.hasOwnProperty('timezone')){
+                const utc = data[0].settings.timezone.split(/[+-]/);
+                let hoursToAdd = minutesToAdd = 0;
+                const currentDate = new Date();
+                const timeZoneOffset = currentDate.getTimezoneOffset();
+                const offsetMilliseconds = timeZoneOffset * 60 * 1000;
+                const utcTime = currentDate.getTime() - offsetMilliseconds;
+                const utcDate = new Date(utcTime);
+                if (utc[1].includes(":")){
+                  const time = utc[1].split(":");
+                  hoursToAdd = time[0];
+                  minutesToAdd = time[1];
+                }
+                else{
+                  hoursToAdd = utc[1];
+                }
+                if (/[+]/.test(data[0].settings.timezone)){
+                  utcDate.setHours(utcDate.getHours() + hoursToAdd);
+                  utcDate.setUTCMinutes(utcDate.getUTCMinutes() + minutesToAdd);
+                }
+                else if (/[-]/.test(data[0].settings.timezone)){
+                  utcDate.setHours(utcDate.getHours() - hoursToAdd);
+                  utcDate.setUTCMinutes(utcDate.getUTCMinutes() - minutesToAdd);
+                }
+                const utcTimeString = utcDate.toUTCString();
+                console.log(utcTimeString);
+            }
+          }
+        });
+      }
     }
     else {
       printTextonScreen(item.label);
@@ -934,25 +970,25 @@ function updateIncognitoSetting(incognitoValue) {
   });
 }
 
-function updateIncognitoSetting(incognitoValue) {
-  fs.readFile('database.json', (err, data) => {
-    if (err) throw err;
-    data = JSON.parse(data);
-    if (data.length > 0) {
-      if (data[0].settings.hasOwnProperty('id')) {
-        data[0].settings.incognito = incognitoValue.toString();
-      }
-      else {
-        data[0].settings.incognito = '0';
-      }
-      const updatedJson = JSON.stringify(data, null, 2);
-      fs.writeFile('database.json', updatedJson, err => {
-        if (err) throw err;
-        console.log(`Setting 1 setting updated with incognito value: ${incognitoValue}`);
-      });
-    }
-  });
-}
+// function updateIncognitoSetting(incognitoValue) {
+//   fs.readFile('database.json', (err, data) => {
+//     if (err) throw err;
+//     data = JSON.parse(data);
+//     if (data.length > 0) {
+//       if (data[0].settings.hasOwnProperty('id')) {
+//         data[0].settings.incognito = incognitoValue.toString();
+//       }
+//       else {
+//         data[0].settings.incognito = '0';
+//       }
+//       const updatedJson = JSON.stringify(data, null, 2);
+//       fs.writeFile('database.json', updatedJson, err => {
+//         if (err) throw err;
+//         console.log(`Setting 1 setting updated with incognito value: ${incognitoValue}`);
+//       });
+//     }
+//   });
+// }
 
 ipcMain.on('incognitoToggle', (event, args) => {
   updateIncognitoSetting(args);
@@ -984,6 +1020,25 @@ ipcMain.on('unregister-shortcut', (event) => {
     globalShortcut.unregister(tempRegisteredShortcut);
     tempRegisteredShortcut = null;
   }
+});
+ipcMain.on('saveTimeZone', (event,args) => {
+  fs.readFile('database.json', (err, data) => {
+    if (err) throw err;
+    data = JSON.parse(data);
+    if (data.length > 0) {
+      if (data[0].hasOwnProperty('settings')) {
+        data[0].settings.timezone = args;
+      }
+      else {
+        data[0].settings.timezone = 'UTC';
+      }
+      const updatedJson = JSON.stringify(data, null, 2);
+      fs.writeFile('database.json', updatedJson, err => {
+        if (err) throw err;
+        console.log(`Setting 1 setting updated with timezone value: ${args}`);
+      });
+    }
+  });
 });
 
 

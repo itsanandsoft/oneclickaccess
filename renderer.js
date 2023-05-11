@@ -496,6 +496,16 @@ $(function() {
           }
         }
       }
+      if(data[0].settings.hasOwnProperty('timezone')){
+          $('#timezone-select').val(data[0].settings.timezone);
+          const utc = data[0].settings.timezone.split(/[+-]/);
+          if (/[+]/.test(data[0].settings.timezone)){
+            $('#timezone-label').html(`+${utc[1]}`);
+          }
+          else if (/[-]/.test(data[0].settings.timezone)){
+            $('#timezone-label').html(`-${utc[1]}`);
+          }
+      }
     }
   });
 
@@ -585,6 +595,7 @@ $(function() {
   $('#timezone-select').on('change', function() {
     var selectedOptionValue = $(this).val();
     $('#timezone-label').text((selectedOptionValue+":00").replace('UTC', ''));
+    ipcRenderer.send("saveTimeZone", selectedOptionValue); 
   });
   
   $('#add_current_datetime').click(function(){ 
