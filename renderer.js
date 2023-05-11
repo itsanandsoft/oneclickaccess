@@ -19,10 +19,9 @@ const { ipcRenderer,globalShortcut  } = require("electron");
         console.log(newJsonStr);
         ipcRenderer.invoke("saveData", newJsonStr);
       }
-        
+      var counter = 0; // initialize counter variable
         $("#tree")
           .fancytree({
-            generateIds: true,
             activeVisible: true, // Make sure, active nodes are visible (expanded)
             aria: true, // Enable WAI-ARIA support
             autoActivate: true, // Automatically activate a node when it is focused using keyboard

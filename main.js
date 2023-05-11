@@ -618,7 +618,8 @@ ipcMain.handle("showSelectiveExportDialog", (e, d) => {
     }
   });
   dialogWindow.loadFile(path.join(__dirname, `/renderer/${theme}/pages/selective_export/export.html`));
-  // dialogWindow.webContents.openDevTools();
+   ///dialogWindow.webContents.openDevTools();
+  
   dialogWindow.removeMenu(true);
   dialogWindow.once('ready-to-show', () => {
     dialogWindow.show();
@@ -851,8 +852,6 @@ ipcMain.handle('import-data', async (event, arg) => {
       { name: 'Binary Files', extensions: ['bin'] },
     ]
   });
-
-  // result.canceled is true if the user closes the dialog without selecting a file
   if (result.canceled) {
     throw new Error('No file selected');
   }
@@ -957,6 +956,34 @@ function updateIncognitoSetting(incognitoValue) {
 
 ipcMain.on('incognitoToggle', (event, args) => {
   updateIncognitoSetting(args);
+});
+
+
+
+// Listen for the 'check-global-shortcut' message from the renderer process
+ipcMain.handle('check-global-shortcut', (event, shortcut) => {
+  const isRegistered = globalShortcut.isRegistered(shortcut);
+  return isRegistered;
+});
+
+// Listen for messages from the renderer process
+
+ipcMain.handle('register-shortcut', async (event, newShortcutKey) => {
+  // Register a global shortcut
+  const success = globalShortcut.register(newShortcutKey, () => {
+    // Handle the global shortcut event
+    // ...
+  });
+
+  return success;
+});
+
+// Listen for messages from the renderer process to unregister the shortcut
+ipcMain.on('unregister-shortcut', (event) => {
+  if (tempRegisteredShortcut) {
+    globalShortcut.unregister(tempRegisteredShortcut);
+    tempRegisteredShortcut = null;
+  }
 });
 
 
