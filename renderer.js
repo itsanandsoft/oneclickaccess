@@ -9,16 +9,16 @@ const { ipcRenderer,globalShortcut  } = require("electron");
     var CLIPBOARD = null;
 
     $(function() {
-      function saveTreeState(){
-        var tree = $.ui.fancytree.getTree("#tree");
-        var da = tree.toDict(true);
-        var d = JSON.stringify(da);
-        const jsonObj = JSON.parse(d);
-        const children = jsonObj.children;
-        const newJsonStr = JSON.stringify(children);
-        console.log(newJsonStr);
-        ipcRenderer.invoke("saveData", newJsonStr);
-      }
+      // function saveTreeState(){
+      //   var tree = $.ui.fancytree.getTree("#tree");
+      //   var da = tree.toDict(true);
+      //   var d = JSON.stringify(da);
+      //   const jsonObj = JSON.parse(d);
+      //   const children = jsonObj.children;
+      //   const newJsonStr = JSON.stringify(children);
+      //   console.log(newJsonStr);
+      //   ipcRenderer.invoke("saveData", newJsonStr);
+      // }
       var counter = 0; // initialize counter variable
         $("#tree")
           .fancytree({
@@ -590,7 +590,7 @@ $(function() {
     if( !node ) return;
     node.data.timezone = $('#timezone-select').val();
     node.render(true);
-
+    saveTreeState();
         // Set a custom UTC timezone value
    // var customUtcOffset = $('#timezone-select').val().replace('UTC', '');
     // Create a Date object with the custom UTC timezone value
@@ -903,6 +903,9 @@ $(function() {
                 //node.setTitle(node.title + "  --(" + newShortcutKey + ")");
                 node.data.shortcutKeys = newShortcutKey;
                 node.render(true);
+                setTimeout(function() {
+                  saveTreeState();
+                }, 500);
               } else {
                 alert('Shortcut key registration failed');
               }
@@ -1325,4 +1328,15 @@ function invertColor(hex) {
 
   // Convert back to hex format
   return "#" + r.toString(16) + g.toString(16) + b.toString(16);
+}
+
+function saveTreeState(){
+  var tree = $.ui.fancytree.getTree("#tree");
+  var da = tree.toDict(true);
+  var d = JSON.stringify(da);
+  const jsonObj = JSON.parse(d);
+  const children = jsonObj.children;
+  const newJsonStr = JSON.stringify(children);
+  console.log(newJsonStr);
+  ipcRenderer.invoke("saveData", newJsonStr);
 }
