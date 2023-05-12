@@ -63,7 +63,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               highlight: true,   // Highlight matches by wrapping inside <mark> tags
               leavesOnly: false, // Match end nodes only
               nodata: true,      // Display a 'no data' status node if result is empty
-              mode: "dimm"       // Grayout unmatched nodes (pass "hide" to remove unmatched node instead)
+              mode: "hide"        //mode: "dimm"       // Grayout unmatched nodes (pass "hide" to remove unmatched node instead)
             },
             dnd5: {
               preventVoidMoves: true,
@@ -101,9 +101,9 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               get: function(node) {
                 return node.data.shortcutKey ? "has-shortcut-key" : "";
               },
-              get: function(node) {
-                return node.data.timezone ? "has-timezone-key" : "";
-              }
+              // get: function(node) {
+              //   return node.data.timezone ? "has-timezone-key" : "";
+              // }
             },
             createNode: function(event, data) {
               var node = data.node;
@@ -236,12 +236,21 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               var node = data.node;
               var $titleSpan = $(node.span).find(".fancytree-title");
               // Add your custom title content to the existing title span
-              if ((typeof node.data.shortcutKeys !== "undefined") && (node.data.shortcutKeys != "")) {
-                $titleSpan.append(" (" + node.data.shortcutKeys + ")");
+              
+              if ((typeof node.data.shortcutKeys !== "undefined") && (node.data.shortcutKeys != ""))
+              {
+                var stringTitle = $titleSpan.text();
+                if (stringTitle.includes("(") && stringTitle.includes("+") && stringTitle.includes(")")) {
+                  console.log("The string contains Shortcut key No render.");
+                } else {
+                  console.log(stringTitle);
+                  $titleSpan.append(" (" + node.data.shortcutKeys + ")");
+                }
+                
               }
-              if ((typeof node.data.timezone !== "undefined") && (node.data.timezone != "")) {
-                $titleSpan.append(" - Current Date and Time");
-              }
+              // if ((typeof node.data.timezone !== "undefined") && (node.data.timezone != "")) {
+              //   $titleSpan.append(" - Current Date and Time");
+              // }
             },
             renderTitle: function(event, data) {
               //////logEvent(event, data);
@@ -364,7 +373,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               return false;
             }
           });
-
+          var tree = $.ui.fancytree.getTree("#tree");
           $("input[name=search]").on("keyup", function(e){
             var n,
               tree = $.ui.fancytree.getTree(),
@@ -599,11 +608,22 @@ $(function() {
   });
   
   $('#add_current_datetime').click(function(){ 
-     var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-    if( !node ) return;
-    node.data.timezone = $('#timezone-select').val();
-    node.render(true);
-    saveTreeState();
+    var tree = $.ui.fancytree.getTree("#tree"),
+    node = tree.getActiveNode();
+    newData = {title: "Current Date and Time", data:{type: "date",timezone:$('#timezone-select').val()}};
+    if( node )
+    {
+      newSibling = node.addChildren(newData);
+    }
+    else
+    {
+      $.ui.fancytree.getTree("#tree").getRootNode().addChildren(newData);
+    }
+    //  var node = $.ui.fancytree.getTree("#tree").getActiveNode();
+    // if( !node ) return;
+    // node.data.timezone = $('#timezone-select').val();
+    // node.render(true);
+    // saveTreeState();
         // Set a custom UTC timezone value
    // var customUtcOffset = $('#timezone-select').val().replace('UTC', '');
     // Create a Date object with the custom UTC timezone value
@@ -889,6 +909,9 @@ $(function() {
             success: function(data) {
                 var tree = $.ui.fancytree.getTree("#tree");
                 tree.reload(data);
+                // $("input[name=search]").click(function() {
+                //   $(this).focus();
+                // });
                 alert("Reloaded Successfully!");
             },
             error: function() {
@@ -899,6 +922,7 @@ $(function() {
     $('#searchbtn').on('click',function(){
       if($('.search-dropdown').is(':hidden')){
         $('.search-dropdown').show();
+          $("input[name=search]").focus();
       }
       else{
         $('.search-dropdown').hide();

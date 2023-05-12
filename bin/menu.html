@@ -1,58 +1,48 @@
 <!doctype html>
 <html>
-
 <head>
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <meta charset="UTF-8">
+    <title>One Click Access</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+
+    <link rel="stylesheet" href="../../../../assets/js/metro-ui/metro-all.min.css">
+    <script src="../../../../assets/js/metro-ui/metro.js"></script>
     <script>window.$ = window.jQuery = require('jquery');</script>
     
-
-    <link rel="stylesheet" href="./node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.css"/>
-    <!-- <script src="./assets/js/jquery.fancytree.contextMenu.js"></script> -->
-    <style>
-        .center {
-          position: absolute;
-
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-          }
-          
-          .child-element {
-            width: 80%;
-            height: 80%;
-          }
-      </style>
 </head>
 
-<body id="body">
-    <!-- <ul class="contextMenu" data-theme="light" style="width: 150px;height: auto;">
+<body>
+  <div class="main_menu">
+  <div class="pos-relative">
+    <ul class="ribbon-dropdown">
+    <li class="simple"><a href="#" class="text-decoration-none" id="context-menu" style="width:100px !important">Menu</a></li>
+    <li class="simple"><a href="#" class="text-decoration-none" id="context-cancel" style="width:100px !important">Cancel</a></li>
+  </ul>
+  </div>
+</div>
+    <!-- <ul class="contextMenu" data-theme="light">
         <li class="contextMenu-item">
-            <button class="contextMenu-button" style="animation-delay: 0s" id="menu-btn">
+            <button class="contextMenu-button" style="animation-delay: 0s" id="">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" style="margin-right: 10px; position: relative; top: -1px" width="13" height="13" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M0 107.081a16 16 0 0 1 16-16h480a16 16 0 0 1 0 32H16a16 16 0 0 1-16-16zM496 240H16a16 16 0 0 0 0 32h480a16 16 0 0 0 0-32zM256 388.919H16a16 16 0 0 0 0 32h240a16 16 0 0 0 0-32z" fill="#000000" data-original="#000000" class=""></path></g></svg>
                 Menu
             </button>
         </li>
         <li class="contextMenu-item">
-            <button class="contextMenu-button" style="animation-delay: 0.08s" id="cancle-btn">
+            <button class="contextMenu-button" style="animation-delay: 0.08s">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="13" height="13" style="margin-right: 10px; position: relative; top: -1px"  x="0" y="0" viewBox="0 0 329.269 329" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><g fill="#f44336"><path d="M21.34 329.398c-5.461 0-10.926-2.09-15.082-6.25-8.344-8.34-8.344-21.824 0-30.164L292.848 6.391c8.34-8.34 21.824-8.34 30.164 0 8.343 8.34 8.343 21.824 0 30.164L36.422 323.148a21.231 21.231 0 0 1-15.082 6.25zm0 0" fill="#f44336" data-original="#f44336" class=""></path><path d="M307.93 329.398c-5.461 0-10.922-2.09-15.082-6.25L6.258 36.555c-8.344-8.34-8.344-21.825 0-30.164 8.34-8.34 21.82-8.34 30.164 0l286.59 286.593c8.343 8.34 8.343 21.825 0 30.164-4.16 4.18-9.621 6.25-15.082 6.25zm0 0" fill="#f44336" data-original="#f44336" class=""></path></g></g></svg>
                 Cancel
             </button>
         </li>
     </ul> -->
-    <div class="center child-element" id="exclude-me" style="width: 150px;height: auto;"><span class="context-menu-one" id="context-menu-one"></span></div>
-    
+  <script>
+      const {ipcRenderer} = require('electron')
 
-   
-    <script src="./menu.js"></script>
+      $('#context-menu').on('click',function(event){
+          ipcRenderer.send('display-app-menu',{x : event.clientX,y : event.clientY});
+      });
+      $('#context-cancel').on('click',function(event){
+          ipcRenderer.send('close-app-menu');
+      });
+  </script>
 </body>
-<script>
-   
-        
-</script>
-
 </html>
