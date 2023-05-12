@@ -44,7 +44,7 @@ p.info,
 div.info {
 	font-size: small;
 	background-color: #fff3cd;
-	background-image: url(../doc/iconInfo_32x32.png);
+	/* background-image: url(../doc/iconInfo_32x32.png); */
 	background-repeat: no-repeat;
 	padding: 5px;
 	padding-left: 40px;
