@@ -1007,21 +1007,24 @@ ipcMain.handle('check-global-shortcut', (event, shortcut) => {
 
 ipcMain.handle('register-shortcut', async (event, newShortcutKey) => {
   // Register a global shortcut
-  const success = globalShortcut.register(newShortcutKey, () => {
+  const successReg = globalShortcut.register(newShortcutKey, () => {
     // Handle the global shortcut event
     // ...
   });
-
-  return success;
+  return successReg;
 });
 
 // Listen for messages from the renderer process to unregister the shortcut
-ipcMain.on('unregister-shortcut', (event) => {
-  if (tempRegisteredShortcut) {
-    globalShortcut.unregister(tempRegisteredShortcut);
-    tempRegisteredShortcut = null;
-  }
+ipcMain.handle('unregister-shortcut', async (event, shortcutKey) => {
+    const success =   globalShortcut.unregister(shortcutKey);
+  return success;
 });
+// ipcMain.on('unregister-shortcut', (event) => {
+//   if (tempRegisteredShortcut) {
+//     globalShortcut.unregister(tempRegisteredShortcut);
+//     tempRegisteredShortcut = null;
+//   }
+// });
 ipcMain.on('saveTimeZone', (event,args) => {
   fs.readFile('database.json', (err, data) => {
     if (err) throw err;

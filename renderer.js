@@ -113,7 +113,38 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               setTimeout(function() {
                 saveTreeState();
               }, 500);
+
+              if(data.operation === "remove") {
+                 // the child node that was removed
+                  var removedNode = data.node;
+                  if (removedNode.data && "shortcutKeys" in removedNode.data) {
+                    var shortcutKey = removedNode.data.shortcutKey;
+                    // Send a message to the main process to check if a global shortcut is registered
+                    ipcRenderer.invoke('check-global-shortcut', shortcutKey).then((isRegistered) => {
+                      if (isRegistered) {
+                        
+                        ipcRenderer.invoke('unregister-shortcut', shortcutKey).then((ret) => {
+                          if (ret) {
+                            alert('Shortcut key UnRegistered successfully');
+                          } else {
+                            alert('Shortcut key removal failed');
+                          }
+                        });
+
+                      } else {
+                        console.log("Shortcut Command not found!")
+                      }
+                    });
+                  }
+                  else
+                  {
+                    console.log("Shortcut not Exists!"+data.node.data.shortcutKeys);
+                  }
+                  console.log("Child node removed:", removedNode.title);
+              }
             },
+
+            
             // --- Tree events -------------------------------------------------
             blurTree: function(event, data) {
               //////logEvent(event, data);
