@@ -117,8 +117,9 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               if(data.operation === "remove") {
                  // the child node that was removed
                   var removedNode = data.node;
+                  console.log(removedNode.data.shortcutKeys)
                   if (removedNode.data && "shortcutKeys" in removedNode.data) {
-                    var shortcutKey = removedNode.data.shortcutKey;
+                    var shortcutKey = removedNode.data.shortcutKeys;
                     // Send a message to the main process to check if a global shortcut is registered
                     ipcRenderer.invoke('check-global-shortcut', shortcutKey).then((isRegistered) => {
                       if (isRegistered) {
@@ -634,7 +635,7 @@ $(function() {
 
   $('#timezone-select').on('change', function() {
     var selectedOptionValue = $(this).val();
-    $('#timezone-label').text((selectedOptionValue+":00").replace('UTC', ''));
+    $('#timezone-label').text((selectedOptionValue).replace('UTC', ''));
     ipcRenderer.send("saveTimeZone", selectedOptionValue); 
   });
   
