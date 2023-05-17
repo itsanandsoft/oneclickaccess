@@ -74,12 +74,10 @@ const { ipcRenderer,globalShortcut  } = require("electron");
                 return true;
               },
               dragEnter: function(node, data) {
-                
                 // return ["before", "after"];
                 return true;
               },
               dragDrop: function(node, data) {
-                
                 data.otherNode.moveTo(node, data.hitMode);
                 //treeDataChangeEvent();
               },
@@ -87,7 +85,6 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             edit: {
               triggerStart: ["f2", "shift+click", "mac+enter"],
               close: function(event, data) {
-                
                 if (data.save && data.isNew) {
                   // Quick-enter: add new nodes until we hit [enter] on an empty title
                   $("#tree").trigger("nodeCommand", {
