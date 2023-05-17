@@ -4,3 +4,4 @@ mac.txt
 build
 bin/
 my-app.log
+out/
