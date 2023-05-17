@@ -16,8 +16,6 @@ const XLSX = require('xlsx');
 const { promisify } = require('util');
 const url = require('url');
 const AutoLaunch = require('auto-launch');
-const { edialog } = require('electron-dialog');
-
 const autoLauncher = new AutoLaunch({
   name: 'oneclickaccess',
   path: app.getPath('exe'),
@@ -485,8 +483,10 @@ function printTextonScreen(text) {
     if (process.platform === 'darwin') {
       exec('osascript -e \'tell application "System Events" to keystroke "v" using command down\'');
     } else if (process.platform === 'win32') {
-      keyboard.pressKey(Key.LeftControl, Key.V);
-      keyboard.releaseKey(Key.LeftControl, Key.V);
+      
+      exec('powershell -Command "$wshell = New-Object -ComObject WScript.Shell; $wshell.SendKeys(\'^v\')"');
+      // keyboard.pressKey(Key.LeftControl, Key.V);
+      // keyboard.releaseKey(Key.LeftControl, Key.V);
     }
   }
 
