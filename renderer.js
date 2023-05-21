@@ -105,44 +105,71 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             createNode: function(event, data) {
               var node = data.node;
             },
+            beforeRemove: function(event, data) {
+              var removedNode = data.node;
+            
+              console.log("Node will be removed:", removedNode.title);
+            },beforeNodeRemove: function(event, data) {
+              var removedNode = data.node;
+            
+              console.log("Node will be removed:", removedNode.title);
+            },
             modifyChild: function(event, data) {
               data.tree.info(event.type, data);
               setTimeout(function() {
                 saveTreeState();
               }, 500);
 
-              if(data.operation === "remove") {
-                 // the child node that was removed
-                  var removedNode = data.node;
-                  console.log(removedNode.data.shortcutKeys)
-                  if (removedNode.data && "shortcutKeys" in removedNode.data) {
-                    var shortcutKey = removedNode.data.shortcutKeys;
-                    // Send a message to the main process to check if a global shortcut is registered
-                    ipcRenderer.invoke('check-global-shortcut', shortcutKey).then((isRegistered) => {
-                      if (isRegistered) {
-                        
-                        ipcRenderer.invoke('unregister-shortcut', shortcutKey).then((ret) => {
-                          if (ret) {
-                            alert('Shortcut key UnRegistered successfully');
-                          } else {
-                            alert('Shortcut key removal failed');
-                          }
-                        });
+                if(data.operation === "remove") {
+                  // the child node that was removed
+                    var removedNode = data.node;
+                    console.log(removedNode.data.shortcutKeys)
+                    if (removedNode.data && "shortcutKeys" in removedNode.data) {
+                      var shortcutKey = removedNode.data.shortcutKeys;
+                      // Send a message to the main process to check if a global shortcut is registered
+                      ipcRenderer.invoke('check-global-shortcut', shortcutKey).then((isRegistered) => {
+                        if (isRegistered) {
+                          
+                          ipcRenderer.invoke('unregister-shortcut', shortcutKey).then((ret) => {
+                            if (ret) {
+                              alert('Shortcut key UnRegistered successfully');
+                            } else {
+                              alert('Shortcut key removal failed');
+                            }
+                          });
 
-                      } else {
-                        console.log("Shortcut Command not found!")
-                      }
-                    });
-                  }
-                  else
-                  {
-                    console.log("Shortcut not Exists!"+data.node.data.shortcutKeys);
-                  }
-                  console.log("Child node removed:", removedNode.title);
+                        } else {
+                          console.log("Shortcut Command not found!")
+                        }
+                      });
+                    }
+                    else
+                    {
+                      console.log("Shortcut not Exists!"+data.node.data.shortcutKeys);
+                    }
+                    console.log("Child node removed:", removedNode.title);
+                if (data.operation === "remove") {
+                  var removedNode = data.node;
+                  console.log("Node removed:", removedNode.title);
+                  // Perform any additional actions before the node is removed
+                }
               }
             },
-
-            
+            // modifyChild: function(event, data) {
+            //   data.tree.info(event.type, data);
+            //   setTimeout(function() {
+            //     saveTreeState();
+            //   }, 500);
+            //    var node = data.node;
+            //   if(data.operation === "remove") {
+            //     // if (node.data && "shortcutKeys" in node.data) {
+            //     //   var shortcutKey = node.data.shortcutKeys;
+            //     //   removeShortcutkey(shortcutKey);
+            //     // }
+            //      console.log("Child node removed:", node.title);
+            //  }
+              
+            // },
             // --- Tree events -------------------------------------------------
             blurTree: function(event, data) {
               //////logEvent(event, data);
@@ -170,6 +197,13 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               //					alert("custom node data: " + JSON.stringify(node.data));
               }
             },
+            // beforeSelect: function(event, data) {
+            //   if (data.node.isSelected() && data.originalEvent.type === "keydown" && data.originalEvent.keyCode === $.ui.keyCode.DELETE) {
+            //     var node = data.node;
+            //     console.log("Before removing node hahahahahh:", node.title);
+            //     // Perform additional actions or validations before removing the node
+            //   }
+            // },
             beforeActivate: function(event, data) {
               //////logEvent(event, data, "current state=" + data.node.isActive());
               // return false to prevent default behavior (i.e. activation)
@@ -229,6 +263,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               //////logEvent(event, data);
               //$("#echoActive").text("-");
             },
+            
             expand: function(event, data) {
               //////logEvent(event, data);
             },
@@ -590,6 +625,7 @@ $(function() {
             </li>
           </ul>
         </li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_add_context_shortcut">Set Context Shortcut</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">About</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_exit">Exit</a></li>
       </ul>`);
@@ -638,7 +674,7 @@ $(function() {
   
   $('#add_current_datetime').click(function(){ 
     var tree = $.ui.fancytree.getTree("#tree"),
-    node = tree.getActiveNode();
+		node = tree.getRootNode();
     newData = {title: "Current Date and Time", data:{type: "date",timezone:$('#timezone-select').val()}};
     if( node )
     {
@@ -851,6 +887,7 @@ $(function() {
     $('#main_file_about').click(function(){ 
       openAboutDialog();
     });
+    
     $('#main_file_exit').click(function(){ 
       ipcRenderer.send('close-window');
     });
@@ -883,9 +920,12 @@ $(function() {
     $('#main_remove').click(function(){
       var node = $.ui.fancytree.getTree("#tree").getActiveNode();
       if( !node ) return;
-      //alert(node.shortcutKeys);
-			node.remove(); 
-      
+      // if (node.data && "shortcutKeys" in node.data) {
+      //   var shortcutKey = node.data.shortcutKeys;
+      //   removeShortcutkey(shortcutKey);
+      // }
+   		node.remove(); 
+
     });
     $('#main_add_text').click(function(){ 
 
@@ -966,6 +1006,39 @@ $(function() {
       if (!node) {
         alert("Select a node First!");
       } else if (!modifierkey) {
+        alert("Select a Modifier Key First!");
+      } else if (!keyboardkey) {
+        alert("Select a Keyboard Key First!");
+      } else {
+        var newShortcutKey = modifierkey + "+"+ keyboardkey;
+        // Send a message to the main process to check if a global shortcut is registered
+        ipcRenderer.invoke('check-global-shortcut', newShortcutKey).then((isRegistered) => {
+          if (isRegistered) {
+            alert("This Key already Registered in the System Try Some New Combination");
+          } else {
+            // Register a global shortcut
+            ipcRenderer.invoke('register-shortcut', newShortcutKey).then((ret) => {
+              if (ret) {
+                alert('Shortcut key registered successfully');
+                //node.setTitle(node.title + "  --(" + newShortcutKey + ")");
+                node.data.shortcutKeys = newShortcutKey;
+                node.render(true);
+                setTimeout(function() {
+                  saveTreeState();
+                }, 500);
+              } else {
+                alert('Shortcut key registration failed');
+              }
+            });
+          }
+        });
+      }
+    });
+
+    $('#main_file_add_context_shortcut').click(function(){ 
+      var modifierkey = $('#modifierkey-select').val();
+      var keyboardkey = $('#keyboardkey-select').val();
+      if (!modifierkey) {
         alert("Select a Modifier Key First!");
       } else if (!keyboardkey) {
         alert("Select a Keyboard Key First!");
@@ -1419,4 +1492,25 @@ function saveTreeState(){
   const newJsonStr = JSON.stringify(children);
   console.log(newJsonStr);
   ipcRenderer.invoke("saveData", newJsonStr);
+}
+
+
+function removeShortcutkey(shortcutKey)
+{
+    // Send a message to the main process to check if a global shortcut is registered
+    ipcRenderer.invoke('check-global-shortcut', shortcutKey).then((isRegistered) => {
+      if (isRegistered) {
+        
+        ipcRenderer.invoke('unregister-shortcut', shortcutKey).then((ret) => {
+          if (ret) {
+            alert('Shortcut key UnRegistered successfully');
+          } else {
+            alert('Shortcut key removal failed');
+          }
+        });
+
+      } else {
+        console.log("Shortcut Command not found!")
+      }
+    });
 }
