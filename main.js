@@ -1,5 +1,6 @@
 const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard, Tray, Notification, accelerator } = require('electron')
 const path = require('path')
+const crypto = require('crypto');
 const config = require(path.join(__dirname, '/config/app'));
 //const SQLiteHelper = require(path.join(__dirname, '/database/SQLiteHelper'));
 const createMacAddressFiles = require(path.join(__dirname, '/assets/js/macadd-handler'));
@@ -21,39 +22,25 @@ const autoLauncher = new AutoLaunch({
   path: app.getPath('exe'),
 });
 
+const algorithm = 'aes-256-cbc';
+const password = 'Naeem&Sheraz@55055'; 
+
 // const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
 // console.log = (message) => {
 //   logFile.write(`${new Date().toISOString()}: ${message}\n`);
 // };
-if (!fs.existsSync('database.json')) {
-  let data = [{
-    "users": {
-      "id": "0",
-      "email": "",
-      "token": ""
-    },
-    "settings": {
-      "id": "1",
-      "incognito": "1"
-    }
-  }];
-  const updatedJson = JSON.stringify(data, null, 2);
-  fs.writeFile('database.json', updatedJson, err => {
-    if (err) throw err;
-    console.log(`Setting 1 setting updated with incognito value: ${updatedJson}`);
-  });
-}
+
 
 
 let x, y = null;
 let close = false;
-let isTopmost = false;
+let isTopmost = false;// Replace with your own password
 const jsonFilePath = path.join(__dirname, '/tree-data.json');
 let win, menuWindow;
 let menu = null;
 let notification = null;
 let tray = null
-let tempRegisteredShortcut;
+var prevContextRegShortcut = 'CommandOrControl+Q';
 let autoLaunchEnabled = false;
 let theme = 'win';
 let mainHtml = 'index';
@@ -69,19 +56,72 @@ const functionMap = {
 };
 
 app.whenReady().then(() => {
+
+  if (!fs.existsSync('database.json')) {
+    let data = [
+      {
+        "users": {
+        "id": "0",
+        "email": "",
+        "token": ""
+        },
+        "settings": {
+        "id": "1",
+        "incognito": "0",
+        "timezone": "UTC-06:00"
+        }
+      }
+    ];
+    const updatedJson = JSON.stringify(data, null, 2);
+   
+    fs.writeFile('database.json', updatedJson, err => {
+      if (err) throw err;
+      console.log(`Setting 1 setting updated with incognito value: ${updatedJson}`);
+    });
+  }
+
   createMacAddressFiles();
   createWindow();
+  initShorcutsOfTreeDataJson();
   const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
     x = screen.getCursorScreenPoint().x;
     y = screen.getCursorScreenPoint().y;
     createElectronMenu(x + 10, y);
   });
-
   if (!shortcut) { console.log('Registration failed.'); }
-
 });
 
 // Functions
+
+function initShorcutsOfTreeDataJson()
+{
+  var dataF = fs.readFileSync(jsonFilePath)
+  const decipher = crypto.createDecipher(algorithm, password);
+  let decryptedData = decipher.update(dataF, 'hex', 'utf8');
+  decryptedData += decipher.final('utf8');
+  
+  var data = JSON.parse(decryptedData);
+  for (const rootNode of data) {
+    traverseTree(rootNode);
+  }
+}
+
+function traverseTree(node) {
+  if (node.data && node.data.shortcutKeys) {
+    const shortcutKeys = node.data.shortcutKeys;
+    const title = node.title;
+    globalShortcut.register(shortcutKeys, () => {
+      printTextonScreen(title);
+    });
+    console.log(`Shortcut Keys: ${shortcutKeys}, Title: ${title}`);
+  }
+
+  if (node.children) {
+    for (const childNode of node.children) {
+      traverseTree(childNode);
+    }
+  }
+}
 
 function checkMachines(data, win) {
   const mac_address = fs.readFileSync('mac.txt', 'utf8');
@@ -212,121 +252,126 @@ function closeOrMinimizeWindow(close) {
 
 }
 
-function createMenuWindow(x, y) {
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize
-  let menuWindow = new BrowserWindow({
-    width: 300,
-    height: 100,
-    x: x,
-    y: y,
-    frame: false,
-    transparent: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true,
-    }
-  });
-  menuWindow.removeMenu(true);
-  menuWindow.loadFile(path.join(__dirname, `/renderer/${theme}/pages/context_menu/menu.html`));
-  menu = Menu.buildFromTemplate(menu_template);
-  menu.forEach(item => {
-    if (item.click) {
-      item.click = () => {
-        // Call the function specified in the click property
-        eval(item.click)();
-      };
-    }
-  });
-  // menuWindow.setMenu(menu);
-  //menuWindow.webContents.openDevTools()
-  // Set the background color to transparent
-  //menuWindow.setBackgroundColor('#00000000');
+// function createMenuWindow(x, y) {
+//   const { width, height } = screen.getPrimaryDisplay().workAreaSize
+//   let menuWindow = new BrowserWindow({
+//     width: 300,
+//     height: 100,
+//     x: x,
+//     y: y,
+//     frame: false,
+//     transparent: false,
+//     webPreferences: {
+//       nodeIntegration: true,
+//       contextIsolation: false,
+//       enableRemoteModule: true,
+//     }
+//   });
+//   menuWindow.removeMenu(true);
+//   menuWindow.loadFile(path.join(__dirname, `/renderer/${theme}/pages/context_menu/menu.html`));
+//   menu = Menu.buildFromTemplate(menu_template);
+//   menu.forEach(item => {
+//     if (item.click) {
+//       item.click = () => {
+//         // Call the function specified in the click property
+//         eval(item.click)();
+//       };
+//     }
+//   });
+//   // menuWindow.setMenu(menu);
+//   //menuWindow.webContents.openDevTools()
+//   // Set the background color to transparent
+//   //menuWindow.setBackgroundColor('#00000000');
 
-  // Set the CSS to allow pointer events on children
-  // menuWindow.webContents.insertCSS(`
-  //   body {
-  //     pointer-events: none;
-  //   }
+//   // Set the CSS to allow pointer events on children
+//   // menuWindow.webContents.insertCSS(`
+//   //   body {
+//   //     pointer-events: none;
+//   //   }
 
-  //   * {
-  //     pointer-events: auto;
-  //   }
-  // `);
-  // menu = Menu.buildFromTemplate(menu_template);
-  // menuWindow.setMenu(menu);
-  // menuWindow.loadFile(path.join(__dirname, '/menu.html'));
+//   //   * {
+//   //     pointer-events: auto;
+//   //   }
+//   // `);
+//   // menu = Menu.buildFromTemplate(menu_template);
+//   // menuWindow.setMenu(menu);
+//   // menuWindow.loadFile(path.join(__dirname, '/menu.html'));
 
-  // menuWindow.on('close', (event) => {
-  //     event.preventDefault();
-  //    // menuWindow.hide()
-  // });
-  //       // Set the position of the context menu window to the top of the screen
-  //   menuWindow.on('blur', () => {
-  //     // Hide the context menu window when it loses focus
-  //     //menuWindow.hide()
-  //   })
+//   // menuWindow.on('close', (event) => {
+//   //     event.preventDefault();
+//   //    // menuWindow.hide()
+//   // });
+//   //       // Set the position of the context menu window to the top of the screen
+//   //   menuWindow.on('blur', () => {
+//   //     // Hide the context menu window when it loses focus
+//   //     //menuWindow.hide()
+//   //   })
 
-  //   // Listen for 'click' events on the document.body element
-  //   menuWindow.webContents.on('click', (event, targetElement) => {
-  //     // If the click happened outside of the window
-  //     if (!menuWindow.getBounds().contains(event.x, event.y)) {
-  //       // Close the window
-  //      // menuWindow.close();
-  //     }
-  //   });
-  //   // Listen for any input event on the window
-  //   menuWindow.webContents.on('before-input-event', (event, input) => {
-  //     if (input.type !== 'mouseDown') {
-  //       // Close the window if the input event is not a mouse click event
-  //      // menuWindow.close();
-  //     }
-  //   });
-
-
-  //   ipcMain.on('showContextMenu', () => {
-  //     // Show the context menu window when requested from the renderer process
-  //     menuWindow.show()
-  //   })
-
-  //   ipcMain.on('contextMenuSelection', (event, option) => {
-  //     // Handle the selected context menu option
-  //     console.log(`Selected option: ${option}`)
-  //     // You can perform any desired action here
-  //   })
-
-  //   // menuWindow.webContents.on('click', (event, targetElement) => {
-  //   //   console.log(`Clicked`)
-  //   //   // Exclude clicks on a div with id "exclude-me" or its descendants
-  //   //   // const excludeMe = document.getElementById('exclude-me');
-  //   //   // if (excludeMe.contains(targetElement)) {
-  //   //   //   return;
-  //   //   // }
-
-  //   //   // Your code here
-  //   //   //menuWindow.hide()
-  //   // });
-  //   console.log('run');
-  //   menuWindow.once('ready-to-show', () => {
-  //     console.log('Clicked1');
-  //     menuWindow.webContents.on('click', (event, targetElement) => {
-  //       console.log('Clicked2');
-  //     });
-  //   })
+//   //   // Listen for 'click' events on the document.body element
+//   //   menuWindow.webContents.on('click', (event, targetElement) => {
+//   //     // If the click happened outside of the window
+//   //     if (!menuWindow.getBounds().contains(event.x, event.y)) {
+//   //       // Close the window
+//   //      // menuWindow.close();
+//   //     }
+//   //   });
+//   //   // Listen for any input event on the window
+//   //   menuWindow.webContents.on('before-input-event', (event, input) => {
+//   //     if (input.type !== 'mouseDown') {
+//   //       // Close the window if the input event is not a mouse click event
+//   //      // menuWindow.close();
+//   //     }
+//   //   });
 
 
-  //   menuWindow.webContents.on('did-finish-load', () => {
-  //     console.log('load');
-  //     menuWindow.webContents.on('click', (event, targetElement) => {
-  //       console.log('Clicked2');
-  //     });
-  //   });
+//   //   ipcMain.on('showContextMenu', () => {
+//   //     // Show the context menu window when requested from the renderer process
+//   //     menuWindow.show()
+//   //   })
 
-  // menuWindow.webContents.openDevTools()
-}
+//   //   ipcMain.on('contextMenuSelection', (event, option) => {
+//   //     // Handle the selected context menu option
+//   //     console.log(`Selected option: ${option}`)
+//   //     // You can perform any desired action here
+//   //   })
+
+//   //   // menuWindow.webContents.on('click', (event, targetElement) => {
+//   //   //   console.log(`Clicked`)
+//   //   //   // Exclude clicks on a div with id "exclude-me" or its descendants
+//   //   //   // const excludeMe = document.getElementById('exclude-me');
+//   //   //   // if (excludeMe.contains(targetElement)) {
+//   //   //   //   return;
+//   //   //   // }
+
+//   //   //   // Your code here
+//   //   //   //menuWindow.hide()
+//   //   // });
+//   //   console.log('run');
+//   //   menuWindow.once('ready-to-show', () => {
+//   //     console.log('Clicked1');
+//   //     menuWindow.webContents.on('click', (event, targetElement) => {
+//   //       console.log('Clicked2');
+//   //     });
+//   //   })
+
+
+//   //   menuWindow.webContents.on('did-finish-load', () => {
+//   //     console.log('load');
+//   //     menuWindow.webContents.on('click', (event, targetElement) => {
+//   //       console.log('Clicked2');
+//   //     });
+//   //   });
+
+//   // menuWindow.webContents.openDevTools()
+// }
 
 function createElectronMenu(x, y) {
-  let menu_template = fancytreeToContextmenuJson(JSON.parse(fs.readFileSync(jsonFilePath)));
+  var dataF =  fs.readFileSync(jsonFilePath);
+  const decipher = crypto.createDecipher(algorithm, password);
+  let decryptedData = decipher.update(dataF, 'hex', 'utf8');
+  decryptedData += decipher.final('utf8');
+  
+  let menu_template = fancytreeToContextmenuJson(JSON.parse(decryptedData));
   menuWindow = new BrowserWindow({
     width: 132,
     height: 54,
@@ -372,6 +417,7 @@ function itemClicked(item) {
 
         fs.readFile('database.json', (err, data) => {
           if (err) throw err;
+
           data = JSON.parse(data);
           if(data.length>0){
             if(data[0].settings.hasOwnProperty('timezone')){
@@ -495,7 +541,8 @@ function openURLinChrome(url) {
   let chromePath = '';
   let command = '';
   let incognito = '';
-  const data = JSON.parse(fs.readFileSync('database.json', 'utf-8'));
+  var dataF = fs.readFileSync('database.json', 'utf-8');
+  const data = JSON.parse(dataF);
   if (data.length > 0) {
     if (data[0].settings.hasOwnProperty('id')) {
       if (data[0].settings.incognito == 1) {
@@ -585,6 +632,9 @@ ipcMain.on(`startWithSystemToggle`, function (e, args) {
 });
 
 ipcMain.handle("showDialog", (e, d) => {
+  const cipher = crypto.createCipher(algorithm, password);
+  let encryptedData = cipher.update(d, 'utf8', 'hex');
+  encryptedData += cipher.final('hex');
   var filePath = path.join(__dirname, '/new_file.json');
   dialog.showSaveDialog({
     title: 'Save File',
@@ -603,7 +653,8 @@ ipcMain.handle("showDialog", (e, d) => {
         if (err) {
           // File does not exist, create it
           console.log(`${filePath} does not exist, creating...`);
-          fs.writeFile(filePath, d, (err) => {
+          
+          fs.writeFile(filePath, encryptedData, (err) => {
             if (err) throw err;
             console.log(`${filePath} created and data written!`);
           });
@@ -615,7 +666,8 @@ ipcMain.handle("showDialog", (e, d) => {
               return;
             }
             console.log(`${filePath} exists, writing data...`);
-            fs.writeFile(filePath, d, (err) => {
+            
+            fs.writeFile(filePath, encryptedData, (err) => {
               if (err) throw err;
               console.log(`${filePath} updated with new data!`);
             });
@@ -672,12 +724,18 @@ ipcMain.handle("performSelectiveExport", (e, d) => {
 });
 
 ipcMain.handle("saveData", (e, d) => {
+  const cipher = crypto.createCipher(algorithm, password);
+  let encryptedData = cipher.update(d, 'utf8', 'hex');
+  encryptedData += cipher.final('hex');
   var filePath = path.join(__dirname, '/tree-data.json');
+  
+
   fs.access(filePath, fs.constants.F_OK, (err) => {
     if (err) {
       // File does not exist, create it
       console.log(`${filePath} does not exist, creating...`);
-      fs.writeFile(filePath, d, (err) => {
+     
+      fs.writeFile(filePath, encryptedData, (err) => {
         if (err) throw err;
         console.log(`${filePath} created and data written!`);
       });
@@ -689,7 +747,7 @@ ipcMain.handle("saveData", (e, d) => {
           return;
         }
         console.log(`${filePath} exists, writing data...`);
-        fs.writeFile(filePath, d, (err) => {
+        fs.writeFile(filePath, encryptedData, (err) => {
           if (err) throw err;
           console.log(`${filePath} updated with new data!`);
         });
@@ -700,7 +758,9 @@ ipcMain.handle("saveData", (e, d) => {
 
 
 ipcMain.handle("backupDialog", (e, d) => {
-
+  const cipher = crypto.createCipher(algorithm, password);
+  let encryptedData = cipher.update(d, 'utf8', 'hex');
+  encryptedData += cipher.final('hex');
   const now = new Date();
   const backupFileName = `backup_${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}${now.getSeconds().toString().padStart(2, '0')}.bin`;
   var filePath = path.join(__dirname, backupFileName);
@@ -721,7 +781,7 @@ ipcMain.handle("backupDialog", (e, d) => {
         if (err) {
           // File does not exist, create it
           console.log(`${filePath} does not exist, creating...`);
-          fs.writeFile(filePath, d, { encoding: 'binary' }, (err) => {
+          fs.writeFile(filePath, encryptedData, { encoding: 'binary' }, (err) => {
             if (err) throw err;
             console.log(`${filePath} created and data written!`);
           });
@@ -733,7 +793,7 @@ ipcMain.handle("backupDialog", (e, d) => {
               return;
             }
             console.log(`${filePath} exists, writing data...`);
-            fs.writeFile(filePath, d, { encoding: 'binary' }, (err) => {
+            fs.writeFile(filePath, encryptedData, { encoding: 'binary' }, (err) => {
               if (err) throw err;
               console.log(`${filePath} updated with new data!`);
             });
@@ -900,10 +960,17 @@ ipcMain.handle('import-data', async (event, arg) => {
 
   if (fileExtension === '.json') {
     const fileData = await readFileAsync(filePath);
-    data = JSON.parse(fileData);
+    const decipher = crypto.createDecipher(algorithm, password);
+    let decryptedData = decipher.update(fileData, 'hex', 'utf8');
+    decryptedData += decipher.final('utf8');
+    data = JSON.parse(decryptedData);
   } else if (fileExtension === '.bin') {
     const fileData = await readFileAsync(filePath);
-    data = JSON.parse(fileData);
+    const decipher = crypto.createDecipher(algorithm, password);
+    let decryptedData = decipher.update(fileData, 'hex', 'utf8');
+    decryptedData += decipher.final('utf8');
+    
+    data = JSON.parse(decryptedData);
   } else {
     throw new Error('Unsupported file type');
   }
@@ -954,6 +1021,7 @@ ipcMain.on('requestAutoLaunchStatus', (event) => {
 function updateIncognitoSetting(incognitoValue) {
   fs.readFile('database.json', (err, data) => {
     if (err) throw err;
+    
     data = JSON.parse(data);
     if (data.length > 0) {
       if (data[0].settings.hasOwnProperty('id')) {
@@ -963,6 +1031,7 @@ function updateIncognitoSetting(incognitoValue) {
         data[0].settings.incognito = '0';
       }
       const updatedJson = JSON.stringify(data, null, 2);
+      
       fs.writeFile('database.json', updatedJson, err => {
         if (err) throw err;
         console.log(`Setting 1 setting updated with incognito value: ${incognitoValue}`);
@@ -1016,9 +1085,32 @@ ipcMain.handle('register-shortcut', async (event, newShortcutKey) => {
 
 // Listen for messages from the renderer process to unregister the shortcut
 ipcMain.handle('unregister-shortcut', async (event, shortcutKey) => {
-    const success =   globalShortcut.unregister(shortcutKey);
-  return success;
+  try {
+    globalShortcut.unregister(shortcutKey);
+    return true;
+  } catch (error) {
+    console.log('Error occurred while unregistering shortcut:', error);
+    return false;
+  }
 });
+
+
+ipcMain.handle('register-context-shortcut', async (event, newShortcutKey) => {
+  // Register a global shortcut
+  const successReg = globalShortcut.register(newShortcutKey, () => {
+
+      x = screen.getCursorScreenPoint().x;
+      y = screen.getCursorScreenPoint().y;
+      createElectronMenu(x + 10, y);
+  });
+  if(successReg)
+  {
+    globalShortcut.unregister(prevContextRegShortcut);
+    prevContextRegShortcut=newShortcutKey;
+  }
+  return successReg;
+});
+
 // ipcMain.on('unregister-shortcut', (event) => {
 //   if (tempRegisteredShortcut) {
 //     globalShortcut.unregister(tempRegisteredShortcut);
@@ -1028,6 +1120,7 @@ ipcMain.handle('unregister-shortcut', async (event, shortcutKey) => {
 ipcMain.on('saveTimeZone', (event,args) => {
   fs.readFile('database.json', (err, data) => {
     if (err) throw err;
+    
     data = JSON.parse(data);
     if (data.length > 0) {
       if (data[0].hasOwnProperty('settings')) {
@@ -1037,6 +1130,7 @@ ipcMain.on('saveTimeZone', (event,args) => {
         data[0].settings.timezone = 'UTC';
       }
       const updatedJson = JSON.stringify(data, null, 2);
+     
       fs.writeFile('database.json', updatedJson, err => {
         if (err) throw err;
         console.log(`Setting 1 setting updated with timezone value: ${args}`);
@@ -1045,4 +1139,24 @@ ipcMain.on('saveTimeZone', (event,args) => {
   });
 });
 
+
+// Decrypt the encrypted JSON data
+function decryptData(encryptedData) {
+  const decipher = crypto.createDecipher(algorithm, password);
+  let decryptedData = decipher.update(encryptedData, 'hex', 'utf8');
+  decryptedData += decipher.final('utf8');
+  return decryptedData;
+}
+
+// Read the encrypted data from the file, decrypt it, and send it to the renderer process
+ipcMain.handle('getDecryptedData', (event, filePath) => {
+  try {
+    const encryptedData = fs.readFileSync(filePath, 'utf8');
+    const decryptedData = decryptData(encryptedData);
+    return decryptedData;
+  } catch (error) {
+    console.error('Error reading or decrypting data:', error);
+    return null;
+  }
+});
 

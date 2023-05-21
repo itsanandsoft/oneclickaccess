@@ -5,3 +5,4 @@ build
 bin/
 my-app.log
 out/
+my-app.log/
