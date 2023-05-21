@@ -1,6 +1,6 @@
 const { app, Menu, ipcMain, dialog, BrowserWindow, globalShortcut, screen, clipboard, Tray, Notification, accelerator } = require('electron')
 const path = require('path')
-const crypto = require('crypto');
+//const CryptoJS = require('crypto-js');
 const config = require(path.join(__dirname, '/config/app'));
 //const SQLiteHelper = require(path.join(__dirname, '/database/SQLiteHelper'));
 const createMacAddressFiles = require(path.join(__dirname, '/assets/js/macadd-handler'));
@@ -22,15 +22,35 @@ const autoLauncher = new AutoLaunch({
   path: app.getPath('exe'),
 });
 
-const algorithm = 'aes-256-cbc';
-const password = 'Naeem&Sheraz@55055'; 
+const passphrase = 'ITSANSOFTnyshu55';
 
-// const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
-// console.log = (message) => {
-//   logFile.write(`${new Date().toISOString()}: ${message}\n`);
-// };
+const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
+console.log = (message) => {
+  logFile.write(`${new Date().toISOString()}: ${message}\n`);
+};
 
-
+if (!fs.existsSync('database.json')) {
+  let data = [
+    {
+      "users": {
+      "id": "0",
+      "email": "",
+      "token": ""
+      },
+      "settings": {
+      "id": "1",
+      "incognito": "0",
+      "timezone": "UTC-06:00"
+      }
+    }
+  ];
+  const updatedJson = JSON.stringify(data, null, 2);
+ 
+  fs.writeFile('database.json', updatedJson, err => {
+    if (err) throw err;
+    console.log(`Setting 1 setting updated with incognito value: ${updatedJson}`);
+  });
+}
 
 let x, y = null;
 let close = false;
@@ -55,30 +75,12 @@ const functionMap = {
   itemClicked
 };
 
+
+
+
 app.whenReady().then(() => {
 
-  if (!fs.existsSync('database.json')) {
-    let data = [
-      {
-        "users": {
-        "id": "0",
-        "email": "",
-        "token": ""
-        },
-        "settings": {
-        "id": "1",
-        "incognito": "0",
-        "timezone": "UTC-06:00"
-        }
-      }
-    ];
-    const updatedJson = JSON.stringify(data, null, 2);
-   
-    fs.writeFile('database.json', updatedJson, err => {
-      if (err) throw err;
-      console.log(`Setting 1 setting updated with incognito value: ${updatedJson}`);
-    });
-  }
+ 
 
   createMacAddressFiles();
   createWindow();
@@ -96,11 +98,10 @@ app.whenReady().then(() => {
 function initShorcutsOfTreeDataJson()
 {
   var dataF = fs.readFileSync(jsonFilePath)
-  const decipher = crypto.createDecipher(algorithm, password);
-  let decryptedData = decipher.update(dataF, 'hex', 'utf8');
-  decryptedData += decipher.final('utf8');
   
-  var data = JSON.parse(decryptedData);
+  //const decryptedData = CryptoJS.AES.decrypt(dataF, passphrase).toString(CryptoJS.enc.Utf8);
+  
+  var data = JSON.parse(dataF);
   for (const rootNode of data) {
     traverseTree(rootNode);
   }
@@ -367,11 +368,9 @@ function closeOrMinimizeWindow(close) {
 
 function createElectronMenu(x, y) {
   var dataF =  fs.readFileSync(jsonFilePath);
-  const decipher = crypto.createDecipher(algorithm, password);
-  let decryptedData = decipher.update(dataF, 'hex', 'utf8');
-  decryptedData += decipher.final('utf8');
+ // const decryptedData = CryptoJS.AES.decrypt(dataF, passphrase).toString(CryptoJS.enc.Utf8);
   
-  let menu_template = fancytreeToContextmenuJson(JSON.parse(decryptedData));
+  let menu_template = fancytreeToContextmenuJson(JSON.parse(dataF));
   menuWindow = new BrowserWindow({
     width: 132,
     height: 54,
@@ -632,9 +631,8 @@ ipcMain.on(`startWithSystemToggle`, function (e, args) {
 });
 
 ipcMain.handle("showDialog", (e, d) => {
-  const cipher = crypto.createCipher(algorithm, password);
-  let encryptedData = cipher.update(d, 'utf8', 'hex');
-  encryptedData += cipher.final('hex');
+  //const encryptedData = CryptoJS.AES.encrypt(d, passphrase).toString();
+
   var filePath = path.join(__dirname, '/new_file.json');
   dialog.showSaveDialog({
     title: 'Save File',
@@ -654,7 +652,7 @@ ipcMain.handle("showDialog", (e, d) => {
           // File does not exist, create it
           console.log(`${filePath} does not exist, creating...`);
           
-          fs.writeFile(filePath, encryptedData, (err) => {
+          fs.writeFile(filePath, d, (err) => {
             if (err) throw err;
             console.log(`${filePath} created and data written!`);
           });
@@ -667,7 +665,7 @@ ipcMain.handle("showDialog", (e, d) => {
             }
             console.log(`${filePath} exists, writing data...`);
             
-            fs.writeFile(filePath, encryptedData, (err) => {
+            fs.writeFile(filePath, d, (err) => {
               if (err) throw err;
               console.log(`${filePath} updated with new data!`);
             });
@@ -724,9 +722,7 @@ ipcMain.handle("performSelectiveExport", (e, d) => {
 });
 
 ipcMain.handle("saveData", (e, d) => {
-  const cipher = crypto.createCipher(algorithm, password);
-  let encryptedData = cipher.update(d, 'utf8', 'hex');
-  encryptedData += cipher.final('hex');
+  //const encryptedData = CryptoJS.AES.encrypt(d, passphrase).toString();
   var filePath = path.join(__dirname, '/tree-data.json');
   
 
@@ -735,7 +731,7 @@ ipcMain.handle("saveData", (e, d) => {
       // File does not exist, create it
       console.log(`${filePath} does not exist, creating...`);
      
-      fs.writeFile(filePath, encryptedData, (err) => {
+      fs.writeFile(filePath, d, (err) => {
         if (err) throw err;
         console.log(`${filePath} created and data written!`);
       });
@@ -747,7 +743,7 @@ ipcMain.handle("saveData", (e, d) => {
           return;
         }
         console.log(`${filePath} exists, writing data...`);
-        fs.writeFile(filePath, encryptedData, (err) => {
+        fs.writeFile(filePath, d, (err) => {
           if (err) throw err;
           console.log(`${filePath} updated with new data!`);
         });
@@ -758,9 +754,7 @@ ipcMain.handle("saveData", (e, d) => {
 
 
 ipcMain.handle("backupDialog", (e, d) => {
-  const cipher = crypto.createCipher(algorithm, password);
-  let encryptedData = cipher.update(d, 'utf8', 'hex');
-  encryptedData += cipher.final('hex');
+  //const encryptedData = CryptoJS.AES.encrypt(d, passphrase).toString();
   const now = new Date();
   const backupFileName = `backup_${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}${now.getSeconds().toString().padStart(2, '0')}.bin`;
   var filePath = path.join(__dirname, backupFileName);
@@ -781,7 +775,7 @@ ipcMain.handle("backupDialog", (e, d) => {
         if (err) {
           // File does not exist, create it
           console.log(`${filePath} does not exist, creating...`);
-          fs.writeFile(filePath, encryptedData, { encoding: 'binary' }, (err) => {
+          fs.writeFile(filePath, d, { encoding: 'binary' }, (err) => {
             if (err) throw err;
             console.log(`${filePath} created and data written!`);
           });
@@ -793,7 +787,7 @@ ipcMain.handle("backupDialog", (e, d) => {
               return;
             }
             console.log(`${filePath} exists, writing data...`);
-            fs.writeFile(filePath, encryptedData, { encoding: 'binary' }, (err) => {
+            fs.writeFile(filePath, d, { encoding: 'binary' }, (err) => {
               if (err) throw err;
               console.log(`${filePath} updated with new data!`);
             });
@@ -960,22 +954,21 @@ ipcMain.handle('import-data', async (event, arg) => {
 
   if (fileExtension === '.json') {
     const fileData = await readFileAsync(filePath);
-    const decipher = crypto.createDecipher(algorithm, password);
-    let decryptedData = decipher.update(fileData, 'hex', 'utf8');
-    decryptedData += decipher.final('utf8');
-    data = JSON.parse(decryptedData);
+    //const decryptedData = CryptoJS.AES.decrypt(fileData, passphrase).toString(CryptoJS.enc.Utf8);
+    //console.log(`Selected file: ${decryptedData}`);
+    data = JSON.parse(fileData);
   } else if (fileExtension === '.bin') {
     const fileData = await readFileAsync(filePath);
-    const decipher = crypto.createDecipher(algorithm, password);
-    let decryptedData = decipher.update(fileData, 'hex', 'utf8');
-    decryptedData += decipher.final('utf8');
+    //const decryptedData = CryptoJS.AES.decrypt(fileData, passphrase).toString(CryptoJS.enc.Utf8);
     
-    data = JSON.parse(decryptedData);
+    data = JSON.parse(fileData);
+
   } else {
     throw new Error('Unsupported file type');
   }
 
   console.log(`Selected file: ${filePath}`);
+ 
   return data;
 
 
@@ -1142,10 +1135,9 @@ ipcMain.on('saveTimeZone', (event,args) => {
 
 // Decrypt the encrypted JSON data
 function decryptData(encryptedData) {
-  const decipher = crypto.createDecipher(algorithm, password);
-  let decryptedData = decipher.update(encryptedData, 'hex', 'utf8');
-  decryptedData += decipher.final('utf8');
-  return decryptedData;
+  //const decryptedData = CryptoJS.AES.decrypt(encryptedData, passphrase).toString(CryptoJS.enc.Utf8);
+    
+  return encryptedData;
 }
 
 // Read the encrypted data from the file, decrypt it, and send it to the renderer process
