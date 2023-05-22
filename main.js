@@ -414,7 +414,7 @@ function itemClicked(item) {
       }
       if (item.data.type == 'date') {
 
-        fs.readFile('database.json', (err, data) => {
+        fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
           if (err) throw err;
 
           data = JSON.parse(data);
@@ -540,8 +540,7 @@ function openURLinChrome(url) {
   let chromePath = '';
   let command = '';
   let incognito = '';
-  var dataF = fs.readFileSync('database.json', 'utf-8');
-  const data = JSON.parse(dataF);
+  const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'database.json'), 'utf-8'));
   if (data.length > 0) {
     if (data[0].settings.hasOwnProperty('id')) {
       if (data[0].settings.incognito == 1) {
@@ -1012,7 +1011,7 @@ ipcMain.on('requestAutoLaunchStatus', (event) => {
 });
 
 function updateIncognitoSetting(incognitoValue) {
-  fs.readFile('database.json', (err, data) => {
+  fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
     if (err) throw err;
     
     data = JSON.parse(data);
@@ -1024,8 +1023,7 @@ function updateIncognitoSetting(incognitoValue) {
         data[0].settings.incognito = '0';
       }
       const updatedJson = JSON.stringify(data, null, 2);
-      
-      fs.writeFile('database.json', updatedJson, err => {
+      fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
         if (err) throw err;
         console.log(`Setting 1 setting updated with incognito value: ${incognitoValue}`);
       });
@@ -1111,7 +1109,7 @@ ipcMain.handle('register-context-shortcut', async (event, newShortcutKey) => {
 //   }
 // });
 ipcMain.on('saveTimeZone', (event,args) => {
-  fs.readFile('database.json', (err, data) => {
+  fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
     if (err) throw err;
     
     data = JSON.parse(data);
@@ -1123,8 +1121,7 @@ ipcMain.on('saveTimeZone', (event,args) => {
         data[0].settings.timezone = 'UTC';
       }
       const updatedJson = JSON.stringify(data, null, 2);
-     
-      fs.writeFile('database.json', updatedJson, err => {
+      fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
         if (err) throw err;
         console.log(`Setting 1 setting updated with timezone value: ${args}`);
       });
