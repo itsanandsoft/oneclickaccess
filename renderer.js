@@ -586,13 +586,13 @@ $(function() {
             </li>
           </ul>
         </li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_add_context_shortcut">Set Context Shortcut</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">Instructions</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_help">Help</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_exit">Exit</a></li>
       </ul>`);
     $('#add_menu').html(`<button class="button flat-button small">Add</button>
     <ul class="ribbon-dropdown" data-role="dropdown">
+      <li class="simple"><a href="#" class="text-decoration-none" id="main_add_parent">Add Main</a></li>
       <li class="simple"><a href="#" class="text-decoration-none" id="main_add_text">Text</a></li>
       <li class="simple"><a href="#" class="text-decoration-none" id="main_add_image">Image</a></li>
       <li class="simple"><a href="#" class="text-decoration-none" id="main_add_file">File</a></li>
