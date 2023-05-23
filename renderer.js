@@ -458,12 +458,12 @@ const { ipcRenderer,globalShortcut  } = require("electron");
               },
               { title: "----" },
               {
-                title: "New sibling <kbd>[Ctrl+N]</kbd>",
+                title: "New Branch <kbd>[Ctrl+N]</kbd>",
                 cmd: "addSibling",
                 uiIcon: "ui-icon-plus",
               },
               {
-                title: "New child <kbd>[Ctrl+Shift+N]</kbd>",
+                title: "New Sub Branch <kbd>[Ctrl+Shift+N]</kbd>",
                 cmd: "addChild",
                 uiIcon: "ui-icon-arrowreturn-1-e",
               },
@@ -479,7 +479,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
                 uiIcon: "ui-icon-copy",
               },
               {
-                title: "Paste as child<kbd>Ctrl+V</kbd>",
+                title: "Paste as Sub Branch<kbd>Ctrl+V</kbd>",
                 cmd: "paste",
                 uiIcon: "ui-icon-clipboard",
                 disabled: true,
