@@ -9,9 +9,10 @@ const { ipcRenderer,globalShortcut  } = require("electron");
     var CLIPBOARD = null;
 
     $(function() {
-      ipcRenderer.invoke('getDecryptedData','tree-data.json').then((decryptedData) => {
-        if (decryptedData) {
-          const jsonData = JSON.parse(decryptedData);
+      // ipcRenderer.invoke('getDecryptedData','tree-data.json').then((decryptedData) => {
+        // if (decryptedData) {
+        //   const jsonData = JSON.parse(decryptedData);
+        const jsonData = JSON.parse(fs.readFileSync(path.join(__dirname, 'tree-data.json'), 'utf-8'));
           //
           var counter = 0; // initialize counter variable
         $("#tree")
@@ -506,10 +507,10 @@ const { ipcRenderer,globalShortcut  } = require("electron");
             },
           });
 
-        } else {
-          console.error('Failed to get decrypted data from the main process.');
-        }
-      });
+        // } else {
+        //   console.error('Failed to get decrypted data from the main process.');
+        // }
+      // });
 
           });
  
