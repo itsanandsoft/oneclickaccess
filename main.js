@@ -174,7 +174,7 @@ function checkMachines(data, win) {
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 1000,
+    width: 1010,
     height: 500,
     webPreferences: {
       preload: path.join(__dirname, '/preloads.js'),
