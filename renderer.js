@@ -587,7 +587,8 @@ $(function() {
           </ul>
         </li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_add_context_shortcut">Set Context Shortcut</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">About</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">Instructions</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_help">Help</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_exit">Exit</a></li>
       </ul>`);
     $('#add_menu').html(`<button class="button flat-button small">Add</button>
@@ -1077,13 +1078,13 @@ function openChildClickValueDialog(node){
 
 function openAboutDialog(){
   Metro.dialog.create({
-      title: "About",
+      title: "Instruction",
       content: '<div class="description">'+
       '        Read Below:'+
       '         <ul>'+
       '           <li>re-order nodes using drag-and-drop.</li>'+
       '           <li>'+
-      '             inline editing.<br />'+
+      '             Edits:<br />'+
       '             Try <kbd>F2</kbd> to rename a node.<br />'+
       '             <kbd>Ctrl+N</kbd>, <kbd>Ctrl+Shift+N</kbd> to add nodes'+
       '             (Quick-enter: add new nodes until [enter] is hit on an empty'+
@@ -1098,10 +1099,6 @@ function openAboutDialog(){
       '             to move nodes around and change indentation.<br>'+
       '             (On macOS, add <kbd>Shift</kbd> to the keystrokes.)'+
       '           </li>'+
-      '           <li>'+
-      '             <a href="#">contextmenu</a>'+
-      '             for additional edit commands'+
-      '           </li>'+
       '         </ul>'+
       '       </div>',
       actions: [
@@ -1111,7 +1108,7 @@ function openAboutDialog(){
               onclick: function(){
                   //node.title = ;
                   //node.setTitle($('#dialogInput').val());
-                  console.log("You clicked Done action on about");
+                  console.log("You clicked Done action on instruction");
               }
           }
           // ,
@@ -1126,151 +1123,6 @@ function openAboutDialog(){
   });
 }
 
-
-// function initializetree2()
-// {
-        
-//   $("#tree2").fancytree({
-//             activeVisible: true, // Make sure, active nodes are visible (expanded)
-//             aria: true, // Enable WAI-ARIA support
-//             autoActivate: true, // Automatically activate a node when it is focused using keyboard
-//             autoCollapse: false, // Automatically collapse all siblings, when a node is expanded
-//             autoScroll: false, // Automatically scroll nodes into visible area
-//             clickFolderMode: 4, // 1:activate, 2:expand, 3:activate and expand, 4:activate (dblclick expands)
-//             checkbox: true, // Show check boxes
-//             checkboxAutoHide: false, // Display check boxes on hover only
-//             debugLevel: 4, // 0:quiet, 1:errors, 2:warnings, 3:infos, 4:debug
-//             disabled: false, // Disable control
-//             focusOnSelect: false, // Set focus when node is checked by a mouse click
-//             escapeTitles: false, // Escape `node.title` content for display
-//             generateIds: false, // Generate id attributes like <span id='fancytree-id-KEY'>
-//             idPrefix: "ft2_", // Used to generate node idÂ´s like <span id='fancytree-id-<key>'>
-//             icon: false, // Display node icons
-//             keyboard: true, // Support keyboard navigation
-//             keyPathSeparator: "/", // Used by node.getKeyPath() and tree.loadKeyPath()
-//             minExpandLevel: 1, // 1: root node is not collapsible
-//             rtl: false, // Enable RTL (right-to-left) mode
-//             selectMode: 2, // 1:single, 2:multi, 3:multi-hier
-//             tabindex: "0", // Whole tree behaves as one single control
-//             tooltip: false, // Use title as tooltip (also a callback could be specified)
-//             titlesTabbable: true, // Add all node titles to TAB chain// Node titles can receive keyboard focus
-//             quicksearch: true, // Jump to nodes when pressing first character///must true for filter 
-            
-//             source: { url: "tree-data.json" },
-
-//             modifyChild: function(event, data) {
-//               data.tree.info(event.type, data);
-//             },
-
-//             // --- Node events -------------------------------------------------
-//             activate: function(event, data) {
-//               logEvent(event, data);
-//               var node = data.node;
-//               // acces node attributes
-//               $("#echoActive").text(node.title);
-//               if( !$.isEmptyObject(node.data) ){
-//               }
-//             },
-//             beforeActivate: function(event, data) {
-//               logEvent(event, data, "current state=" + data.node.isActive());
-//               // return false to prevent default behavior (i.e. activation)
-//               //              return false;
-//             },
-//             beforeExpand: function(event, data) {
-//               logEvent(event, data, "current state=" + data.node.isExpanded());
-//               // return false to prevent default behavior (i.e. expanding or collapsing)
-//               //				return false;
-//             },
-//             beforeSelect: function(event, data) {
-//               //				console.log("select", event.originalEvent);
-//               logEvent(event, data, "current state=" + data.node.isSelected());
-//               // return false to prevent default behavior (i.e. selecting or deselecting)
-//               //				if( data.node.isFolder() ){
-//               //					return false;
-//               //				}
-//             },
-//             blur: function(event, data) {
-//               logEvent(event, data);
-//               $("#echoFocused").text("-");
-//             },
-//             click: function(event, data) {
-//               logEvent(event, data, ", targetType=" + data.targetType);
-//               // return false to prevent default behavior (i.e. activation, ...)
-//               //return false;
-//             },
-//             collapse: function(event, data) {
-//               logEvent(event, data);
-//             },
-//             createNode: function(event, data) {
-//               // Optionally tweak data.node.span or bind handlers here
-//               logEvent(event, data);
-//             },
-
-//             expand: function(event, data) {
-//               logEvent(event, data);
-//             },
-//             enhanceTitle: function(event, data) {
-//               logEvent(event, data);
-//             },
-//             focus: function(event, data) {
-//               logEvent(event, data);
-//               $("#echoFocused").text(data.node.title);
-//             },
-//             keydown: function(event, data) {
-//               logEvent(event, data);
-//               switch( event.which ) {
-//               case 32: // [space]
-//                 data.node.toggleSelected();
-//                 return false;
-//               }
-//             },
-//             keypress: function(event, data) {
-//               // currently unused
-//               logEvent(event, data);
-//             },
-//             loadChildren: function(event, data) {
-//               logEvent(event, data);
-//             },
-//             loadError: function(event, data) {
-//               logEvent(event, data);
-//             },
-           
-//             renderNode: function(event, data) {
-//               // Optionally tweak data.node.span
-//               //              $(data.node.span).text(">>" + data.node.title);
-//               logEvent(event, data);
-//             },
-//             renderTitle: function(event, data) {
-//               // NOTE: may be removed!
-//               // When defined, must return a HTML string for the node title
-//               logEvent(event, data);
-//               //				return "new title";
-//             },
-//             select: function(event, data) {
-//               logEvent(event, data, "current state=" + data.node.isSelected());
-//               var s = data.tree.getSelectedNodes().join(", ");
-//               $("#echoSelected").text(s);
-//             }
-//           })
-//           .on("fancytreeactivate", function(event, data){
-//             // alternative way to bind to 'activate' event
-//             //		    logEvent(event, data);
-//           });
-// }
-
-// function treeDataChangeEvent(){
-//   if ($.ui.fancytree && $.ui.fancytree.getTree("#tree") && $.ui.fancytree.getTree("#tree").getNodes().length > 0) {
-//     // Fancytree is initialized and data is loaded
-//    // alert("hahahahahaahh");
-//     var tree = $.ui.fancytree.getTree("#tree");
-//     var da = tree.toDict(true);
-//     var d = JSON.stringify(da);
-//     ipcRenderer.invoke("saveData", d);
-//   } else {
-//     // Fancytree is not initialized or data is not loaded
-//   }
- 
-// }
 
 function convertCredentialToTreeNodes(data) {
   const rootNode = {title: 'Root', children: []};
