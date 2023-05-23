@@ -258,6 +258,8 @@ const { ipcRenderer,globalShortcut  } = require("electron");
                 }
                 
               }
+
+              
               // if ((typeof node.data.timezone !== "undefined") && (node.data.timezone != "")) {
               //   $titleSpan.append(" - Current Date and Time");
               // }
@@ -1030,10 +1032,13 @@ ipcRenderer.invoke("showDialog", d);
 }
 
 function openChildClickValueDialog(node){
+  let textareaVal=node.title;
+  if(textareaVal == "...")
+   { textareaVal = ""; }
   Metro.dialog.create({
       title: "Input",
       content: '<p>Enter the path to</p>'+
-      '<textarea id="dialogInput" data-role="textarea" data-default-value="'+node.title+'"></textarea>',
+      '<textarea id="dialogInput" data-role="textarea" data-default-value="'+textareaVal+'"></textarea>',
       actions: [
           {
               caption: "Save",
@@ -1052,7 +1057,12 @@ function openChildClickValueDialog(node){
                   console.log("You clicked Cancel action");
               }
           }
-      ]
+      ],
+      onShow: function () {
+        // Focus the textarea
+       // alert("dsad");
+        $('#dialogInput').focus();
+      }
   });
 
   $("#dialogInput").keydown(function(event) {
@@ -1302,7 +1312,8 @@ function convertCredentialToTreeNodes(data) {
     // Column 4: child of password
     let child3Value = row[3];
     if (child3Value && passwordNode) {
-      let child3Node = {title: child3Value};
+      var maskedTitle = "*".repeat(child3Value.length);
+      let child3Node = {title: maskedTitle,"data":{isPassword: child3Value}};
       passwordNode.children.push(child3Node);
     }
   }

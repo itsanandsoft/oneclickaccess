@@ -39,7 +39,7 @@ if (!fs.existsSync('database.json')) {
       },
       "settings": {
       "id": "1",
-      "incognito": "0",
+      "incognito": "1",
       "timezone": "UTC-06:00"
       }
     }
