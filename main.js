@@ -29,7 +29,7 @@ console.log = (message) => {
   logFile.write(`${new Date().toISOString()}: ${message}\n`);
 };
 
-if (!fs.existsSync('database.json')) {
+if (!fs.existsSync(path.join(__dirname, 'database.json'))) {
   let data = [
     {
       "users": {
@@ -46,7 +46,7 @@ if (!fs.existsSync('database.json')) {
   ];
   const updatedJson = JSON.stringify(data, null, 2);
  
-  fs.writeFile('database.json', updatedJson, err => {
+  fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
     if (err) throw err;
     console.log(`Setting 1 setting updated with incognito value: ${updatedJson}`);
   });
