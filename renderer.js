@@ -516,7 +516,7 @@ const { ipcRenderer,globalShortcut  } = require("electron");
  
 
 $(function() {
-
+  setContextShortcutLabel();
   fs.readFile('database.json', (err, data) => {
     if (err) throw err;
     data = JSON.parse(data);
@@ -1014,6 +1014,8 @@ $(function() {
             // Register a global shortcut
             ipcRenderer.invoke('register-context-shortcut', newShortcutKey).then((ret) => {
               if (ret) {
+                ipcRenderer.send("saveContextShortCut", newShortcutKey); 
+                setContextShortcutLabel();
                 alert('Shortcut key registered successfully');
               } else {
                 alert('Shortcut key registration failed');
@@ -1336,4 +1338,27 @@ function removeShortcutkey(shortcutKey)
         console.log("Shortcut Command not found!")
       }
     });
+}
+
+function setContextShortcutLabel()
+{
+  fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
+    if (err) {
+      console.log('contextShortCut', { error: err.message });
+      return;
+    }
+    try {
+      data = JSON.parse(data);
+      if (data.length > 0) {
+        if (data[0].settings.hasOwnProperty('contextShortCut')) {
+          const contextShortCut = data[0].settings.contextShortCut;
+          console.log('contextShortCut', { contextShortCut });
+        }
+      } else {
+        console.log('contextShortCut', { error: 'No data found in database.json' });
+      }
+    } catch (error) {
+      console.log('contextShortCut', { error: error.message });
+    }
+  });
 }

@@ -57,6 +57,7 @@ let close = false;
 let isTopmost = false;// Replace with your own password
 const jsonFilePath = path.join(__dirname, '/tree-data.json');
 let win, menuWindow;
+let dialogWindow;
 let menu = null;
 let notification = null;
 let tray = null
@@ -653,6 +654,12 @@ ipcMain.handle("showDialog", (e, d) => {
           
           fs.writeFile(filePath, d, (err) => {
             if (err) throw err;
+
+            if(dialogWindow){
+              if (!dialogWindow.isDestroyed()) {
+                dialogWindow.close();
+              }
+            }
             console.log(`${filePath} created and data written!`);
           });
         } else {
@@ -661,6 +668,11 @@ ipcMain.handle("showDialog", (e, d) => {
             if (err) {
               console.error(err);
               return;
+            }
+            if(dialogWindow){
+              if (!dialogWindow.isDestroyed()) {
+                dialogWindow.close();
+              }
             }
             console.log(`${filePath} exists, writing data...`);
             
@@ -690,7 +702,7 @@ ipcMain.handle("showDialog", (e, d) => {
 });
 
 ipcMain.handle("showSelectiveExportDialog", (e, d) => {
-  var dialogWindow = new BrowserWindow({
+  dialogWindow = new BrowserWindow({
     width: 400,
     height: 320,
     resizable: false,
@@ -814,6 +826,9 @@ ipcMain.on(`close-app-menu`, function (e) {
     menuWindow.close();
   }
 });
+// ipcMain.on(`close-export-dialog`, function (e) {
+  
+// });
 
 ipcMain.handle('get-excel-data', async (event, arg) => {
   const result = await dialog.showOpenDialog({
@@ -924,7 +939,7 @@ ipcMain.handle('edit-file-folder', async (event, path, title, type) => {
   //       const fileName = path.basename(filePath);
   //       var icon = type+".png";
   //       return newData = {title: fileName,type:type,icon:icon,path:pathStr};
-
+ 
   // } else {
   //   dialog.showErrorBox('Error', 'File or Folder path does not exist. It must be deleted or moved');
   //   return newData = {title: title,type:type,icon:"error.png",path:path};
@@ -1130,6 +1145,28 @@ ipcMain.on('saveTimeZone', (event,args) => {
 });
 
 
+ipcMain.on('saveContextShortCut', (event,args) => {
+  fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
+    if (err) throw err;
+    
+    data = JSON.parse(data);
+    if (data.length > 0) {
+      if (data[0].hasOwnProperty('settings')) {
+        data[0].settings.contextShortCut = args;
+      }
+      else {
+        data[0].settings.contextShortCut = 'Ctrl+Q';
+      }
+      const updatedJson = JSON.stringify(data, null, 2);
+      fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
+        if (err) throw err;
+        console.log(`Setting 1 setting updated with ContextShortCut value: ${args}`);
+      });
+    }
+  });
+});
+
+
 // Decrypt the encrypted JSON data
 function decryptData(encryptedData) {
   //const decryptedData = CryptoJS.AES.decrypt(encryptedData, passphrase).toString(CryptoJS.enc.Utf8);
@@ -1148,4 +1185,6 @@ ipcMain.handle('getDecryptedData', (event, filePath) => {
     return null;
   }
 });
+
+
 

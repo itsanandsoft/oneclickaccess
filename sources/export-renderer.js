@@ -115,6 +115,8 @@ const path = require('path')
     // showSaveFileDialog(JSON.stringify(d));
     console.log("You clicked Done action on Export Selected Dialog");
 
+  ipcRenderer.invoke('close-export-dialog', () => {
+  });
   });
   $('#cancel_export').click(function(){
     console.log("You clicked Cancel action Export Selected Dialog");
