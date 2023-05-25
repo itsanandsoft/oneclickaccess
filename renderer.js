@@ -694,25 +694,39 @@ $(function() {
       .then(result => {
         ipcRenderer.invoke('show-message-box', {
           type: 'question',
-          buttons: ['Yes', 'No'],
+          buttons: ['Replace', 'Add', 'Cancel'], // Add the 'Cancel' button
           title: 'Confirmation',
-          message: 'Are you sure you want to import this data?'
+          message: 'Do you want to add or replace the current data?'
         }).then((response) => {
           if (response === 0) {
-            // User clicked 'Yes' button
-            console.log('User confirmed');
+            // User clicked 'Replace' button
+            console.log('User selected "Replace"');
             $.ui.fancytree.getTree("#tree").reload(result).done(function(){
               ipcRenderer.invoke("saveData", JSON.stringify(result));
               alert("Data Imported");
             });
+            // Perform replace logic
+          } else if (response === 1) {
+            // User clicked 'Add' button
+            console.log('User selected "Add"');
+            //var tree = $.ui.fancytree.getTree("#tree"),
+            //node = tree.getActiveNode();
+            //newData = {title: "...", data:{type: "text"}};
+          
+               $.ui.fancytree.getTree("#tree").getRootNode().addChildren(result);
+    
+               ipcRenderer.invoke("saveData", JSON.stringify(result));
+               alert("Data Added");
+          
+            // Perform add logic
           } else {
-            // User clicked 'No' button or closed the dialog
-            console.log('User cancelled');
+            // User clicked 'Cancel' button or closed the dialog
+            console.log('User canceled');
+            // Perform cancel logic or handle dialog close
           }
         }).catch((err) => {
           console.log(err);
         });
-
       })
       .catch(error => {
         console.error(error)
@@ -1065,7 +1079,10 @@ function openChildClickValueDialog(node){
       onShow: function () {
         // Focus the textarea
        // alert("dsad");
+       setTimeout(function() {
         $('#dialogInput').focus();
+        }, 500);
+        
       }
   });
 
@@ -1352,6 +1369,7 @@ function setContextShortcutLabel()
       if (data.length > 0) {
         if (data[0].settings.hasOwnProperty('contextShortCut')) {
           const contextShortCut = data[0].settings.contextShortCut;
+          $('#contextShortCutLabel').html(contextShortCut);
           console.log('contextShortCut', { contextShortCut });
         }
       } else {
