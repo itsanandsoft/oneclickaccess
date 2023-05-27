@@ -524,9 +524,15 @@ $(function() {
         if (data[0].settings.incognito == 1) {
           const element = document.getElementById('main_file_setting_incognito_li');
           if (process.platform == 'win32') {
-            element.classList.remove("simple");
-            element.classList.add("checked");
+          //   element.classList.remove("simple");
+          //   element.classList.add("checked");
+          // }
+          // else if(process.platform === 'darwin')
+          // {
+            const ele = document.getElementById('incognito-png');
+            ele.style.display = '';
           }
+          else{}
         }
       }
       if (data[0].settings.hasOwnProperty('timezone')) {
@@ -755,39 +761,68 @@ $(function() {
     });
     $('#main_file_setting_topmost').click(function(){
       const element = document.getElementById('main_file_setting_topmost_li');
-      if (element.classList.contains("simple")) {
-        // classList contains "simple", replace with "checked"
-        if(process.platform == 'win32'){
-          element.classList.remove("simple");
-          element.classList.add("checked");
+      if(process.platform == 'win32'){
+        
+    //   if (element.classList.contains("simple")) {
+    //     // classList contains "simple", replace with "checked"
+    //       element.classList.remove("simple");
+    //       element.classList.add("checked");
+      
+    //   } else {
+    //     // classList contains "checked", replace with "simple"
+    //     element.classList.remove("checked");
+    //     element.classList.add("simple");
+    //  }
+    //   }else if(process.platform === 'darwin')
+    //   {
+        const ele = document.getElementById('topmost-png');
+        if(ele.style.display === 'none')
+        {
+          ele.style.display = ''; 
         }
-
-      } else {
-        // classList contains "checked", replace with "simple"
-        if(process.platform == 'win32'){
-          element.classList.remove("checked");
-          element.classList.add("simple");
+        else
+        {
+         ele.style.display = 'none';
         }
       }
       console.log("Toggle button clicked");
       ipcRenderer.send("topmostToggle");
+     
     });
     
     $('#main_file_start_system_window').click(function(){ 
       const element = document.getElementById('main_file_start_system_window_li');
-      if (element.classList.contains("simple")) {
-        if(process.platform == 'win32'){
-          element.classList.remove("simple");
-          element.classList.add("checked");
+      if(process.platform == 'win32'){
+        
+      // if (element.classList.contains("simple")) {
+      //   // classList contains "simple", replace with "checked"
+      //     element.classList.remove("simple");
+      //     element.classList.add("checked");
+        
+      //     ipcRenderer.send("autoLaunchToggle", true); // Send enabled true
+     
+      // } else {
+      //   // classList contains "checked", replace with "simple"
+      //   element.classList.remove("checked");
+      //   element.classList.add("simple");
+    
+      //   ipcRenderer.send("autoLaunchToggle", false); // Send enabled false
+      // }
+      // }else if(process.platform == 'darwin')
+      // {
+        const ele = document.getElementById('start-with-system-png');
+        if(ele.style.display === 'none')
+        {
+          ele.style.display = ''; 
+          ipcRenderer.send("autoLaunchToggle", true); // Send enabled true
         }
-        ipcRenderer.send("autoLaunchToggle", true); // Send enabled true
-      } else {
-        if(process.platform == 'win32'){
-          element.classList.remove("checked");
-          element.classList.add("simple");
-        }
-        ipcRenderer.send("autoLaunchToggle", false); // Send enabled false
+        else
+        {
+         ele.style.display = 'none';
+         ipcRenderer.send("autoLaunchToggle", false); // Send enabled false
+       }
       }
+      else{}
       console.log(" Toggle button clicked");
     });
     
@@ -796,13 +831,23 @@ $(function() {
       const element = document.getElementById('main_file_start_system_window_li');
       if (isEnabled) {
         if(process.platform == 'win32'){
-          element.classList.remove("simple");
-          element.classList.add("checked");
+        //   element.classList.remove("simple");
+        //   element.classList.add("checked");
+        // }
+        // else if(process.platform == 'darwin')
+        // {
+          const ele = document.getElementById('start-with-system-png');
+          ele.style.display = 'none'; 
         }
-      } else {
+        } else {
         if(process.platform == 'win32'){
-          element.classList.remove("checked");
-          element.classList.add("simple");
+        //   element.classList.remove("checked");
+        //   element.classList.add("simple");
+        // }
+        // else if(process.platform == 'darwin')
+        // {
+          const ele = document.getElementById('start-with-system-png');
+          ele.style.display = ''; 
         }
       }
     });
@@ -825,21 +870,37 @@ $(function() {
 
     $('#main_file_setting_incognito').click(function(){ 
       const element = document.getElementById('main_file_setting_incognito_li');
-      if (element.classList.contains("simple")) {
-        // classList contains "simple", replace with "checked"
-        if(process.platform == 'win32'){
-          element.classList.remove("simple");
-          element.classList.add("checked");
-        }
-        ipcRenderer.send("incognitoToggle", "1");
+      if(process.platform == 'win32'){
+        
+      // if (element.classList.contains("simple")) {
+      //   // classList contains "simple", replace with "checked"
+      //     element.classList.remove("simple");
+      //     element.classList.add("checked");
+        
+      //   ipcRenderer.send("incognitoToggle", "1");
 
-      } else {
-        // classList contains "checked", replace with "simple"
-        element.classList.remove("checked");
-        element.classList.add("simple");
-        ipcRenderer.send("incognitoToggle", "0");
+      // } else {
+      //   // classList contains "checked", replace with "simple"
+      //   element.classList.remove("checked");
+      //   element.classList.add("simple");
+    
+      //   ipcRenderer.send("incognitoToggle", "0");
+      // }
+      // }else if(process.platform === 'darwin')
+      // {
+        const ele = document.getElementById('incognito-png');
+        if(ele.style.display === 'none')
+        {
+          ele.style.display = ''; 
+          ipcRenderer.send("incognitoToggle", "1");
+        }
+        else
+        {
+         ele.style.display = 'none';
+         ipcRenderer.send("incognitoToggle", "0");
+        }
       }
-      
+      else{}
     });
   
 
@@ -1094,7 +1155,8 @@ function openChildClickValueDialog(node){
 
 
 function openAboutDialog(){
-  Metro.dialog.create({
+  if (process.platform == 'win32') {
+    Metro.dialog.create({
       title: "Instruction",
       content: '<div class="description">'+
       '        Read Below:'+
@@ -1137,7 +1199,14 @@ function openAboutDialog(){
           //     }
           // }
       ]
-  });
+    });
+    }
+    else if(process.platform === 'darwin')
+    {
+      
+    }
+    else{}
+  
 }
 
 

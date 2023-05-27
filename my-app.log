@@ -733,3 +733,474 @@
 2023-05-27T06:49:52.963Z: Registration failed.
 2023-05-27T06:49:52.963Z: Mac address for this host: %s
 2023-05-27T06:49:53.333Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T07:05:46.999Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:05:47.000Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:05:47.000Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:05:47.000Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:05:47.000Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:05:47.000Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:05:47.000Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:05:47.000Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:05:47.000Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:05:47.000Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:05:47.000Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:05:47.000Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:05:47.001Z: Mac address for this host: %s
+2023-05-27T07:05:47.334Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T07:06:06.639Z: topmostToggle event received with args: 
+2023-05-27T07:06:06.643Z: win.alwaysOnTop set to 
+2023-05-27T07:06:08.591Z: Auto launch disabled
+2023-05-27T07:06:10.526Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T07:06:12.771Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T07:07:45.728Z: Setting 1 setting updated with ContextShortCut value: Ctrl+1
+2023-05-27T07:13:23.748Z: topmostToggle event received with args: 
+2023-05-27T07:13:23.750Z: win.alwaysOnTop set to 
+2023-05-27T07:15:01.753Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:15:01.754Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:15:01.755Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:15:01.755Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:15:01.755Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:15:01.755Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:15:01.755Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:15:01.755Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:15:01.755Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:15:01.755Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:15:01.755Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:15:01.755Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:15:01.756Z: Mac address for this host: %s
+2023-05-27T07:15:02.000Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T07:23:26.084Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:23:26.086Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:23:26.086Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:23:26.086Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:23:26.086Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:23:26.086Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:23:26.086Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:23:26.086Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:23:26.087Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:23:26.087Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T07:23:26.087Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T07:23:26.087Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T07:23:26.087Z: Mac address for this host: %s
+2023-05-27T07:23:26.401Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T14:34:16.938Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:34:16.939Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:34:16.939Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:34:16.939Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:34:16.939Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:34:16.939Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:34:16.940Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:34:16.940Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:34:16.940Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:34:16.940Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:34:16.940Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:34:16.940Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:34:16.940Z: Mac address for this host: %s
+2023-05-27T14:34:17.139Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T14:34:45.708Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:34:45.709Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:34:45.709Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:34:45.709Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:34:45.709Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:34:45.709Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:34:45.709Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:34:45.710Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:34:45.710Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:34:45.710Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:34:45.710Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:34:45.710Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:34:45.710Z: Mac address for this host: %s
+2023-05-27T14:34:45.895Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T14:35:51.453Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:35:51.454Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:35:51.454Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:35:51.454Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:35:51.454Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:35:51.454Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:35:51.454Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:35:51.454Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:35:51.454Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:35:51.454Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:35:51.454Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:35:51.454Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:35:51.455Z: Mac address for this host: %s
+2023-05-27T14:35:51.606Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T14:42:19.680Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:42:19.681Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:42:19.681Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:42:19.681Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:42:19.681Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:42:19.681Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:42:19.681Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:42:19.681Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:42:19.681Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:42:19.681Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:42:19.681Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:42:19.681Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:42:19.682Z: Mac address for this host: %s
+2023-05-27T14:42:19.842Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T14:44:07.858Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:44:07.859Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:44:07.859Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:44:07.859Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:44:07.859Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:44:07.859Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:44:07.859Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:44:07.859Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:44:07.859Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:44:07.859Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:44:07.859Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:44:07.859Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:44:07.860Z: Mac address for this host: %s
+2023-05-27T14:44:08.012Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T14:45:43.462Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:45:43.463Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:45:43.463Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:45:43.463Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:45:43.463Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:45:43.463Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:45:43.463Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:45:43.463Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:45:43.463Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:45:43.463Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:45:43.463Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:45:43.463Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:45:43.463Z: Registration failed.
+2023-05-27T14:45:43.464Z: Mac address for this host: %s
+2023-05-27T14:45:43.665Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T14:57:42.788Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:57:42.788Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:57:42.788Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:57:42.788Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:57:42.788Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:57:42.789Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:57:42.789Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:57:42.789Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:57:42.789Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:57:42.789Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T14:57:42.789Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T14:57:42.789Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T14:57:42.789Z: Mac address for this host: %s
+2023-05-27T14:57:42.997Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T15:34:18.815Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T15:34:18.816Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T15:34:18.816Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T15:34:18.816Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T15:34:18.816Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T15:34:18.816Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T15:34:18.816Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T15:34:18.816Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T15:34:18.816Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T15:34:18.816Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T15:34:18.816Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T15:34:18.816Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T15:34:18.816Z: Registration failed.
+2023-05-27T15:34:18.817Z: Mac address for this host: %s
+2023-05-27T15:34:19.122Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T15:34:31.831Z: topmostToggle event received with args: 
+2023-05-27T15:34:31.836Z: win.alwaysOnTop set to 
+2023-05-27T15:34:34.537Z: topmostToggle event received with args: 
+2023-05-27T15:34:34.541Z: win.alwaysOnTop set to 
+2023-05-27T15:34:35.790Z: topmostToggle event received with args: 
+2023-05-27T15:34:35.796Z: win.alwaysOnTop set to 
+2023-05-27T15:34:36.609Z: topmostToggle event received with args: 
+2023-05-27T15:34:36.612Z: win.alwaysOnTop set to 
+2023-05-27T15:34:38.556Z: Auto launch enabled
+2023-05-27T15:34:39.448Z: Auto launch disabled
+2023-05-27T15:34:40.822Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T15:34:41.660Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T15:34:43.697Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T15:34:48.464Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T15:34:56.351Z: Auto launch enabled
+2023-05-27T15:38:05.318Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T15:38:05.319Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T15:38:05.319Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T15:38:05.319Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T15:38:05.320Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T15:38:05.320Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T15:38:05.320Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T15:38:05.320Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T15:38:05.320Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T15:38:05.320Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T15:38:05.320Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T15:38:05.320Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T15:38:05.321Z: Registration failed.
+2023-05-27T15:38:05.321Z: Mac address for this host: %s
+2023-05-27T15:38:05.620Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T15:39:01.297Z: Auto launch disabled
+2023-05-27T15:39:04.161Z: Auto launch enabled
+2023-05-27T15:39:06.137Z: topmostToggle event received with args: 
+2023-05-27T15:39:06.139Z: win.alwaysOnTop set to 
+2023-05-27T15:39:07.383Z: topmostToggle event received with args: 
+2023-05-27T15:39:07.385Z: win.alwaysOnTop set to 
+2023-05-27T15:39:08.211Z: topmostToggle event received with args: 
+2023-05-27T15:39:08.214Z: win.alwaysOnTop set to 
+2023-05-27T15:39:10.575Z: Auto launch disabled
+2023-05-27T15:39:11.251Z: Auto launch enabled
+2023-05-27T15:39:12.079Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T15:39:12.840Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T15:39:13.830Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T15:39:14.718Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T15:39:15.493Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T15:41:52.951Z: topmostToggle event received with args: 
+2023-05-27T15:41:52.954Z: win.alwaysOnTop set to 
+2023-05-27T15:41:53.852Z: topmostToggle event received with args: 
+2023-05-27T15:41:53.858Z: win.alwaysOnTop set to 
+2023-05-27T15:41:54.522Z: topmostToggle event received with args: 
+2023-05-27T15:41:54.524Z: win.alwaysOnTop set to 
+2023-05-27T15:41:55.128Z: topmostToggle event received with args: 
+2023-05-27T15:41:55.133Z: win.alwaysOnTop set to 
+2023-05-27T15:41:56.269Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T15:41:56.737Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T15:41:57.960Z: Auto launch disabled
+2023-05-27T15:41:58.421Z: Auto launch enabled
+2023-05-27T15:42:02.210Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T15:42:02.904Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T16:07:27.077Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:07:27.080Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:07:27.081Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:07:27.082Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:07:27.082Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:07:27.083Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:07:27.083Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:07:27.083Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:07:27.084Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:07:27.084Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:07:27.085Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:07:27.085Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:07:27.086Z: Mac address for this host: %s
+2023-05-27T16:07:28.328Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T16:07:57.287Z: topmostToggle event received with args: 
+2023-05-27T16:07:57.290Z: win.alwaysOnTop set to 
+2023-05-27T16:07:58.117Z: topmostToggle event received with args: 
+2023-05-27T16:07:58.118Z: win.alwaysOnTop set to 
+2023-05-27T16:07:58.898Z: topmostToggle event received with args: 
+2023-05-27T16:07:58.901Z: win.alwaysOnTop set to 
+2023-05-27T16:07:59.607Z: topmostToggle event received with args: 
+2023-05-27T16:07:59.609Z: win.alwaysOnTop set to 
+2023-05-27T16:08:00.279Z: topmostToggle event received with args: 
+2023-05-27T16:08:00.282Z: win.alwaysOnTop set to 
+2023-05-27T16:08:01.276Z: topmostToggle event received with args: 
+2023-05-27T16:08:01.278Z: win.alwaysOnTop set to 
+2023-05-27T16:08:02.263Z: topmostToggle event received with args: 
+2023-05-27T16:08:02.266Z: win.alwaysOnTop set to 
+2023-05-27T16:08:03.015Z: topmostToggle event received with args: 
+2023-05-27T16:08:03.016Z: win.alwaysOnTop set to 
+2023-05-27T16:08:03.859Z: topmostToggle event received with args: 
+2023-05-27T16:08:03.861Z: win.alwaysOnTop set to 
+2023-05-27T16:08:04.866Z: topmostToggle event received with args: 
+2023-05-27T16:08:04.868Z: win.alwaysOnTop set to 
+2023-05-27T16:08:05.676Z: topmostToggle event received with args: 
+2023-05-27T16:08:05.679Z: win.alwaysOnTop set to 
+2023-05-27T16:08:06.877Z: Auto launch disabled
+2023-05-27T16:08:07.859Z: Auto launch enabled
+2023-05-27T16:08:09.609Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T16:08:10.361Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T16:08:11.121Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T16:08:11.730Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T16:08:13.647Z: Auto launch disabled
+2023-05-27T16:08:14.459Z: Auto launch enabled
+2023-05-27T16:08:15.147Z: Auto launch disabled
+2023-05-27T16:08:15.745Z: Auto launch enabled
+2023-05-27T16:37:08.510Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:37:08.511Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:37:08.511Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:37:08.511Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:37:08.511Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:37:08.511Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:37:08.511Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:37:08.511Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:37:08.511Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:37:08.512Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:37:08.512Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:37:08.512Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:37:08.512Z: Mac address for this host: %s
+2023-05-27T16:37:08.750Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T16:38:10.836Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:38:10.838Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:38:10.838Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:38:10.838Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:38:10.838Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:38:10.838Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:38:10.838Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:38:10.838Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:38:10.838Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:38:10.838Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T16:38:10.838Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T16:38:10.838Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T16:38:10.838Z: Mac address for this host: %s
+2023-05-27T16:38:11.002Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T16:38:21.692Z: topmostToggle event received with args: 
+2023-05-27T16:38:21.694Z: win.alwaysOnTop set to 
+2023-05-27T16:38:22.631Z: topmostToggle event received with args: 
+2023-05-27T16:38:22.633Z: win.alwaysOnTop set to 
+2023-05-27T16:38:38.166Z: topmostToggle event received with args: 
+2023-05-27T16:38:38.169Z: win.alwaysOnTop set to 
+2023-05-27T16:39:03.143Z: topmostToggle event received with args: 
+2023-05-27T16:39:03.146Z: win.alwaysOnTop set to 
+2023-05-27T16:39:04.914Z: Auto launch disabled
+2023-05-27T16:39:05.716Z: Auto launch enabled
+2023-05-27T16:39:07.375Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T17:03:56.267Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:03:56.268Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:03:56.268Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:03:56.268Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:03:56.268Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:03:56.268Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:03:56.269Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:03:56.269Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:03:56.269Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:03:56.269Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:03:56.269Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:03:56.269Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:03:56.269Z: Registration failed.
+2023-05-27T17:03:56.269Z: Mac address for this host: %s
+2023-05-27T17:03:56.506Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T17:04:08.245Z: topmostToggle event received with args: 
+2023-05-27T17:04:08.246Z: win.alwaysOnTop set to 
+2023-05-27T17:04:09.306Z: topmostToggle event received with args: 
+2023-05-27T17:04:09.307Z: win.alwaysOnTop set to 
+2023-05-27T17:04:10.042Z: topmostToggle event received with args: 
+2023-05-27T17:04:10.044Z: win.alwaysOnTop set to 
+2023-05-27T17:04:20.515Z: topmostToggle event received with args: 
+2023-05-27T17:04:20.516Z: win.alwaysOnTop set to 
+2023-05-27T17:04:21.954Z: Auto launch disabled
+2023-05-27T17:04:23.245Z: Auto launch enabled
+2023-05-27T17:04:24.979Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T17:04:27.593Z: Auto launch disabled
+2023-05-27T17:04:46.955Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:04:46.956Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:04:46.956Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:04:46.956Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:04:46.956Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:04:46.956Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:04:46.956Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:04:46.956Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:04:46.956Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:04:46.956Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:04:46.957Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:04:46.957Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:04:46.957Z: Mac address for this host: %s
+2023-05-27T17:04:47.163Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T17:06:54.750Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:06:54.753Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:06:54.753Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:06:54.754Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:06:54.754Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:06:54.754Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:06:54.754Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:06:54.754Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:06:54.754Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:06:54.754Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:06:54.754Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:06:54.754Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:06:54.754Z: Registration failed.
+2023-05-27T17:06:54.754Z: Mac address for this host: %s
+2023-05-27T17:06:55.016Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T17:08:01.395Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:08:01.396Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:08:01.396Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:08:01.396Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:08:01.396Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:08:01.396Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:08:01.396Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:08:01.396Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:08:01.396Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:08:01.396Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:08:01.396Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:08:01.396Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:08:01.397Z: Mac address for this host: %s
+2023-05-27T17:08:01.650Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T17:09:01.301Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:09:01.302Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:09:01.302Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:09:01.302Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:09:01.302Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:09:01.302Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:09:01.302Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:09:01.302Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:09:01.302Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:09:01.302Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:09:01.302Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:09:01.302Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:09:01.303Z: Mac address for this host: %s
+2023-05-27T17:09:01.490Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T17:09:55.269Z: Auto launch enabled
+2023-05-27T17:10:08.680Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:10:08.681Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:10:08.681Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:10:08.681Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:10:08.681Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:10:08.681Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:10:08.681Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:10:08.681Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:10:08.681Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:10:08.682Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:10:08.682Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:10:08.682Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:10:08.682Z: Registration failed.
+2023-05-27T17:10:08.682Z: Mac address for this host: %s
+2023-05-27T17:10:08.881Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T17:15:09.845Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T17:15:26.704Z: Auto launch disabled
+2023-05-27T17:15:27.464Z: Auto launch enabled
+2023-05-27T17:15:28.375Z: Setting 1 setting updated with incognito value: 1
+2023-05-27T17:15:29.056Z: Setting 1 setting updated with incognito value: 0
+2023-05-27T17:25:47.493Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:25:47.494Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:25:47.494Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:25:47.494Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:25:47.494Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:25:47.494Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:25:47.495Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:25:47.495Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:25:47.495Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:25:47.495Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:25:47.495Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:25:47.495Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:25:47.495Z: Mac address for this host: %s
+2023-05-27T17:25:47.755Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T17:36:17.835Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:36:17.836Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:36:17.836Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:36:17.836Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:36:17.836Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:36:17.837Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:36:17.837Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:36:17.837Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:36:17.837Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:36:17.837Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:36:17.837Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:36:17.837Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:36:17.837Z: Registration failed.
+2023-05-27T17:36:17.837Z: Mac address for this host: %s
+2023-05-27T17:36:18.115Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T17:38:59.988Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:38:59.989Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:38:59.989Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:38:59.989Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:38:59.989Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:38:59.989Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:38:59.989Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:38:59.989Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:38:59.989Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:38:59.989Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:38:59.989Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:38:59.989Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:38:59.990Z: Mac address for this host: %s
+2023-05-27T17:39:00.272Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-05-27T17:39:41.225Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:39:41.226Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:39:41.226Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:39:41.226Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:39:41.226Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:39:41.226Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:39:41.226Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:39:41.227Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:39:41.227Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:39:41.227Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-05-27T17:39:41.227Z: Shortcut Keys: Alt+:, Title: using href
+2023-05-27T17:39:41.227Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-05-27T17:39:41.227Z: Registration failed.
+2023-05-27T17:39:41.227Z: Mac address for this host: %s
+2023-05-27T17:39:41.470Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.

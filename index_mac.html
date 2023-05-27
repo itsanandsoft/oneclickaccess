@@ -23,6 +23,7 @@
 			<ul>
 				<li class="here">
 					<a href="#file">File</a>
+                   
 					<ul class="sublist">
 						<!-- <li><a href="#finder" data-rel="show" id="main_file_save_tree">Save</a></li> -->
 						<li><a href="#finder" data-rel="show" id="main_file_save">Save</a></li>
@@ -37,11 +38,18 @@
 						<li class="divider"></li>
                         <li>Setting<span class="arrow"></span>
 							<ul class="sublist-menu">
-								<li  id="main_file_setting_topmost_li"><a href="#finder" data-rel="show" id="main_file_setting_topmost">Topmost</a></li>
-                                <li  id="main_file_start_system_window_li"><a href="#finder" data-rel="show" id="main_file_start_system_window">Start with system</a></li>
-                                <li  id="main_file_setting_incognito_li"><a href="#finder" data-rel="show" id="main_file_setting_incognito">Incognito</a></li>
+								<li  id="main_file_setting_topmost_li"><a href="#finder" data-rel="show" id="main_file_setting_topmost">Topmost<img src="assets/img/tick.png" id="topmost-png" width="16px" height="16px" style="margin-left: 10px;margin-top:1px;display:none;" /></a></li>
+                                <li  id="main_file_start_system_window_li"><a href="#finder" data-rel="show" id="main_file_start_system_window">  Start with system <img src="assets/img/tick.png" id="start-with-system-png" width="16px" height="16px" style="margin-left: 10px;margin-top:1px;display:none;" /></a></li>
+                                <li  id="main_file_setting_incognito_li"><a href="#finder" data-rel="show" id="main_file_setting_incognito">Incognito<img src="assets/img/tick.png" id="incognito-png" width="16px" height="16px" style="margin-left: 10px;margin-top:1px;display:none;" /></a></li>
                                 <li class="divider"></li>
-								<li id="main_file_setting_color_top_menu">Color (Top Menu)</li>
+								<li>Color (Top Menu)<span class="arrow">
+                                    <ul class="sublist-menu">
+                                        <li>
+                                            <input type="color" id="main_file_setting_color_top_menu" onclick="event.stopPropagation();"/>
+                                        </li>
+                                    </ul>
+                                    
+                                    </li>
 								<li id="main_file_setting_color_main_dialog">Color (Main Dialog)</li>
 							</ul>
 						</li>
@@ -55,6 +63,7 @@
 				<li class="here" id="main_add_input">
 					<a href="#all" >Add Input</a>
 				</li>
+                
 				<li class="here" id="main_remove">
 					<a href="#all">Remove</a>
 				</li>
