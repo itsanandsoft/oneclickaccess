@@ -988,6 +988,15 @@ ipcMain.handle('import-data', async (event, arg) => {
 
 });
 
+ipcMain.handle('readDatabase', async () => {
+  try {
+    const data = await fs.promises.readFile('database.json');
+    return JSON.parse(data);
+  } catch (err) {
+    throw err;
+  }
+});
+
 ipcMain.handle('show-message-box', async (event, options) => {
   const response = await dialog.showMessageBox(options);
   return response.response;

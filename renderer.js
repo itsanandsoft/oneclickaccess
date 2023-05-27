@@ -517,28 +517,26 @@ const { ipcRenderer,globalShortcut  } = require("electron");
 
 $(function() {
   setContextShortcutLabel();
-  fs.readFile('database.json', (err, data) => {
-    if (err) throw err;
-    data = JSON.parse(data);
-    if(data.length>0){
-      if(data[0].settings.hasOwnProperty('id')){
-        if(data[0].settings.incognito == 1){
+  
+  ipcRenderer.invoke('readDatabase').then((data) => {
+    if (data.length > 0) {
+      if (data[0].settings.hasOwnProperty('id')) {
+        if (data[0].settings.incognito == 1) {
           const element = document.getElementById('main_file_setting_incognito_li');
-          if(process.platform == 'win32'){
+          if (process.platform == 'win32') {
             element.classList.remove("simple");
             element.classList.add("checked");
           }
         }
       }
-      if(data[0].settings.hasOwnProperty('timezone')){
-          $('#timezone-select').val(data[0].settings.timezone);
-          const utc = data[0].settings.timezone.split(/[+-]/);
-          if (/[+]/.test(data[0].settings.timezone)){
-            $('#timezone-label').html(`+${utc[1]}`);
-          }
-          else if (/[-]/.test(data[0].settings.timezone)){
-            $('#timezone-label').html(`-${utc[1]}`);
-          }
+      if (data[0].settings.hasOwnProperty('timezone')) {
+        $('#timezone-select').val(data[0].settings.timezone);
+        const utc = data[0].settings.timezone.split(/[+-]/);
+        if (/[+]/.test(data[0].settings.timezone)) {
+          $('#timezone-label').html(`+${utc[1]}`);
+        } else if (/[-]/.test(data[0].settings.timezone)) {
+          $('#timezone-label').html(`-${utc[1]}`);
+        }
       }
     }
   });
