@@ -524,11 +524,11 @@ $(function() {
         if (data[0].settings.incognito == 1) {
           const element = document.getElementById('main_file_setting_incognito_li');
           if (process.platform == 'win32') {
-          //   element.classList.remove("simple");
-          //   element.classList.add("checked");
-          // }
-          // else if(process.platform === 'darwin')
-          // {
+            element.classList.remove("simple");
+            element.classList.add("checked");
+          }
+          else if(process.platform === 'darwin')
+          {
             const ele = document.getElementById('incognito-png');
             ele.style.display = '';
           }
@@ -763,18 +763,18 @@ $(function() {
       const element = document.getElementById('main_file_setting_topmost_li');
       if(process.platform == 'win32'){
         
-    //   if (element.classList.contains("simple")) {
-    //     // classList contains "simple", replace with "checked"
-    //       element.classList.remove("simple");
-    //       element.classList.add("checked");
+      if (element.classList.contains("simple")) {
+        // classList contains "simple", replace with "checked"
+          element.classList.remove("simple");
+          element.classList.add("checked");
       
-    //   } else {
-    //     // classList contains "checked", replace with "simple"
-    //     element.classList.remove("checked");
-    //     element.classList.add("simple");
-    //  }
-    //   }else if(process.platform === 'darwin')
-    //   {
+      } else {
+        // classList contains "checked", replace with "simple"
+        element.classList.remove("checked");
+        element.classList.add("simple");
+     }
+      }else if(process.platform === 'darwin')
+      {
         const ele = document.getElementById('topmost-png');
         if(ele.style.display === 'none')
         {
@@ -794,22 +794,22 @@ $(function() {
       const element = document.getElementById('main_file_start_system_window_li');
       if(process.platform == 'win32'){
         
-      // if (element.classList.contains("simple")) {
-      //   // classList contains "simple", replace with "checked"
-      //     element.classList.remove("simple");
-      //     element.classList.add("checked");
+      if (element.classList.contains("simple")) {
+        // classList contains "simple", replace with "checked"
+          element.classList.remove("simple");
+          element.classList.add("checked");
         
-      //     ipcRenderer.send("autoLaunchToggle", true); // Send enabled true
+          ipcRenderer.send("autoLaunchToggle", true); // Send enabled true
      
-      // } else {
-      //   // classList contains "checked", replace with "simple"
-      //   element.classList.remove("checked");
-      //   element.classList.add("simple");
+      } else {
+        // classList contains "checked", replace with "simple"
+        element.classList.remove("checked");
+        element.classList.add("simple");
     
-      //   ipcRenderer.send("autoLaunchToggle", false); // Send enabled false
-      // }
-      // }else if(process.platform == 'darwin')
-      // {
+        ipcRenderer.send("autoLaunchToggle", false); // Send enabled false
+      }
+      }else if(process.platform == 'darwin')
+      {
         const ele = document.getElementById('start-with-system-png');
         if(ele.style.display === 'none')
         {
@@ -831,21 +831,21 @@ $(function() {
       const element = document.getElementById('main_file_start_system_window_li');
       if (isEnabled) {
         if(process.platform == 'win32'){
-        //   element.classList.remove("simple");
-        //   element.classList.add("checked");
-        // }
-        // else if(process.platform == 'darwin')
-        // {
+          element.classList.remove("simple");
+          element.classList.add("checked");
+        }
+        else if(process.platform == 'darwin')
+        {
           const ele = document.getElementById('start-with-system-png');
           ele.style.display = 'none'; 
         }
         } else {
         if(process.platform == 'win32'){
-        //   element.classList.remove("checked");
-        //   element.classList.add("simple");
-        // }
-        // else if(process.platform == 'darwin')
-        // {
+          element.classList.remove("checked");
+          element.classList.add("simple");
+        }
+        else if(process.platform == 'darwin')
+        {
           const ele = document.getElementById('start-with-system-png');
           ele.style.display = ''; 
         }
@@ -872,22 +872,22 @@ $(function() {
       const element = document.getElementById('main_file_setting_incognito_li');
       if(process.platform == 'win32'){
         
-      // if (element.classList.contains("simple")) {
-      //   // classList contains "simple", replace with "checked"
-      //     element.classList.remove("simple");
-      //     element.classList.add("checked");
+      if (element.classList.contains("simple")) {
+        // classList contains "simple", replace with "checked"
+          element.classList.remove("simple");
+          element.classList.add("checked");
         
-      //   ipcRenderer.send("incognitoToggle", "1");
+        ipcRenderer.send("incognitoToggle", "1");
 
-      // } else {
-      //   // classList contains "checked", replace with "simple"
-      //   element.classList.remove("checked");
-      //   element.classList.add("simple");
+      } else {
+        // classList contains "checked", replace with "simple"
+        element.classList.remove("checked");
+        element.classList.add("simple");
     
-      //   ipcRenderer.send("incognitoToggle", "0");
-      // }
-      // }else if(process.platform === 'darwin')
-      // {
+        ipcRenderer.send("incognitoToggle", "0");
+      }
+      }else if(process.platform === 'darwin')
+      {
         const ele = document.getElementById('incognito-png');
         if(ele.style.display === 'none')
         {
@@ -905,9 +905,19 @@ $(function() {
   
 
     $('#main_file_setting_color_top_menu').on('change', function() {
-      const colorPicker = this;
-      console.log($(colorPicker).val());
-      $('#top-main-menu').css('background-color', $(colorPicker).val());
+      if(process.platform == 'win32'){
+          const colorPicker = this;
+          console.log($(colorPicker).val());
+          $('#top-main-menu').css('background-color', $(colorPicker).val());
+        }
+        else if(process.platform == 'darwin')
+        {
+          const colorPicker = this;
+          console.log($(colorPicker).val());
+          $('#menu').css('background-color', $(colorPicker).val());
+          $('#head').css('background-color', $(colorPicker).val());
+        }
+     
     });
 
     $('#main_file_setting_color_main_dialog').on('change', function() {

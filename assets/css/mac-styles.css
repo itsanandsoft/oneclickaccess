@@ -928,6 +928,87 @@ input[type=password]:focus~.tooltip-pass {
 	background: none;
 }
 
+
+/* 3rd level */
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu {
+	float: left;
+	left: 100%;
+	top: -5px;
+	list-style: none;
+	height: 40px;
+	margin: 3;
+	padding: 3;
+	position: absolute;
+	background: rgba(255, 255, 255, 0.95);
+	box-shadow: 4px 9px 12px rgba(0, 0, 0, 0.7);
+	border-radius: 0 5px 5px 5px;
+	visibility: hidden;
+	color: #000;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li {
+	clear: both;
+	margin: 0;
+	padding: 4px 4px 4px 4px;
+	width: 60px;
+	height: 35px;
+	font-size: 13px;
+	line-height: 20px;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li a {
+	color: #000;
+	text-indent: 0;
+	width: 60px;
+	background-image: none;
+	padding: 0;
+	font-weight: normal;
+	display: block;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li:hover a {
+	color: #fff;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li:hover ul.sublist-menu {
+	visibility: visible;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li:hover {
+	color: #fff;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li:first-child {
+	margin: 5px 0 0 0;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li:last-child {
+	margin: 0 0 5px 0;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li.divider {
+	border-top: 1px solid #e2e2e2;
+	height: 1px;
+	background: none;
+	margin: 5px 0 4px 0;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li.divider:hover {
+	border-top: 1px solid #e2e2e2;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li:hover {
+	border: none;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li.disable {
+	color: #969696;
+}
+
+#head nav#menu ul li ul.sublist li ul.sublist-menu li ul.sublist-menu li.disable:hover {
+	background: none;
+}
+/* 3rd level end */
 a.button.about {
 	width: 118px;
 }
@@ -1124,17 +1205,6 @@ select.form-control.mac-dropdown {
 	height: 100%;
 	overflow: scroll;
   }
-
-
-
-
-
-
-
-
-
-
-
 
 
   /*
@@ -1473,5 +1543,73 @@ summary {
   }
   .pos-relative {
 	font-size: 12px !important;
+  }
+
+  .btn {
+	margin: 2px 2px 2px 2px;
+	min-width: 20px;
+	border: none;
+	font: inherit;
+	color: #373030;
+	border-radius: 4px;
+	outline: none;
+	text-decoration: none;
+	cursor: default;
+	font-weight: 650;
+	background: rgb(240, 239, 239);
+	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 1px 1px rgba(97, 97, 97, 0.4);
+	display: inline-block;
+	height: 20px;
+	font-size: 11px;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  }
+  .btn:hover {
+	background: linear-gradient(#e3e3e4, #868686);
+	color: #fff;
+	position: relative;
+  }
+  .btn:active {
+	background: linear-gradient(#4faefc, #006bff);
+	color: #fff;
+	position: relative;
+  }
+  .btn.btn-blue {
+	color: #fff;
+	background: linear-gradient(#81c5fd, #3389ff);
+  }
+  .btn.btn-blue:hover {
+	background: linear-gradient(#4faefc, #006bff);
+  }
+  .btn.btn-blue:active {
+	background: linear-gradient(#4faefc, #0055cc);
+  }
+  .btn.btn-red {
+	color: #fff;
+	background: linear-gradient(#fd6c6f, #e70307);
+  }
+  .btn.btn-red:active {
+	background: linear-gradient(#fc2125, #b50206);
+  }
+  .btn.btn-green {
+	color: #fff;
+	background: linear-gradient(#89e36b, #44ae21);
+  }
+  .btn.btn-green:active {
+	background: linear-gradient(#56d72b, #338319);
+  }
+  .btn.btn-brown {
+	color: #fff;
+	background: linear-gradient(#b59773, #6f573a);
+  }
+  .btn.btn-brown:active {
+	background: linear-gradient(#90714c, #4d3d29);
+  }
+  .btn.btn-lg {
+	font-size: 1.2em;
+	padding: 12px 24px;
+  }
+  .btn.btn-block {
+	display: block;
+	width: 100%;
   }
 
