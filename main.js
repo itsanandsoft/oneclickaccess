@@ -207,7 +207,7 @@ function createWindow() {
   //checkMachines(data, win);
   // win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
   win.setAlwaysOnTop(false, 'floating');
-  win.webContents.openDevTools();
+ // win.webContents.openDevTools();
   win.removeMenu(true);
 
   win.on('close', (event) => {
