@@ -613,13 +613,11 @@ $(function() {
               Others</a></li>
         </ul>
       </li>
-    </ul>
-
-    <button class="button flat-button small button2">Context</button>
+    </ul>`);
+    $('#contextt_menu').html(`<button class="button flat-button small button2">Context</button>
     <ul class="ribbon-dropdown" data-role="dropdown">
       <li class="simple"><a href="#" class="text-decoration-none" id="main_file_add_context_shortcut">Set Context Shortcut</a></li>
       <li class="simple"><label class="small" style="margin-left:10px;" id="contextShortCutLabel">Ctrl+Q</label></li>
-  
     </ul>`);
 
   var platform = window.navigator.platform.toLowerCase();
