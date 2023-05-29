@@ -402,7 +402,14 @@ function itemClicked(item) {
   if (item.hasOwnProperty('data')) {
     if (item.data.hasOwnProperty('type')) {
       if (item.data.type == 'text') {
+        if(item.data.hasOwnProperty('isPassword'))
+        {
+          printTextonScreen(item.data.isPassword);
+        }
+        else
+        {
         printTextonScreen(item.label);
+        }
       }
       if (item.data.type == 'folder' || item.data.type == 'image' || item.data.type == 'file') {
         if (process.platform === 'win32') {
@@ -451,15 +458,20 @@ function itemClicked(item) {
           }
         });
       }
+      
+    }
+    else if(item.data.hasOwnProperty('isPassword'))
+    {
+      printTextonScreen(item.data.isPassword);
     }
     else {
       printTextonScreen(item.label);
     }
+    
   }
   else {
     printTextonScreen(item.label);
   }
-
   if (!menuWindow.isDestroyed()) {
     menuWindow.close();
   }
