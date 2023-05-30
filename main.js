@@ -24,10 +24,10 @@ const autoLauncher = new AutoLaunch({
 
 const passphrase = 'ITSANSOFTnyshu55';
 
-const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
-console.log = (message) => {
-  logFile.write(`${new Date().toISOString()}: ${message}\n`);
-};
+// const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
+// console.log = (message) => {
+//   logFile.write(`${new Date().toISOString()}: ${message}\n`);
+// };
 
 if (!fs.existsSync(path.join(__dirname, 'database.json'))) {
   let data = [
@@ -225,7 +225,8 @@ function createWindow() {
 function closeOrMinimizeWindow(close) {
   if (!close) {
     win.hide();
-    tray = new Tray(path.join(__dirname, 'assets/img/logo.png'));
+    var icon = process.platform === 'win32' ? 'logo.png' : 'tray_mac';
+    tray = new Tray(path.join(__dirname, `assets/img/${icon}.png`));
     tray.on('click', () => {
       if (win.isVisible()) {
         win.hide()
