@@ -34,6 +34,7 @@
     },
     "mac": {
       "category": "com.oneclickaccess.desktop.copy",
+      "icon": "assets/img/logo_mac.png",
       "target": [
         "dmg",
         "zip"
