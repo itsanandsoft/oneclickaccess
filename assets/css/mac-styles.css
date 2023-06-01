@@ -1612,4 +1612,6 @@ summary {
 	display: block;
 	width: 100%;
   }
-
+  .mac-menu ul{
+	list-style-type: none !important;
+  }
