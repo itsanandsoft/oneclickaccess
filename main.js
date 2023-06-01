@@ -41,7 +41,8 @@ if (!fs.existsSync(path.join(__dirname, 'database.json'))) {
       "settings": {
       "id": "1",
       "incognito": "1",
-      "timezone": "UTC-06:00"
+      "timezone": "UTC-06:00",
+      "contextShortCut": "CommandOrControl+Q"
       }
     }
   ];
@@ -53,6 +54,14 @@ if (!fs.existsSync(path.join(__dirname, 'database.json'))) {
   });
 }
 
+var prevContextRegShortcut = 'CommandOrControl+Q';
+const databaseJSON= JSON.parse(fs.readFileSync(path.join(__dirname, 'database.json'), 'utf-8'));
+  if (databaseJSON.length > 0) {
+    if (databaseJSON[0].settings.hasOwnProperty('id')) {
+      prevContextRegShortcut = databaseJSON[0].settings.contextShortCut;
+    }
+  }
+
 let x, y = null;
 let close = false;
 let isTopmost = false;// Replace with your own password
@@ -62,7 +71,6 @@ let dialogWindow;
 let menu = null;
 let notification = null;
 let tray = null
-var prevContextRegShortcut = 'CommandOrControl+Q';
 let autoLaunchEnabled = false;
 let theme = 'win';
 let mainHtml = 'index';
@@ -87,7 +95,7 @@ app.whenReady().then(() => {
   createMacAddressFiles();
   createWindow();
   initShorcutsOfTreeDataJson();
-  const shortcut = globalShortcut.register('CommandOrControl+Q', () => {
+  const shortcut = globalShortcut.register(databaseJSON[0].settings.contextShortCut, () => {
     x = screen.getCursorScreenPoint().x;
     y = screen.getCursorScreenPoint().y;
     createElectronMenu(x + 10, y);
@@ -959,26 +967,26 @@ function updateIncognitoSetting(incognitoValue) {
   });
 }
 
-function updateContextShortcuttoSetting(value) {
-  fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
-    if (err) throw err;
+// function updateContextShortcutToSetting(value) {
+//   fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
+//     if (err) throw err;
     
-    data = JSON.parse(data);
-    if (data.length > 0) {
-      if (data[0].settings.hasOwnProperty('id')) {
-        data[0].settings.incognito = value.toString();
-      }
-      else {
-        data[0].settings.incognito = '0';
-      }
-      const updatedJson = JSON.stringify(data, null, 2);
-      fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
-        if (err) throw err;
-        console.log(`Setting 1 setting updated with incognito value: ${value}`);
-      });
-    }
-  });
-}
+//     data = JSON.parse(data);
+//     if (data.length > 0) {
+//       if (data[0].settings.hasOwnProperty('id')) {
+//         data[0].settings.contextShortcutKeys = value.toString();
+//       }
+//       else {
+//         data[0].settings.contextShortcutKeys = 'CommandOrControl+Q';
+//       }
+//       const updatedJson = JSON.stringify(data, null, 2);
+//       fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
+//         if (err) throw err;
+//         console.log(`Setting 1 setting updated with contextShortcutKeys value: ${value}`);
+//       });
+//     }
+//   });
+// }
 
 // function updateIncognitoSetting(incognitoValue) {
 //   fs.readFile('database.json', (err, data) => {
@@ -1089,7 +1097,7 @@ ipcMain.on('saveContextShortCut', (event,args) => {
         data[0].settings.contextShortCut = args;
       }
       else {
-        data[0].settings.contextShortCut = 'Ctrl+Q';
+        data[0].settings.contextShortCut = 'CommandOrControl+Q';
       }
       const updatedJson = JSON.stringify(data, null, 2);
       fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
