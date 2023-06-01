@@ -691,12 +691,16 @@ $(function() {
      
      $('#main_file_sort_selected').click(function(){ 
       var node = $.ui.fancytree.getTree("#tree").getActiveNode();
-			var cmp = function(a, b) {
-				a = a.title.toLowerCase();
-				b = b.title.toLowerCase();
-				return a > b ? 1 : a < b ? -1 : 0;
-			};
-			node.sortChildren(cmp, false);
+      if( node )
+      {
+        var cmp = function(a, b) {
+          a = a.title.toLowerCase();
+          b = b.title.toLowerCase();
+          return a > b ? 1 : a < b ? -1 : 0;
+        };
+        node.sortChildren(cmp, false);
+      }
+			
     });
 
     $('#main_file_import').click(function(){ 

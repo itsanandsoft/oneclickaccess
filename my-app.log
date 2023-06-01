@@ -2048,3 +2048,23 @@
 2023-06-01T18:19:46.997Z: Mac address for this host: %s
 2023-06-01T18:19:47.204Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
 2023-06-01T18:20:07.971Z: Setting 1 setting updated with ContextShortCut value: Ctrl+6
+2023-06-01T18:33:53.351Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-01T18:33:53.352Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-01T18:33:53.352Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-01T18:33:53.352Z: Shortcut Keys: Ctrl+Up, Title: Folder 1
+2023-06-01T18:33:53.352Z: Shortcut Keys: Ctrl+Tab, Title: Simple node with active children (expand)
+2023-06-01T18:33:53.352Z: Shortcut Keys: Ctrl+4, Title: Sub-item 2.1
+2023-06-01T18:33:53.352Z: Shortcut Keys: Shift+Space, Title: Sub-item 2.1.1.1
+2023-06-01T18:33:53.352Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-01T18:33:53.352Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-01T18:33:53.352Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-01T18:33:53.352Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-01T18:33:53.352Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-01T18:33:53.353Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-01T18:33:53.353Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-01T18:33:53.353Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-01T18:33:53.353Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-01T18:33:53.353Z: Mac address for this host: %s
+2023-06-01T18:33:53.583Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-06-01T18:34:24.991Z: H:\Electron\oneclickaccess\tree-data.json exists, writing data...
+2023-06-01T18:34:24.993Z: H:\Electron\oneclickaccess\tree-data.json updated with new data!
