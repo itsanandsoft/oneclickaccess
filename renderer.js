@@ -598,6 +598,7 @@ $(function() {
     <ul class="ribbon-dropdown" data-role="dropdown">
       <li class="simple"><a href="#" class="text-decoration-none" id="main_add_parent">Add Main</a></li>
       <li class="simple"><a href="#" class="text-decoration-none" id="main_add_text">Text</a></li>
+      <li class="simple"><a href="#" class="text-decoration-none" id="main_add_paasword">Convert to Password</a></li>
       <li class="simple"><a href="#" class="text-decoration-none" id="main_add_image">Image</a></li>
       <li class="simple"><a href="#" class="text-decoration-none" id="main_add_file">File</a></li>
       <li class="simple"><a href="#" class="text-decoration-none" id="main_add_folder">Folder</a></li>
@@ -614,7 +615,7 @@ $(function() {
         </ul>
       </li>
     </ul>`);
-    $('#contextt_menu').html(`<button class="button flat-button small button2">Context</button>
+    $('#contextt_menu').html(`<button class="button flat-button small button2">Set Context</button>
     <ul class="ribbon-dropdown" data-role="dropdown">
       <li class="simple"><a href="#" class="text-decoration-none" id="main_file_add_context_shortcut">Set Context Shortcut</a></li>
       <li class="simple"><label class="small" style="margin-left:10px;" id="contextShortCutLabel">Ctrl+Q</label></li>
@@ -999,6 +1000,51 @@ $(function() {
          // newnode.renderTitle();
         }
     });
+    $('#main_add_paasword').click(function(){ 
+
+      var tree = $.ui.fancytree.getTree("#tree"),
+				node = tree.getActiveNode();
+			  if (node && !node.hasChildren()) {
+          // The active node does not have any children
+          if(node.data)
+          {
+          if(node.data.hasOwnProperty('isPassword'))
+          {
+            alert("Is already a Password!");
+          }
+          else if(node.data.type == 'folder' || node.data.type == 'image' || node.data.type == 'file' || node.data.type == 'date')
+          {
+            alert("Is not text!");
+          }
+          else
+          {
+            //do it 
+            var maskedTitle = "*".repeat(node.title.length);
+              var newData = { title: maskedTitle,
+                            data: { isPassword: node.title }
+                            };
+              node.setTitle("Password");
+              node.addChildren(newData)
+          }
+          }
+          else
+          {
+            //do it
+            var maskedTitle = "*".repeat(node.title.length);
+            var newData = { title: maskedTitle,
+                          data: { isPassword: node.title }
+                          };
+            node.setTitle("Password");
+            node.addChildren(newData)
+       
+          }
+          console.log("Selected Branch does not have any children");
+
+        } else {
+          // The active node has children
+          alert("Selected Branch has children! Only convert non-parent Branch to password");
+        }
+    });
     $('#main_add_image').click(function(){ 
       getImgFileFolder('image');
 
@@ -1125,7 +1171,7 @@ ipcRenderer.invoke("showDialog", d);
 
 function openChildClickValueDialog(node){
   let textareaVal=node.title;
-  if(textareaVal == "...")
+  if(textareaVal === "...")
    { textareaVal = ""; }
   Metro.dialog.create({
       title: "Input",

@@ -24,10 +24,11 @@ const autoLauncher = new AutoLaunch({
 
 const passphrase = 'ITSANSOFTnyshu55';
 
-// const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
-// console.log = (message) => {
-//   logFile.write(`${new Date().toISOString()}: ${message}\n`);
-// };
+//comment on build
+const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
+console.log = (message) => {
+  logFile.write(`${new Date().toISOString()}: ${message}\n`);
+};
 
 if (!fs.existsSync(path.join(__dirname, 'database.json'))) {
   let data = [
@@ -207,7 +208,8 @@ function createWindow() {
   //checkMachines(data, win);
   // win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
   win.setAlwaysOnTop(false, 'floating');
- // win.webContents.openDevTools();
+  //comment on build
+  win.webContents.openDevTools();
   win.removeMenu(true);
 
   win.on('close', (event) => {
@@ -254,119 +256,6 @@ function closeOrMinimizeWindow(close) {
   }
 
 }
-
-// function createMenuWindow(x, y) {
-//   const { width, height } = screen.getPrimaryDisplay().workAreaSize
-//   let menuWindow = new BrowserWindow({
-//     width: 300,
-//     height: 100,
-//     x: x,
-//     y: y,
-//     frame: false,
-//     transparent: false,
-//     webPreferences: {
-//       nodeIntegration: true,
-//       contextIsolation: false,
-//       enableRemoteModule: true,
-//     }
-//   });
-//   menuWindow.removeMenu(true);
-//   menuWindow.loadFile(path.join(__dirname, `/renderer/${theme}/pages/context_menu/menu.html`));
-//   menu = Menu.buildFromTemplate(menu_template);
-//   menu.forEach(item => {
-//     if (item.click) {
-//       item.click = () => {
-//         // Call the function specified in the click property
-//         eval(item.click)();
-//       };
-//     }
-//   });
-//   // menuWindow.setMenu(menu);
-//   //menuWindow.webContents.openDevTools()
-//   // Set the background color to transparent
-//   //menuWindow.setBackgroundColor('#00000000');
-
-//   // Set the CSS to allow pointer events on children
-//   // menuWindow.webContents.insertCSS(`
-//   //   body {
-//   //     pointer-events: none;
-//   //   }
-
-//   //   * {
-//   //     pointer-events: auto;
-//   //   }
-//   // `);
-//   // menu = Menu.buildFromTemplate(menu_template);
-//   // menuWindow.setMenu(menu);
-//   // menuWindow.loadFile(path.join(__dirname, '/menu.html'));
-
-//   // menuWindow.on('close', (event) => {
-//   //     event.preventDefault();
-//   //    // menuWindow.hide()
-//   // });
-//   //       // Set the position of the context menu window to the top of the screen
-//   //   menuWindow.on('blur', () => {
-//   //     // Hide the context menu window when it loses focus
-//   //     //menuWindow.hide()
-//   //   })
-
-//   //   // Listen for 'click' events on the document.body element
-//   //   menuWindow.webContents.on('click', (event, targetElement) => {
-//   //     // If the click happened outside of the window
-//   //     if (!menuWindow.getBounds().contains(event.x, event.y)) {
-//   //       // Close the window
-//   //      // menuWindow.close();
-//   //     }
-//   //   });
-//   //   // Listen for any input event on the window
-//   //   menuWindow.webContents.on('before-input-event', (event, input) => {
-//   //     if (input.type !== 'mouseDown') {
-//   //       // Close the window if the input event is not a mouse click event
-//   //      // menuWindow.close();
-//   //     }
-//   //   });
-
-
-//   //   ipcMain.on('showContextMenu', () => {
-//   //     // Show the context menu window when requested from the renderer process
-//   //     menuWindow.show()
-//   //   })
-
-//   //   ipcMain.on('contextMenuSelection', (event, option) => {
-//   //     // Handle the selected context menu option
-//   //     console.log(`Selected option: ${option}`)
-//   //     // You can perform any desired action here
-//   //   })
-
-//   //   // menuWindow.webContents.on('click', (event, targetElement) => {
-//   //   //   console.log(`Clicked`)
-//   //   //   // Exclude clicks on a div with id "exclude-me" or its descendants
-//   //   //   // const excludeMe = document.getElementById('exclude-me');
-//   //   //   // if (excludeMe.contains(targetElement)) {
-//   //   //   //   return;
-//   //   //   // }
-
-//   //   //   // Your code here
-//   //   //   //menuWindow.hide()
-//   //   // });
-//   //   console.log('run');
-//   //   menuWindow.once('ready-to-show', () => {
-//   //     console.log('Clicked1');
-//   //     menuWindow.webContents.on('click', (event, targetElement) => {
-//   //       console.log('Clicked2');
-//   //     });
-//   //   })
-
-
-//   //   menuWindow.webContents.on('did-finish-load', () => {
-//   //     console.log('load');
-//   //     menuWindow.webContents.on('click', (event, targetElement) => {
-//   //       console.log('Clicked2');
-//   //     });
-//   //   });
-
-//   // menuWindow.webContents.openDevTools()
-// }
 
 function createElectronMenu(x, y) {
   var dataF =  fs.readFileSync(jsonFilePath);
@@ -1065,6 +954,27 @@ function updateIncognitoSetting(incognitoValue) {
       fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
         if (err) throw err;
         console.log(`Setting 1 setting updated with incognito value: ${incognitoValue}`);
+      });
+    }
+  });
+}
+
+function updateContextShortcuttoSetting(value) {
+  fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
+    if (err) throw err;
+    
+    data = JSON.parse(data);
+    if (data.length > 0) {
+      if (data[0].settings.hasOwnProperty('id')) {
+        data[0].settings.incognito = value.toString();
+      }
+      else {
+        data[0].settings.incognito = '0';
+      }
+      const updatedJson = JSON.stringify(data, null, 2);
+      fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
+        if (err) throw err;
+        console.log(`Setting 1 setting updated with incognito value: ${value}`);
       });
     }
   });
