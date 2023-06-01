@@ -527,12 +527,11 @@ ipcMain.on('relaunch', (event, args) => {
 });
 
 ipcMain.on('openTextEditor', (event, args) => {
-  const editor = os.platform() === 'win32' ? 'notepad.exe' : 'gedit';
-  const argss = os.platform() === 'win32' ? [] : ['--new-window'];
-  spawn(editor, argss, {
-    detached: true,
-    stdio: 'ignore'
-  }).unref();
+  if (process.platform === 'win32') {
+    exec('start notepad');
+  } else if (process.platform === 'darwin') {
+    exec('open -a "TextEdit"');
+  }
 });
 
 
