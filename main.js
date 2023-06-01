@@ -304,7 +304,7 @@ function createElectronMenu(x, y) {
 
 function itemClicked(item) {
   if(win.isVisible()){
-    win.hide();
+    win.minimize();
   }
   if (item.hasOwnProperty('data')) {
     if (item.data.hasOwnProperty('type')) {
