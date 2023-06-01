@@ -303,6 +303,9 @@ function createElectronMenu(x, y) {
 }
 
 function itemClicked(item) {
+  if(win.isVisible()){
+    win.hide();
+  }
   if (item.hasOwnProperty('data')) {
     if (item.data.hasOwnProperty('type')) {
       if (item.data.type == 'text') {
@@ -738,9 +741,9 @@ ipcMain.on(`display-app-menu`, function (e, args) {
 });
 
 ipcMain.on(`close-app-menu`, function (e) {
-  if (!menuWindow.isDestroyed()) {
+  //if (!menuWindow.isDestroyed()) {
     menuWindow.close();
-  }
+  //}
 });
 // ipcMain.on(`close-export-dialog`, function (e) {
   
