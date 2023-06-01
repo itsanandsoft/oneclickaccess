@@ -24,6 +24,12 @@ const autoLauncher = new AutoLaunch({
 
 const passphrase = 'ITSANSOFTnyshu55';
 
+// Disable the security warnings
+app.commandLine.appendSwitch('no-sandbox');
+app.commandLine.appendSwitch('disable-infobars');
+app.commandLine.appendSwitch('ignore-certificate-errors');
+//app.commandLine.appendSwitch('disable-web-security');
+
 //comment on build
 const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
 console.log = (message) => {
