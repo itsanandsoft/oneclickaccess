@@ -42,7 +42,9 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "assets/img/logo.png"
+      "icon": "assets/img/logo.png",
+      "signingHashAlgorithms": ["sha256"],
+      "verifyUpdateCodeSignature": false
     },
     "linux": {
       "target": [

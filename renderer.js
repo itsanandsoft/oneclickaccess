@@ -1117,7 +1117,11 @@ $(function() {
             alert("This Key already Registered in the System Try Some New Combination");
           } else {
             // Register a global shortcut
-            ipcRenderer.invoke('register-shortcut', newShortcutKey).then((ret) => {
+            //const nodeJson = JSON.stringify(node.toDict());
+            var da = node.toDict(true);
+            var d = JSON.stringify(da);
+            const jsonObjNode = JSON.parse(d);
+            ipcRenderer.invoke('register-shortcut', newShortcutKey,jsonObjNode).then((ret) => {
               if (ret) {
                 alert('Shortcut key registered successfully');
                 //node.setTitle(node.title + "  --(" + newShortcutKey + ")");

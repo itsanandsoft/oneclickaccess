@@ -2068,3 +2068,128 @@
 2023-06-01T18:33:53.583Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
 2023-06-01T18:34:24.991Z: H:\Electron\oneclickaccess\tree-data.json exists, writing data...
 2023-06-01T18:34:24.993Z: H:\Electron\oneclickaccess\tree-data.json updated with new data!
+2023-06-02T15:18:24.271Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:18:24.272Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+Up, Title: Folder 1
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+Tab, Title: Simple node with active children (expand)
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+4, Title: Sub-item 2.1
+2023-06-02T15:18:24.272Z: Shortcut Keys: Shift+Space, Title: Sub-item 2.1.1.1
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:18:24.272Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:18:24.272Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:18:24.272Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:18:24.272Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:18:24.272Z: Mac address for this host: %s
+2023-06-02T15:18:26.163Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-06-02T15:22:22.872Z: H:\Electron\oneclickaccess\tree-data.json exists, writing data...
+2023-06-02T15:22:22.875Z: H:\Electron\oneclickaccess\tree-data.json updated with new data!
+2023-06-02T15:32:41.204Z: Shortcut Keys: CommandOrControl+1, Title: item2 with
+2023-06-02T15:32:41.204Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:32:41.204Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:32:41.205Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:32:41.205Z: Shortcut Keys: Ctrl+Up, Title: Folder 1
+2023-06-02T15:32:41.205Z: Shortcut Keys: Ctrl+Tab, Title: Simple node with active children (expand)
+2023-06-02T15:32:41.205Z: Shortcut Keys: Ctrl+4, Title: Sub-item 2.1
+2023-06-02T15:32:41.205Z: Shortcut Keys: Shift+Space, Title: Sub-item 2.1.1.1
+2023-06-02T15:32:41.205Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:32:41.205Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:32:41.205Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:32:41.205Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:32:41.205Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:32:41.205Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:32:41.206Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:32:41.206Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:32:41.206Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:32:41.206Z: Mac address for this host: %s
+2023-06-02T15:32:41.501Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-06-02T15:32:50.954Z: false
+2023-06-02T15:33:24.831Z: false
+2023-06-02T15:38:58.764Z: false
+2023-06-02T15:44:09.477Z: Shortcut Keys: CommandOrControl+1, Title: item2 with
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:44:09.478Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+Up, Title: Folder 1
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+Tab, Title: Simple node with active children (expand)
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+4, Title: Sub-item 2.1
+2023-06-02T15:44:09.478Z: Shortcut Keys: Shift+Space, Title: Sub-item 2.1.1.1
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:44:09.478Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:44:09.478Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:44:09.478Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:44:09.478Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:44:09.478Z: Registration failed.
+2023-06-02T15:44:09.478Z: Mac address for this host: %s
+2023-06-02T15:44:09.703Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-06-02T15:52:37.436Z: Shortcut Keys: CommandOrControl+1, Title: item2 with
+2023-06-02T15:52:37.436Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:52:37.436Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+Up, Title: Folder 1
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+Tab, Title: Simple node with active children (expand)
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+4, Title: Sub-item 2.1
+2023-06-02T15:52:37.437Z: Shortcut Keys: Shift+Space, Title: Sub-item 2.1.1.1
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:52:37.437Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:52:37.437Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:52:37.437Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:52:37.437Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:52:37.437Z: Mac address for this host: %s
+2023-06-02T15:52:37.664Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-06-02T15:54:00.297Z: Shortcut Keys: CommandOrControl+1, Title: item2 with
+2023-06-02T15:54:00.298Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:54:00.298Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+Up, Title: Folder 1
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+Tab, Title: Simple node with active children (expand)
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+4, Title: Sub-item 2.1
+2023-06-02T15:54:00.299Z: Shortcut Keys: Shift+Space, Title: Sub-item 2.1.1.1
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:54:00.299Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:54:00.299Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T15:54:00.299Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T15:54:00.299Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T15:54:00.299Z: Registration failed.
+2023-06-02T15:54:00.299Z: Mac address for this host: %s
+2023-06-02T15:54:00.528Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-06-02T15:54:17.219Z: H:\Electron\oneclickaccess\tree-data.json exists, writing data...
+2023-06-02T15:54:17.220Z: H:\Electron\oneclickaccess\tree-data.json updated with new data!
+2023-06-02T15:54:25.036Z: false
+2023-06-02T16:04:44.559Z: Shortcut Keys: CommandOrControl+1, Title: item2 with
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T16:04:44.560Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+Up, Title: Folder 1
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+Tab, Title: Simple node with active children (expand)
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+4, Title: Sub-item 2.1
+2023-06-02T16:04:44.560Z: Shortcut Keys: Shift+Space, Title: Sub-item 2.1.1.1
+2023-06-02T16:04:44.560Z: Shortcut Keys: CommandOrControl+E, Title: ...
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T16:04:44.560Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T16:04:44.560Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T16:04:44.560Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T16:04:44.560Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T16:04:44.560Z: Registration failed.
+2023-06-02T16:04:44.561Z: Mac address for this host: %s
+2023-06-02T16:04:44.776Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
