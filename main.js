@@ -304,6 +304,9 @@ function createElectronMenu(x, y) {
 }
 
 function itemClicked(item) {
+  if(win.isVisible()){
+    win.minimize();
+  }
   if (item.hasOwnProperty('data')) {
     if (item.data.hasOwnProperty('type')) {
       if (item.data.type == 'text') {
@@ -525,12 +528,11 @@ ipcMain.on('relaunch', (event, args) => {
 });
 
 ipcMain.on('openTextEditor', (event, args) => {
-  const editor = os.platform() === 'win32' ? 'notepad.exe' : 'gedit';
-  const argss = os.platform() === 'win32' ? [] : ['--new-window'];
-  spawn(editor, argss, {
-    detached: true,
-    stdio: 'ignore'
-  }).unref();
+  if (process.platform === 'win32') {
+    exec('start notepad');
+  } else if (process.platform === 'darwin') {
+    exec('open -a "TextEdit"');
+  }
 });
 
 
@@ -739,9 +741,9 @@ ipcMain.on(`display-app-menu`, function (e, args) {
 });
 
 ipcMain.on(`close-app-menu`, function (e) {
-  if (!menuWindow.isDestroyed()) {
+  //if (!menuWindow.isDestroyed()) {
     menuWindow.close();
-  }
+  //}
 });
 // ipcMain.on(`close-export-dialog`, function (e) {
   
