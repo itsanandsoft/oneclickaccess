@@ -242,7 +242,7 @@ function createWindow() {
 function closeOrMinimizeWindow(close) {
   if (!close) {
     win.hide();
-    var icon = process.platform === 'win32' ? 'logo.png' : 'tray_mac';
+    var icon = process.platform === 'win32' ? 'logo' : 'tray_mac';
     tray = new Tray(path.join(__dirname, `assets/img/${icon}.png`));
     tray.on('click', () => {
       if (win.isVisible()) {
