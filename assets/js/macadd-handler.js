@@ -10,7 +10,7 @@ const hDSFilePath = path.join(__dirname, '/../../hds.txt');
 function createMacAddressFiles() {
 
     macaddress.one(function (err, mac) {
-        console.log("Mac address for this host: %s", mac);
+        // console.log("Mac address for this host: %s", mac);
 
         fs.writeFile(macAddFilePath, mac, function (err) {
             if (err) throw err;
@@ -27,7 +27,7 @@ function createMacAddressFiles() {
             fs.writeFile(hDSFilePath, serialNumber, function (err) {
                 if (err) throw err;
             });
-            console.log(`Hard disk serial number: ${serialNumber}`);
+            // console.log(`Hard disk serial number: ${serialNumber}`);
         });
     }
     if (os.platform() === 'darwin') {
@@ -38,7 +38,7 @@ function createMacAddressFiles() {
                 return;
             }
             const serialNumber = stdout.trim();
-            console.log(`Hard disk serial number: ${serialNumber}`);
+            // console.log(`Hard disk serial number: ${serialNumber}`);
             const file_path = path.join(__dirname, '/../../hds.txt');
             fs.writeFile(file_path, serialNumber, function (err) {
                 if (err) throw err;

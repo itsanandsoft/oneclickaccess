@@ -21,7 +21,7 @@ const autoLauncher = new AutoLaunch({
   name: 'oneclickaccess',
   path: app.getPath('exe'),
 });
-
+const moment = require('moment-timezone');
 const passphrase = 'ITSANSOFTnyshu55';
 
 // Disable the security warnings
@@ -31,10 +31,10 @@ app.commandLine.appendSwitch('ignore-certificate-errors');
 //app.commandLine.appendSwitch('disable-web-security');
 
 //comment on build
-const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
-console.log = (message) => {
-  logFile.write(`${new Date().toISOString()}: ${message}\n`);
-};
+// const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
+// console.log = (message) => {
+//   logFile.write(`${new Date().toISOString()}: ${message}\n`);
+// };
 
 if (!fs.existsSync(path.join(__dirname, 'database.json'))) {
   let data = [
@@ -332,17 +332,12 @@ function itemClicked(item) {
 
         fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
           if (err) throw err;
-
           data = JSON.parse(data);
           if(data.length>0){
             if(data[0].settings.hasOwnProperty('timezone')){
                 const utc = data[0].settings.timezone.split(/[+-]/);
+                const utcTime = moment.utc();
                 let hoursToAdd = minutesToAdd = 0;
-                const currentDate = new Date();
-                const timeZoneOffset = currentDate.getTimezoneOffset();
-                const offsetMilliseconds = timeZoneOffset * 60 * 1000;
-                const utcTime = currentDate.getTime() - offsetMilliseconds;
-                const utcDate = new Date(utcTime);
                 if (utc[1].includes(":")){
                   const time = utc[1].split(":");
                   hoursToAdd = time[0];
@@ -352,16 +347,16 @@ function itemClicked(item) {
                   hoursToAdd = utc[1];
                 }
                 if (/[+]/.test(data[0].settings.timezone)){
-                  utcDate.setHours(utcDate.getHours() + hoursToAdd);
-                  utcDate.setUTCMinutes(utcDate.getUTCMinutes() + minutesToAdd);
+                  const updatedTime = utcTime.clone().add(hoursToAdd, 'hours').add(minutesToAdd, 'minutes');
+                  const utcTimeString = updatedTime.toString();
+                  printTextonScreen(utcTimeString);
                 }
                 else if (/[-]/.test(data[0].settings.timezone)){
-                  utcDate.setHours(utcDate.getHours() - hoursToAdd);
-                  utcDate.setUTCMinutes(utcDate.getUTCMinutes() - minutesToAdd);
+                  const updatedTime = utcTime.clone().subtract(hoursToAdd, 'hours').subtract(minutesToAdd, 'minutes');
+                  const utcTimeString = updatedTime.toString();
+                  printTextonScreen(utcTimeString);
+
                 }
-                const utcTimeString = utcDate.toUTCString();
-                console.log(utcTimeString);
-                printTextonScreen(utcTimeString);
             }
           }
         });
@@ -741,9 +736,9 @@ ipcMain.on(`display-app-menu`, function (e, args) {
 });
 
 ipcMain.on(`close-app-menu`, function (e) {
-  //if (!menuWindow.isDestroyed()) {
+  
     menuWindow.close();
-  //}
+  
 });
 // ipcMain.on(`close-export-dialog`, function (e) {
   
