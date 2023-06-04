@@ -114,7 +114,7 @@ app.whenReady().then(() => {
 function initShorcutsOfTreeDataJson()
 {
   var dataF = fs.readFileSync(jsonFilePath)
-  
+  itemClicked
   //const decryptedData = CryptoJS.AES.decrypt(dataF, passphrase).toString(CryptoJS.enc.Utf8);
   
   var data = JSON.parse(dataF);
@@ -128,7 +128,7 @@ function traverseTree(node) {
     const shortcutKeys = node.data.shortcutKeys;
     const title = node.title;
     globalShortcut.register(shortcutKeys, () => {
-      console.log(JSON.stringify(node));
+      console.log("data-shoortcut::::"+JSON.stringify(node));
       itemClicked(node);
     });
     console.log(`Shortcut Keys: ${shortcutKeys}, Title: ${title}`);
@@ -316,7 +316,7 @@ function itemClicked(item) {
         }
         else
         {
-        printTextonScreen(item.label);
+        printTextonScreen(item.title);
         }
       }
       if (item.data.type == 'folder' || item.data.type == 'image' || item.data.type == 'file') {
@@ -368,15 +368,17 @@ function itemClicked(item) {
       printTextonScreen(item.data.isPassword);
     }
     else {
-      printTextonScreen(item.label);
+      printTextonScreen(item.title);
     }
     
   }
   else {
-    printTextonScreen(item.label);
+    printTextonScreen(item.title);
   }
+  if(menuWindow){
   if (!menuWindow.isDestroyed()) {
     menuWindow.close();
+  }
   }
 }
 
