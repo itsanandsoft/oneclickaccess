@@ -224,7 +224,7 @@ function createWindow() {
   // win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
   win.setAlwaysOnTop(false, 'floating');
   //comment on build
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
   win.removeMenu(true);
 
   win.on('close', (event) => {
@@ -273,6 +273,13 @@ function closeOrMinimizeWindow(close) {
 }
 
 function createElectronMenu(x, y) {
+  try{
+    if(menuWindow){
+      menuWindow.close();
+    }
+  }catch(e){
+
+  }
   var dataF =  fs.readFileSync(jsonFilePath);
  // const decryptedData = CryptoJS.AES.decrypt(dataF, passphrase).toString(CryptoJS.enc.Utf8);
   
@@ -376,9 +383,7 @@ function itemClicked(item) {
     printTextonScreen(item.title);
   }
   if(menuWindow){
-  if (!menuWindow.isDestroyed()) {
-    menuWindow.close();
-  }
+      menuWindow.close();
   }
 }
 
@@ -738,8 +743,9 @@ ipcMain.on(`display-app-menu`, function (e, args) {
 });
 
 ipcMain.on(`close-app-menu`, function (e) {
-  
+  if(menuWindow){
     menuWindow.close();
+  }
   
 });
 // ipcMain.on(`close-export-dialog`, function (e) {
