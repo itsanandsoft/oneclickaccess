@@ -128,7 +128,7 @@ function traverseTree(node) {
     const shortcutKeys = node.data.shortcutKeys;
     const title = node.title;
     globalShortcut.register(shortcutKeys, () => {
-      console.log("data-shoortcut::::"+JSON.stringify(node));
+      //console.log("data-shoortcut::::"+JSON.stringify(node));
       itemClicked(node);
     });
     console.log(`Shortcut Keys: ${shortcutKeys}, Title: ${title}`);
@@ -1031,8 +1031,8 @@ ipcMain.handle('check-global-shortcut', (event, shortcut) => {
 ipcMain.handle('register-shortcut', async (event, newShortcutKey, nodeJson) => {
   // Register a global shortcut
   const successReg = globalShortcut.register(newShortcutKey, () => {
-    console.log(JSON.stringify(nodeJson));
-    //itemClicked(nodeJson);
+    //console.log(JSON.stringify(nodeJson));
+    itemClicked(nodeJson);
   });
   return successReg;
 });
