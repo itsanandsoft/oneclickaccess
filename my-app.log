@@ -2193,3 +2193,49 @@
 2023-06-02T16:04:44.560Z: Registration failed.
 2023-06-02T16:04:44.561Z: Mac address for this host: %s
 2023-06-02T16:04:44.776Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-06-02T18:54:29.863Z: Shortcut Keys: CommandOrControl+1, Title: item2 with
+2023-06-02T18:54:29.863Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T18:54:29.863Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T18:54:29.863Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T18:54:29.863Z: Shortcut Keys: Ctrl+Up, Title: Folder 1
+2023-06-02T18:54:29.863Z: Shortcut Keys: Ctrl+Tab, Title: Simple node with active children (expand)
+2023-06-02T18:54:29.863Z: Shortcut Keys: Ctrl+4, Title: Sub-item 2.1
+2023-06-02T18:54:29.863Z: Shortcut Keys: Shift+Space, Title: Sub-item 2.1.1.1
+2023-06-02T18:54:29.863Z: Shortcut Keys: CommandOrControl+E, Title: ...
+2023-06-02T18:54:29.863Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T18:54:29.863Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T18:54:29.863Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T18:54:29.863Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T18:54:29.864Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T18:54:29.864Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T18:54:29.864Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T18:54:29.864Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T18:54:29.864Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T18:54:29.864Z: Mac address for this host: %s
+2023-06-02T18:54:29.909Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-06-02T18:54:57.361Z: {"key":"4","title":"node 4","data":{"shortcutKeys":"Ctrl+0"}}
+2023-06-02T18:55:22.786Z: {"key":"3","title":"item2 with","data":{"shortcutKeys":"CommandOrControl+1"}}
+2023-06-02T18:57:23.740Z: Shortcut Keys: CommandOrControl+1, Title: item2 with
+2023-06-02T18:57:23.741Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T18:57:23.741Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T18:57:23.741Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T18:57:23.742Z: Shortcut Keys: Ctrl+Up, Title: Folder 1
+2023-06-02T18:57:23.742Z: Shortcut Keys: Ctrl+Tab, Title: Simple node with active children (expand)
+2023-06-02T18:57:23.742Z: Shortcut Keys: Ctrl+4, Title: Sub-item 2.1
+2023-06-02T18:57:23.742Z: Shortcut Keys: Shift+Space, Title: Sub-item 2.1.1.1
+2023-06-02T18:57:23.742Z: Shortcut Keys: CommandOrControl+E, Title: ...
+2023-06-02T18:57:23.742Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T18:57:23.742Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T18:57:23.742Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T18:57:23.742Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T18:57:23.742Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T18:57:23.742Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T18:57:23.742Z: Shortcut Keys: Ctrl+0, Title: node 4
+2023-06-02T18:57:23.742Z: Shortcut Keys: Alt+:, Title: using href
+2023-06-02T18:57:23.742Z: Shortcut Keys: Ctrl+Space, Title: node with some extra classes (will be added to the generated markup)
+2023-06-02T18:57:23.742Z: Mac address for this host: %s
+2023-06-02T18:57:23.919Z: Hard disk serial number: 0000_0000_0000_0000_6479_A71C_8257_3733.
+2023-06-02T18:57:31.507Z: {"key":"4","title":"node 4","data":{"shortcutKeys":"Ctrl+0"}}
+2023-06-02T18:57:31.510Z: false
+2023-06-02T18:58:15.074Z: {"key":"20_1_1_1","title":"Sub-item 2.1.1.1","data":{"shortcutKeys":"Shift+Space"},"children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1"}]}]}]}]}]}]}
+2023-06-02T18:58:15.074Z: false

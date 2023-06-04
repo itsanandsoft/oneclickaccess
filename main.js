@@ -129,7 +129,7 @@ function traverseTree(node) {
     const title = node.title;
     globalShortcut.register(shortcutKeys, () => {
       console.log(JSON.stringify(node));
-      //itemClicked(node);
+      itemClicked(node);
     });
     console.log(`Shortcut Keys: ${shortcutKeys}, Title: ${title}`);
   }
