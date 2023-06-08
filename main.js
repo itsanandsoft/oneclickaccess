@@ -1071,6 +1071,27 @@ ipcMain.handle('register-context-shortcut', async (event, newShortcutKey) => {
   return successReg;
 });
 
+// IPC handler for retrieving the context shortcut label
+ipcMain.handle('getContextShortcutLabel', async (event) => {
+  try {
+    const data = await fs.promises.readFile(path.join(__dirname, 'database.json'));
+    const parsedData = JSON.parse(data);
+    if (parsedData.length > 0) {
+      if (parsedData[0].settings.hasOwnProperty('contextShortCut')) {
+        const contextShortCut = parsedData[0].settings.contextShortCut;
+        return { contextShortCut };
+      } else {
+        return { error: 'No context shortcut found in database.json' };
+      }
+    } else {
+      return { error: 'No data found in database.json' };
+    }
+  } catch (error) {
+    return { error: error.message };
+  }
+});
+
+
 // ipcMain.on('unregister-shortcut', (event) => {
 //   if (tempRegisteredShortcut) {
 //     globalShortcut.unregister(tempRegisteredShortcut);

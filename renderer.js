@@ -516,7 +516,15 @@ const { ipcRenderer,globalShortcut  } = require("electron");
  
 
 $(function() {
-  setContextShortcutLabel();
+  
+    // Send IPC message to retrieve the context shortcut label from the main process
+    ipcRenderer.invoke('getContextShortcutLabel').then((data) => {
+      if (data.error) {
+        console.log('contextShortCut', { error: data.error });
+      } else {
+        updateContextShortcutLabel(data.contextShortCut);
+      }
+    });
   
   ipcRenderer.invoke('readDatabase').then((data) => {
     if (data.length > 0) {
@@ -1157,7 +1165,15 @@ $(function() {
             ipcRenderer.invoke('register-context-shortcut', newShortcutKey).then((ret) => {
               if (ret) {
                 ipcRenderer.send("saveContextShortCut", newShortcutKey); 
-                setContextShortcutLabel();
+                
+                // Send IPC message to retrieve the context shortcut label from the main process
+                ipcRenderer.invoke('getContextShortcutLabel').then((data) => {
+                  if (data.error) {
+                    console.log('contextShortCut', { error: data.error });
+                  } else {
+                    updateContextShortcutLabel(data.contextShortCut);
+                  }
+                });
                 alert('Shortcut key registered successfully');
               } else {
                 alert('Shortcut key registration failed');
@@ -1493,26 +1509,32 @@ function removeShortcutkey(shortcutKey)
     });
 }
 
-function setContextShortcutLabel()
-{
-  fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
-    if (err) {
-      console.log('contextShortCut', { error: err.message });
-      return;
-    }
-    try {
-      data = JSON.parse(data);
-      if (data.length > 0) {
-        if (data[0].settings.hasOwnProperty('contextShortCut')) {
-          const contextShortCut = data[0].settings.contextShortCut;
-          $('#contextShortCutLabel').html(contextShortCut);
-          console.log('contextShortCut', { contextShortCut });
-        }
-      } else {
-        console.log('contextShortCut', { error: 'No data found in database.json' });
-      }
-    } catch (error) {
-      console.log('contextShortCut', { error: error.message });
-    }
-  });
+// function setContextShortcutLabel()
+// {
+//   fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
+//     if (err) {
+//       console.log('contextShortCut', { error: err.message });
+//       return;
+//     }
+//     try {
+//       data = JSON.parse(data);
+//       if (data.length > 0) {
+//         if (data[0].settings.hasOwnProperty('contextShortCut')) {
+//           const contextShortCut = data[0].settings.contextShortCut;
+//           $('#contextShortCutLabel').html(contextShortCut);
+//           console.log('contextShortCut', { contextShortCut });
+//         }
+//       } else {
+//         console.log('contextShortCut', { error: 'No data found in database.json' });
+//       }
+//     } catch (error) {
+//       console.log('contextShortCut', { error: error.message });
+//     }
+//   });
+// }
+
+// Function to update the context shortcut label in the UI
+function updateContextShortcutLabel(contextShortCut) {
+  $('#contextShortCutLabel').html(contextShortCut);
+  console.log('contextShortCut', { contextShortCut });
 }
