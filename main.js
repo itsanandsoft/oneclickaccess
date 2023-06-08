@@ -224,7 +224,7 @@ function createWindow() {
   // win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
   win.setAlwaysOnTop(false, 'floating');
   //comment on build
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
   win.removeMenu(true);
 
   win.on('close', (event) => {
@@ -382,9 +382,10 @@ function itemClicked(item) {
   else {
     printTextonScreen(item.title);
   }
-  if(menuWindow){
-      menuWindow.close();
+  if (menuWindow && !menuWindow.isDestroyed()) {
+    menuWindow.close();
   }
+  
 }
 
 function attachClickHandlers(menuItems) {

@@ -522,7 +522,7 @@ $(function() {
       if (data.error) {
         console.log('contextShortCut', { error: data.error });
       } else {
-        updateContextShortcutLabel(data.contextShortCut);
+        $('#contextShortCutLabel').html(data.contextShortCut);
       }
     });
   
@@ -623,10 +623,9 @@ $(function() {
         </ul>
       </li>
     </ul>`);
-    $('#contextt_menu').html(`<button class="button flat-button small button2">Set Context</button>
+    $('#contextt_menu').html(`<button class="button flat-button small button2" id="main_file_add_context_shortcut">Set Context</button>
     <ul class="ribbon-dropdown" data-role="dropdown">
-      <li class="simple"><a href="#" class="text-decoration-none" id="main_file_add_context_shortcut">Set Context Shortcut</a></li>
-      <li class="simple"><label class="small" style="margin-left:10px;" id="contextShortCutLabel">Ctrl+Q</label></li>
+      <li class="simple"><label class="small" style="margin-left:10px;margin-right:40px" id="contextShortCutLabel">Ctrl+Q</label></li>
     </ul>`);
 
   var platform = window.navigator.platform.toLowerCase();
@@ -1165,16 +1164,9 @@ $(function() {
             ipcRenderer.invoke('register-context-shortcut', newShortcutKey).then((ret) => {
               if (ret) {
                 ipcRenderer.send("saveContextShortCut", newShortcutKey); 
-                
+                $('#contextShortCutLabel').html(newShortcutKey);
                 // Send IPC message to retrieve the context shortcut label from the main process
-                ipcRenderer.invoke('getContextShortcutLabel').then((data) => {
-                  if (data.error) {
-                    console.log('contextShortCut', { error: data.error });
-                  } else {
-                    updateContextShortcutLabel(data.contextShortCut);
-                  }
-                });
-                alert('Shortcut key registered successfully');
+                  alert('Shortcut key registered successfully');
               } else {
                 alert('Shortcut key registration failed');
               }
@@ -1225,7 +1217,7 @@ function openChildClickValueDialog(node){
        // alert("dsad");
        setTimeout(function() {
         $('#dialogInput').focus();
-        }, 500);
+        }, 800);
         
       }
   });
@@ -1532,9 +1524,3 @@ function removeShortcutkey(shortcutKey)
 //     }
 //   });
 // }
-
-// Function to update the context shortcut label in the UI
-function updateContextShortcutLabel(contextShortCut) {
-  $('#contextShortCutLabel').html(contextShortCut);
-  console.log('contextShortCut', { contextShortCut });
-}
