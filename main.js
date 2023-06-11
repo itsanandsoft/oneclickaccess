@@ -31,7 +31,7 @@ app.commandLine.appendSwitch('ignore-certificate-errors');
 //app.commandLine.appendSwitch('disable-web-security');
 
 //comment on build
-// const logFile = fs.createWriteStream('my-app.log', { flags: 'a' });
+// const logFile = fs.createWriteStream(path.join(__dirname,'my-app.log'), { flags: 'a' });
 // console.log = (message) => {
 //   logFile.write(`${new Date().toISOString()}: ${message}\n`);
 // };
@@ -140,51 +140,52 @@ function traverseTree(node) {
   }
 }
 
-function checkMachines(data, win) {
-  const mac_address = fs.readFileSync('mac.txt', 'utf8');
-  const hard_disk_serial = fs.readFileSync('hds.txt', 'utf8');
-  const options = {
+function checkMachines(data) {
+  const mac_address = fs.readFileSync(path.join(__dirname,'mac.txt'), 'utf8');
+  const hard_disk_serial = fs.readFileSync(path.join(__dirname,'hds.txt'), 'utf8');
+  const options = [{
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer ' + data.token,
     }
-  };
-  https.get(config.api_url + '/api/user/get-all-machines', options, (response) => {
-    let data = '';
-    response.on('data', (chunk) => {
-      data += chunk;
-    });
-    response.on('end', () => {
-      const json = JSON.parse(data);
-      if (json.status_code == 200) {
-        if (json.body.machines.length > 0) {
-          for (let key in json.body.machines) {
-            if (json.body.machines[key].mac_address == mac_address && json.body.machines[key].hard_disk_serial == hard_disk_serial) {
-              if (json.body.machines[key].active == '1') {
-                win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
-                //win.webContents.openDevTools();
-              }
-              else {
-                win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
-              }
-            }
-            else {
-              win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
-            }
-          }
-        }
-        else {
-          win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
-        }
-      }
-      else {
-        win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
-      }
-    });
+  }];
+  //win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
+   https.get('https://www.oneclickaccessapi.pears.info/api/user/get-all-machines', options, (response) => {
+    //let data = '';
+    // response.on('data', (chunk) => {
+    //   data += chunk;
+    // });
+    //response.on('end', () => {
+      // const json = JSON.parse(data);
+      // if (json.status_code == 200) {
+      //   if (json.body.machines.length > 0) {
+      //     for (let key in json.body.machines) {
+      //       if (json.body.machines[key].mac_address == mac_address && json.body.machines[key].hard_disk_serial == hard_disk_serial) {
+      //         if (json.body.machines[key].active == '1') {
+      //           win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
+      //           //win.webContents.openDevTools();
+      //         }
+      //         else {
+      //           win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
+      //         }
+      //       }
+      //       else {
+      //         win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
+      //       }
+      //     }
+      //   }
+      //   else {
+      //     win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
+      //   }
+      // }
+      // else {
+         win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
+      // }
+    //});
   }).on('error', (error) => {
-    console.error(error);
-    win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`))
+    //console.error(error);
+    win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
   });
 }
 
@@ -205,10 +206,9 @@ function createWindow() {
 
   var databaseJSON= JSON.parse(fs.readFileSync(path.join(__dirname, 'database.json'), 'utf-8'));
   if (databaseJSON.length > 0) {
-    console.log("HAHAHAHAHAHAHAHHAHAAH::::"+JSON.stringify(databaseJSON))
     if (databaseJSON[0].users.email == '') {
       var databaseUsers = databaseJSON[0].users;
-      checkMachines(databaseUsers, win);
+      checkMachines(databaseUsers);
     }
     else {
       //win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
@@ -254,7 +254,7 @@ function closeOrMinimizeWindow(close) {
       }
     });
     notification = new Notification({
-      title: config.app_name,
+      title: 'One Click Access',
       body: 'Click on tray icon to maximize',
       icon: path.join(__dirname, 'assets/img/logo.png'),
       silent: false,
@@ -355,15 +355,14 @@ function itemClicked(item) {
                 }
                 if (/[+]/.test(data[0].settings.timezone)){
                   const updatedTime = utcTime.clone().add(hoursToAdd, 'hours').add(minutesToAdd, 'minutes');
-                  let utcTimeString = updatedTime.toString();
-                  utcTimeString = utcTimeString.replace("GMT+0000", `GMT+${hoursToAdd}:${minutesToAdd}`);
+                  const utcTimeString = updatedTime.toString();
                   printTextonScreen(utcTimeString);
                 }
                 else if (/[-]/.test(data[0].settings.timezone)){
                   const updatedTime = utcTime.clone().subtract(hoursToAdd, 'hours').subtract(minutesToAdd, 'minutes');
-                  let utcTimeString = updatedTime.toString();
-                  utcTimeString = utcTimeString.replace("GMT+0000", `GMT-${hoursToAdd}:${minutesToAdd}`);
+                  const utcTimeString = updatedTime.toString();
                   printTextonScreen(utcTimeString);
+
                 }
             }
           }

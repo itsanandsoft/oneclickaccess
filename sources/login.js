@@ -34,7 +34,7 @@ $("#login-btn").on("click", function (e) {
 
     if (page == 'login') {
         
-        fetch(config.api_url+'/api/login',
+        fetch('https://www.oneclickaccessapi.pears.info/api/login',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -94,7 +94,7 @@ $("#login-btn").on("click", function (e) {
             $('.alert-danger').show();
             return;
         }
-        fetch(config.api_url+'/api/signup',
+        fetch('https://www.oneclickaccessapi.pears.info/api/signup',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
