@@ -355,14 +355,15 @@ function itemClicked(item) {
                 }
                 if (/[+]/.test(data[0].settings.timezone)){
                   const updatedTime = utcTime.clone().add(hoursToAdd, 'hours').add(minutesToAdd, 'minutes');
-                  const utcTimeString = updatedTime.toString();
+                  let utcTimeString = updatedTime.toString();
+                  utcTimeString = utcTimeString.replace("GMT+0000", `GMT+${hoursToAdd}:${minutesToAdd}`);
                   printTextonScreen(utcTimeString);
                 }
                 else if (/[-]/.test(data[0].settings.timezone)){
                   const updatedTime = utcTime.clone().subtract(hoursToAdd, 'hours').subtract(minutesToAdd, 'minutes');
-                  const utcTimeString = updatedTime.toString();
+                  let utcTimeString = updatedTime.toString();
+                  utcTimeString = utcTimeString.replace("GMT+0000", `GMT-${hoursToAdd}:${minutesToAdd}`);
                   printTextonScreen(utcTimeString);
-
                 }
             }
           }
