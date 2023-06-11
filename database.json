@@ -1,15 +1,15 @@
 [
-  {
-    "users": {
-      "id": "0",
-      "email": "",
-      "token": ""
-    },
-    "settings": {
-      "id": "1",
-      "incognito": "1",
-      "timezone": "UTC-06:00",
-      "contextShortCut": "CommandOrControl+5"
+    {
+      "users": {
+        "id": "0",
+        "email": "",
+        "token": ""
+      },
+      "settings": {
+        "id": "1",
+        "incognito": "1",
+        "timezone": "UTC-06:00",
+        "contextShortCut": "CmdOrCtrl+Q"
+      }
     }
-  }
-]
+  ]

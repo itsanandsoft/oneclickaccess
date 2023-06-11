@@ -2239,3 +2239,500 @@
 2023-06-02T18:57:31.510Z: false
 2023-06-02T18:58:15.074Z: {"key":"20_1_1_1","title":"Sub-item 2.1.1.1","data":{"shortcutKeys":"Shift+Space"},"children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1","children":[{"key":"20_1_1_1","title":"Sub-item 2.1.1.1"}]}]}]}]}]}]}
 2023-06-02T18:58:15.074Z: false
+2023-06-11T09:58:03.555Z: []
+2023-06-11T09:58:03.720Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T09:58:03.720Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T09:58:03.720Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T09:58:03.720Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T09:58:03.720Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T09:58:03.720Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T09:58:03.721Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T09:59:39.270Z: HAHAHAHAHAHAHAHHAHAAH::::[]
+2023-06-11T09:59:39.300Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T09:59:39.300Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T09:59:39.300Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T09:59:39.300Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T09:59:39.300Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T09:59:39.300Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T09:59:39.300Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T09:59:39.300Z: Registration failed.
+2023-06-11T10:00:48.180Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:00:48.181Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:00:48.181Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:00:48.181Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:00:48.181Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:00:48.181Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:00:48.181Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:09:30.255Z: HAHAHAHAHAHAHAHHAHAAH::::{"dbFilePath":"H:\\Electron\\oneclickaccess\\database.json","data":[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]}
+2023-06-11T10:09:51.899Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:14:51.438Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:16:07.592Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:19:19.486Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:19:19.536Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:19:19.536Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:19:19.536Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:19:19.536Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:19:19.536Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:19:19.537Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:19:19.537Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:21:20.612Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:21:20.667Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:21:20.667Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:21:20.668Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:21:20.668Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:21:20.668Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:21:20.668Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:21:20.668Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:22:13.254Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:22:13.313Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:22:13.313Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:22:13.313Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:22:13.313Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:22:13.313Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:22:13.313Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:22:13.313Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:25:53.736Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:25:53.789Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:25:53.789Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:25:53.789Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:25:53.789Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:25:53.789Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:25:53.789Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:25:53.789Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:30:29.664Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:30:29.712Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:30:29.712Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:30:29.712Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:30:29.712Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:30:29.712Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:30:29.712Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:30:29.712Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:32:50.994Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:32:51.045Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:32:51.045Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:32:51.045Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:32:51.045Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:32:51.045Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:32:51.045Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:32:51.045Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:33:34.984Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:33:35.038Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:33:35.038Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:33:35.038Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:33:35.038Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:33:35.038Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:33:35.039Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:33:35.039Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:35:22.567Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:35:22.620Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:35:22.620Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:35:22.620Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:35:22.620Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:35:22.620Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:35:22.620Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:35:22.620Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:35:22.620Z: Registration failed.
+2023-06-11T10:37:44.257Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:37:44.298Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:37:44.299Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:37:44.299Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:37:44.299Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:37:44.299Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:37:44.299Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:37:44.299Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:38:34.756Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:38:34.795Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:38:34.795Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:38:34.795Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:38:34.795Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:38:34.795Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:38:34.795Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:38:34.795Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:39:00.634Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:39:00.672Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:39:00.672Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:39:00.672Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:39:00.672Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:39:00.672Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:39:00.672Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:39:00.672Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:40:09.488Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:40:09.529Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:40:09.529Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:40:09.529Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:40:09.529Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:40:09.529Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:40:09.529Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:40:09.529Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:41:41.571Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:41:41.609Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:41:41.609Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:41:41.609Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:41:41.609Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:41:41.609Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:41:41.609Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:41:41.609Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:50:09.351Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T10:50:09.390Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T10:50:09.391Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T10:50:09.391Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T10:50:09.391Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T10:50:09.391Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T10:50:09.391Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T10:50:09.391Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T10:52:09.529Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T11:02:10.107Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T11:02:10.123Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T11:02:10.123Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T11:02:10.123Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T11:02:10.123Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T11:02:10.123Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T11:02:10.123Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T11:02:10.123Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T11:11:17.938Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T11:11:17.955Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T11:11:17.956Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T11:11:17.956Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T11:11:17.956Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T11:11:17.956Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T11:11:17.956Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T11:11:17.956Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T11:14:05.152Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T11:14:05.168Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T11:14:05.168Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T11:14:05.168Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T11:14:05.168Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T11:14:05.169Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T11:14:05.169Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T11:14:05.169Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T11:38:06.143Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T11:38:06.162Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T11:38:06.162Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T11:38:06.162Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T11:38:06.162Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T11:38:06.162Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T11:38:06.163Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T11:38:06.163Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T12:13:18.523Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T12:13:18.540Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T12:13:18.541Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T12:13:18.541Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T12:13:18.541Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T12:13:18.541Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T12:13:18.541Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T12:13:18.541Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T12:13:18.503Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T12:13:18.543Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T12:13:18.543Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T12:13:18.543Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T12:13:18.543Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T12:13:18.543Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T12:13:18.543Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T12:13:18.543Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T12:13:18.543Z: Registration failed.
+2023-06-11T12:18:38.681Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T12:18:38.694Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T12:18:38.694Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T12:18:38.694Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T12:18:38.694Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T12:18:38.694Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T12:18:38.694Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T12:18:38.695Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T12:18:38.695Z: Registration failed.
+2023-06-11T12:19:20.320Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T12:19:20.333Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T12:19:20.334Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T12:19:20.334Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T12:19:20.334Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T12:19:20.334Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T12:19:20.334Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T12:19:20.334Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T12:19:20.334Z: Registration failed.
+2023-06-11T12:19:20.400Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T12:19:20.415Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T12:19:20.415Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T12:19:20.415Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T12:19:20.415Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T12:19:20.415Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T12:19:20.415Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T12:19:20.415Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T12:19:20.415Z: Registration failed.
+2023-06-11T13:13:14.732Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T13:13:14.948Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T13:13:14.948Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T13:13:14.949Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T13:13:14.949Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T13:13:14.949Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T13:13:14.949Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T13:13:14.949Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T13:13:14.949Z: Registration failed.
+2023-06-11T13:13:14.732Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T13:13:14.961Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T13:13:14.967Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T13:13:14.967Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T13:13:14.967Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T13:13:14.968Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T13:13:14.969Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T13:13:14.969Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T13:13:14.969Z: Registration failed.
+2023-06-11T13:27:11.756Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T13:27:11.775Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T13:27:11.776Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T13:27:11.777Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T13:27:11.778Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T13:27:11.778Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T13:27:11.778Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T13:27:11.778Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T13:27:11.779Z: Registration failed.
+2023-06-11T13:27:43.913Z: User updated with value: {"id":8,"email":"sheraz1@gmail.com","token":"5|WQFgEAA2edobKoytoxe0o3QEJ53Y3syi0WUF93DS"}
+2023-06-11T13:27:48.784Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":8,"email":"sheraz1@gmail.com","token":"5|WQFgEAA2edobKoytoxe0o3QEJ53Y3syi0WUF93DS"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T13:27:48.951Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T13:27:48.951Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T13:27:48.952Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T13:27:48.952Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T13:27:48.952Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T13:27:48.952Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T13:27:48.952Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T13:27:48.952Z: Registration failed.
+2023-06-11T13:29:36.275Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":8,"email":"sheraz1@gmail.com","token":"5|WQFgEAA2edobKoytoxe0o3QEJ53Y3syi0WUF93DS"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T13:29:36.304Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T13:29:36.307Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T13:29:36.308Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T13:29:36.308Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T13:29:36.308Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T13:29:36.308Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T13:29:36.308Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T13:29:36.309Z: Registration failed.
+2023-06-11T13:30:25.493Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":8,"email":"sheraz1@gmail.com","token":"5|WQFgEAA2edobKoytoxe0o3QEJ53Y3syi0WUF93DS"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T13:30:25.558Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T13:30:25.558Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T13:30:25.559Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T13:30:25.559Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T13:30:25.559Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T13:30:25.559Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T13:30:25.559Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T13:30:25.559Z: Registration failed.
+2023-06-11T13:31:30.015Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":8,"email":"sheraz1@gmail.com","token":"5|WQFgEAA2edobKoytoxe0o3QEJ53Y3syi0WUF93DS"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T13:31:30.046Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T13:31:30.046Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T13:31:30.047Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T13:31:30.047Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T13:31:30.047Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T13:31:30.047Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T13:31:30.047Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T13:31:30.047Z: Registration failed.
+2023-06-11T15:02:45.585Z: Setting 1 setting updated with incognito value: [
+  {
+    "users": {
+      "id": "0",
+      "email": "",
+      "token": ""
+    },
+    "settings": {
+      "id": "1",
+      "incognito": "1",
+      "timezone": "UTC-06:00",
+      "contextShortCut": "CmdOrCtrl+Q"
+    }
+  }
+]
+2023-06-11T15:03:29.380Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:03:29.395Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:03:29.395Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:03:29.395Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:03:29.395Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:03:29.395Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:03:29.395Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:03:29.395Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:04:13.658Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:04:13.670Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:04:13.670Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:04:13.670Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:04:13.670Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:04:13.670Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:04:13.671Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:04:13.671Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:04:13.671Z: Registration failed.
+2023-06-11T15:05:47.162Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:05:47.176Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:05:47.176Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:05:47.177Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:05:47.177Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:05:47.177Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:05:47.177Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:05:47.177Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:07:10.960Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":8,"email":"sheraz1@gmail.com","token":"5|WQFgEAA2edobKoytoxe0o3QEJ53Y3syi0WUF93DS"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T15:07:10.985Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:07:10.985Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:07:10.985Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:07:10.985Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:07:10.985Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:07:10.986Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:07:10.986Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:09:39.769Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":8,"email":"sheraz1@gmail.com","token":"5|WQFgEAA2edobKoytoxe0o3QEJ53Y3syi0WUF93DS"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Z"}}]
+2023-06-11T15:09:39.798Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:09:39.798Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:09:39.798Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:09:39.798Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:09:39.798Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:09:39.798Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:09:39.799Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:10:25.619Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:10:25.635Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:10:25.635Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:10:25.635Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:10:25.635Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:10:25.635Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:10:25.635Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:10:25.635Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:11:50.891Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:11:50.907Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:11:50.907Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:11:50.907Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:11:50.908Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:11:50.908Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:11:50.908Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:11:50.908Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:12:24.340Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:12:24.354Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:12:24.354Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:12:24.354Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:12:24.354Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:12:24.354Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:12:24.354Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:12:24.354Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:12:24.354Z: Registration failed.
+2023-06-11T15:13:48.489Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:13:48.506Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:13:48.506Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:13:48.506Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:13:48.506Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:13:48.506Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:13:48.506Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:13:48.506Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:16:06.991Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:16:07.005Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:16:07.006Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:16:07.006Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:16:07.006Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:16:07.006Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:16:07.006Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:16:07.006Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:17:06.483Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:17:06.499Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:17:06.499Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:17:06.499Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:17:06.499Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:17:06.499Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:17:06.499Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:17:06.499Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:18:49.077Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:18:49.092Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:18:49.092Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:18:49.092Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:18:49.092Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:18:49.092Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:18:49.092Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:18:49.093Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:19:35.785Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:19:35.801Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:19:35.801Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:19:35.801Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:19:35.802Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:19:35.802Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:19:35.802Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:19:35.802Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:33:16.798Z: User updated with value: {"id":8,"email":"sheraz1@gmail.com","token":"6|4puK1EZzB2SxHrb7H2DvcKmy1GFTZU3XbA1xPqIC"}
+2023-06-11T15:33:23.900Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":8,"email":"sheraz1@gmail.com","token":"6|4puK1EZzB2SxHrb7H2DvcKmy1GFTZU3XbA1xPqIC"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:33:23.927Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:33:23.928Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:33:23.928Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:33:23.928Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:33:23.928Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:33:23.928Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:33:23.928Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:33:47.143Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:33:47.249Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:33:47.249Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:33:47.249Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:33:47.249Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:33:47.249Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:33:47.249Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:33:47.249Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:33:47.249Z: Registration failed.
+2023-06-11T15:34:24.117Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:34:24.148Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:34:24.148Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:34:24.148Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:34:24.148Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:34:24.148Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:34:24.148Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:34:24.148Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:34:24.148Z: Registration failed.
+2023-06-11T15:35:17.349Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:35:17.408Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:35:17.408Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:35:17.408Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:35:17.408Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:35:17.408Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:35:17.408Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:35:17.408Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:35:17.409Z: Registration failed.
+2023-06-11T15:36:00.281Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:36:34.752Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:36:34.809Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:36:34.809Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:36:34.810Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:36:34.810Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:36:34.810Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:36:34.810Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:36:34.810Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:36:34.810Z: Registration failed.
+2023-06-11T15:38:46.287Z: User updated with value: {"id":9,"email":"sheraz1@gmail.com","token":"6|TNcFwmDkzknIwrDcoyr3LYqL3d2I8z2IIy5u0niw"}
+2023-06-11T15:38:50.417Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":9,"email":"sheraz1@gmail.com","token":"6|TNcFwmDkzknIwrDcoyr3LYqL3d2I8z2IIy5u0niw"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:38:50.441Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:38:50.441Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:38:50.441Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:38:50.442Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:38:50.442Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:38:50.442Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:38:50.442Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:38:50.442Z: Registration failed.
+2023-06-11T15:39:11.795Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:39:11.847Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:39:11.848Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:39:11.848Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:39:11.848Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:39:11.848Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:39:11.848Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:39:11.848Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:39:11.849Z: Registration failed.
+2023-06-11T15:48:34.915Z: User updated with value: {"id":9,"email":"sheraz1@gmail.com","token":"7|ljbcO8oQbZGEOrxEL7OgdvM8nBbUaPdDUCLlcdCP"}
+2023-06-11T15:48:39.037Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":9,"email":"sheraz1@gmail.com","token":"7|ljbcO8oQbZGEOrxEL7OgdvM8nBbUaPdDUCLlcdCP"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T15:48:39.064Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T15:48:39.064Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T15:48:39.064Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T15:48:39.064Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T15:48:39.064Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T15:48:39.065Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T15:48:39.065Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T15:48:39.065Z: Registration failed.
+2023-06-11T16:03:46.381Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":"0","email":"","token":""},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T16:03:46.440Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T16:03:46.441Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T16:03:46.441Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T16:03:46.441Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T16:03:46.441Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T16:03:46.441Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T16:03:46.441Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T16:03:46.441Z: Registration failed.
+2023-06-11T16:18:13.043Z: User updated with value: {"id":9,"email":"sheraz1@gmail.com","token":"8|dRjEiqVWK5HK1hGgQRO9oe6bVGZQszrUJyzQkTUN"}
+2023-06-11T16:18:23.916Z: HAHAHAHAHAHAHAHHAHAAH::::[{"users":{"id":9,"email":"sheraz1@gmail.com","token":"8|dRjEiqVWK5HK1hGgQRO9oe6bVGZQszrUJyzQkTUN"},"settings":{"id":"1","incognito":"1","timezone":"UTC-06:00","contextShortCut":"CmdOrCtrl+Q"}}]
+2023-06-11T16:18:23.960Z: Shortcut Keys: Alt+2, Title: hahahaha
+2023-06-11T16:18:23.960Z: Shortcut Keys: CommandOrControl+Up, Title: Lake
+2023-06-11T16:18:23.960Z: Shortcut Keys: CmdOrCtrl+7, Title: www.lake.com
+2023-06-11T16:18:23.960Z: Shortcut Keys: CommandOrControl+2, Title: Password
+2023-06-11T16:18:23.960Z: Shortcut Keys: CommandOrControl+1, Title: ********
+2023-06-11T16:18:23.960Z: Shortcut Keys: Super+F2, Title: erhwekjrhejkw
+2023-06-11T16:18:23.960Z: Shortcut Keys: Alt+3, Title: ...
+2023-06-11T16:18:23.960Z: Registration failed.

@@ -6,7 +6,7 @@ const config = require(path.join(__dirname, '/config/app'));
 const createMacAddressFiles = require(path.join(__dirname, '/assets/js/macadd-handler'));
 //const db = new SQLiteHelper();
 const JsonHelper = require(path.join(__dirname, '/database/JsonHelper'));
-const data = new JsonHelper();
+const jsonHelper = new JsonHelper();
 const fs = require('fs');
 const https = require('https');
 const { keyboard, Key, mouse, Point } = require("@nut-tree/nut-js");
@@ -40,15 +40,15 @@ if (!fs.existsSync(path.join(__dirname, 'database.json'))) {
   let data = [
     {
       "users": {
-      "id": "0",
-      "email": "",
-      "token": ""
+        "id": "0",
+        "email": "",
+        "token": ""
       },
       "settings": {
-      "id": "1",
-      "incognito": "1",
-      "timezone": "UTC-06:00",
-      "contextShortCut": "CommandOrControl+Q"
+        "id": "1",
+        "incognito": "1",
+        "timezone": "UTC-06:00",
+        "contextShortCut": "CmdOrCtrl+Q"
       }
     }
   ];
@@ -60,8 +60,8 @@ if (!fs.existsSync(path.join(__dirname, 'database.json'))) {
   });
 }
 
-var prevContextRegShortcut = 'CommandOrControl+Q';
-const databaseJSON= JSON.parse(fs.readFileSync(path.join(__dirname, 'database.json'), 'utf-8'));
+var prevContextRegShortcut = 'CmdOrCtrl+Q';
+var databaseJSON= JSON.parse(fs.readFileSync(path.join(__dirname, 'database.json'), 'utf-8'));
   if (databaseJSON.length > 0) {
     if (databaseJSON[0].settings.hasOwnProperty('id')) {
       prevContextRegShortcut = databaseJSON[0].settings.contextShortCut;
@@ -72,7 +72,7 @@ let x, y = null;
 let close = false;
 let isTopmost = false;// Replace with your own password
 const jsonFilePath = path.join(__dirname, '/tree-data.json');
-let win, menuWindow;
+let win, menuWindow,aboutWindow;
 let dialogWindow;
 let menu = null;
 let notification = null;
@@ -90,7 +90,6 @@ if (process.platform === 'win32') {
 const functionMap = {
   itemClicked
 };
-
 
 
 
@@ -180,7 +179,7 @@ function checkMachines(data, win) {
         }
       }
       else {
-        win.loadFile(path.join(__dirname, `/renderer/${theme}/login/login.html`));
+        win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
       }
     });
   }).on('error', (error) => {
@@ -204,27 +203,28 @@ function createWindow() {
     }
   })
 
-  data.selectFromTable(process.env.USER_TABLE, '', (data, err) => {
-    if (err) {
-      console.log(err)
-    }
-    if (data.length > 0) {
-      data = data[0];
-      checkMachines(data, win);
+  var databaseJSON= JSON.parse(fs.readFileSync(path.join(__dirname, 'database.json'), 'utf-8'));
+  if (databaseJSON.length > 0) {
+    console.log("HAHAHAHAHAHAHAHHAHAAH::::"+JSON.stringify(databaseJSON))
+    if (databaseJSON[0].users.email == '') {
+      var databaseUsers = databaseJSON[0].users;
+      checkMachines(databaseUsers, win);
     }
     else {
-      //win.loadFile(path.join(__dirname, '/renderer/pages/login/login.html'));
+      //win.loadFile(path.join(__dirname, `/renderer/${theme}/pages/login/login.html`));
+      //for testing
       win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
 
     }
-  });
+  }
+
 
 
   //checkMachines(data, win);
   // win.loadFile(path.join(__dirname, `/${mainHtml}.html`));
   win.setAlwaysOnTop(false, 'floating');
   //comment on build
-  win.webContents.openDevTools();
+  //win.webContents.openDevTools();
   win.removeMenu(true);
 
   win.on('close', (event) => {
@@ -517,14 +517,28 @@ ipcMain.on('close-window', () => {
 //   window.close();
 // });
 
-ipcMain.on('insertToTable', (event, args) => {
-  data.insertToTable(args.tableName, args.data);
+ipcMain.on('insertToTableUser', (event, dataRecieved) => {
+  fs.readFile(path.join(__dirname, 'database.json'), (err, data) => {
+    if (err) throw err;
+    
+    data = JSON.parse(data);
+    if (data.length > 0) {
+      if (data[0].hasOwnProperty('users')) {
+        data[0].users = dataRecieved;
+      }
+      else {
+        data[0].users = {"id":"0","email":"","token":""};
+      }
+      const updatedJson = JSON.stringify(data, null, 2);
+      fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
+        if (err) throw err;
+        console.log(`User updated with value: ${JSON.stringify(dataRecieved)}`);
+      });
+    }
+  });
+  //jsonHelper.insertToTable(args.tableName, args.data);
 });
 
-ipcMain.on('relaunch', (event, args) => {
-  app.relaunch()
-  app.exit()
-});
 ipcMain.on('relaunch', (event, args) => {
   app.relaunch()
   app.exit()
@@ -990,7 +1004,7 @@ function updateIncognitoSetting(incognitoValue) {
 //         data[0].settings.contextShortcutKeys = value.toString();
 //       }
 //       else {
-//         data[0].settings.contextShortcutKeys = 'CommandOrControl+Q';
+//         data[0].settings.contextShortcutKeys = 'CmdOrCtrl+Q';
 //       }
 //       const updatedJson = JSON.stringify(data, null, 2);
 //       fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
@@ -1131,7 +1145,7 @@ ipcMain.on('saveContextShortCut', (event,args) => {
         data[0].settings.contextShortCut = args;
       }
       else {
-        data[0].settings.contextShortCut = 'CommandOrControl+Q';
+        data[0].settings.contextShortCut = 'CmdOrCtrl+Q';
       }
       const updatedJson = JSON.stringify(data, null, 2);
       fs.writeFile(path.join(__dirname, 'database.json'), updatedJson, err => {
@@ -1163,4 +1177,35 @@ ipcMain.handle('getDecryptedData', (event, filePath) => {
 });
 
 
+// Handle IPC event for opening a child window
+ipcMain.handle('openHelpChildWindow', () => {
+  // Create a new child window
+  aboutWindow = new BrowserWindow({
+    width: 800,
+    height: 640,
+    resizable: false,
+    modal: true,
+    show: false,
+    parent: win, // mainWindow is the parent window
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+    }
+  });
+  aboutWindow.loadFile(path.join(__dirname, `/renderer/pages/about.html`));
+   ///dialogWindow.webContents.openDevTools();
+  
+   aboutWindow.removeMenu(true);
+   aboutWindow.once('ready-to-show', () => {
+    aboutWindow.show();
+  });
 
+  aboutWindow.on('closed', () => {
+    aboutWindow = null;
+  });
+});
+
+ipcMain.handle("openURLinChrome", (e, data) => {
+  openURLinChrome(data);
+});

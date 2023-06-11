@@ -1,8 +1,9 @@
 const { ipcRenderer } = require('electron');
-const config = require('../config/app');
+const config = require('../../../../config/app');
 const fs = require('fs');
-const macAddFilePath = path.join(__dirname, '/../../../mac.txt');
-const hDSFilePath = path.join(__dirname, '/../../../hds.txt');
+const path = require('path'); // Add this line
+const macAddFilePath = path.join(__dirname, '../../../../mac.txt');
+const hDSFilePath = path.join(__dirname, '../../../../hds.txt');
 
 $("#register-btn").on("click", function (e) {
     if ($("#confrim-password-div").is(":visible")) {
@@ -56,10 +57,7 @@ $("#login-btn").on("click", function (e) {
                             email:json.body.user.email,
                             token:json.body.token,
                         };
-                        ipcRenderer.send('insertToTable', {
-                            tableName: process.env.USER_TABLE,
-                            data: data,
-                        });
+                        ipcRenderer.send('insertToTableUser', data);
                         setTimeout(() => {
                             ipcRenderer.send('relaunch');
                         }, 3000);

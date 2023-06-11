@@ -1,4 +1,6 @@
 const $ = require('jquery');
+const path = require('path')
+const fs = require('fs');
 require('jquery.fancytree');
 require('jquery.fancytree/dist/modules/jquery.fancytree.dnd5.js');
 require('jquery.fancytree/dist/modules/jquery.fancytree.edit.js');
@@ -598,8 +600,8 @@ $(function() {
             </li>
           </ul>
         </li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_about">Instructions</a></li>
-        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_help">Help</a></li>
+        <li class="simple"><a data-url="https://www.oneclick-access.com/instructions" class="text-decoration-none" id="main_file_about">Instructions</a></li>
+        <li class="simple"><a href="#" class="text-decoration-none" id="main_file_help">About</a></li>
         <li class="simple"><a href="#" class="text-decoration-none" id="main_file_exit">Exit</a></li>
       </ul>`);
     $('#add_menu').html(`<button class="button flat-button small">Add</button>
@@ -946,13 +948,24 @@ $(function() {
       //$('.fancytree-title').css('color', invertColor($(colorPicker).val()));
     });
 
-    $('#main_file_about').click(function(){ 
-      openAboutDialog();
+    $('#main_file_about').click(function() {
+      var dataUrl = $(this).attr('data-url');
+      ipcRenderer.invoke('openURLinChrome', dataUrl);
+      //openAboutDialog();
     });
     
+    $('#main_file_help').click(function(){ 
+      ipcRenderer.invoke('openHelpChildWindow').catch((error) => {
+        // Handle any error that occurred during the IPC call
+        console.error('Failed to open child window:', error);
+      });
+    });
+
     $('#main_file_exit').click(function(){ 
       ipcRenderer.send('close-window');
     });
+
+
     $('#main_add_input').click(function(){ 
       var tree = $.ui.fancytree.getTree("#tree"),
 				node = tree.getActiveNode();
